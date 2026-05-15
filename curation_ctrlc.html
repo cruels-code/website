@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ - Curation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #FFFFFF;
+            font-family: 'Courier Prime', monospace;
+            margin: 0;
+            padding: 60px 60px 100px 60px;
+        }
+        canvas#webgl {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 1;
+            pointer-events: none;
+        }
+        #photosensitive-toggle {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            z-index: 10;
+            background: transparent;
+            border: none;
+            color: transparent;
+            font-family: 'Courier Prime', monospace;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            pointer-events: auto;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            color: transparent;
+            position: relative;
+            z-index: 10;
+        }
+        .artworks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 10;
+        }
+        .artwork-card {
+            border: 1px solid #333;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: border-color 0.3s ease;
+            text-decoration: none;
+            color: transparent;
+            pointer-events: auto;
+        }
+        .artwork-card:hover {
+            border-color: #FFFFFF;
+            background-color: rgba(17, 17, 17, 0.8);
+        }
+        .artwork-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border: 1px solid #222;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .artwork-card:hover .artwork-image {
+            opacity: 1;
+        }
+        .artwork-title {
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.4;
+            color: transparent;
+            transition: color 0.3s ease;
+        }
+        .artwork-card:hover .artwork-title {
+            color: #FFFFFF;
+        }
+        .back-link {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            color: transparent;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 700;
+            z-index: 20;
+            padding: 5px 10px;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <button id="photosensitive-toggle" title="Toggle Photosensitive Mode">⚡</button>
+    <a href="gallery.html" class="back-link">Back</a>
+    <h1>Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎</h1>
+    <div class="artworks-grid">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/144" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/144?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #1" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #1</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/145" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/145?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #2" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #2</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/146" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/146?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #3" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #3</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/147" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/147?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #4" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #4</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/148" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/148?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #5" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #5</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/149" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/149?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #6" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #6</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/150" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/150?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #7" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #7</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/151" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/151?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #8" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #8</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/152" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/152?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #9" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #9</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/153" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/153?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #10" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #10</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/154" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/154?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #11" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #11</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/155" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/155?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #12" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #12</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/156" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/156?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #13" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #13</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/157" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/157?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #14" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #14</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/158" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/158?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #15" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #15</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/159" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/159?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #16" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #16</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/160" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/160?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #17" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #17</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/161" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/161?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #18" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #18</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/162" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/162?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #19" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #19</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/163" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/163?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #20" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #20</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/164" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/164?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #21" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #21</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/165" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/165?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #22" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #22</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/166" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/166?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #23" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #23</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/167" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/167?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #24" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #24</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/168" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/168?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #25" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #25</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/169" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/169?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #26" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #26</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/170" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/170?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #27" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #27</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/171" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/171?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #28" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #28</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/172" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/172?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #29" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #29</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/173" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/173?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #30" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #30</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/174" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/174?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #31" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #31</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/175" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/175?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #32" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #32</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/176" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/176?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #33" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #33</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/178" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/178?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #34" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #34</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/179" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/179?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #35" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #35</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/180" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/180?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #36" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #36</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/181" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/181?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #37" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #37</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/182" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/182?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #38" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #38</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/183" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/183?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #39" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #39</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/184" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/184?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #40" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #40</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/185" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/185?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #41" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #41</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/186" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/186?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #42" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #42</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/187" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/187?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #43" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #43</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/188" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/188?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #44" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #44</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/190" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/190?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #45" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #45</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/191" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/191?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #46" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #46</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/193" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/193?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #47" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #47</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/194" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/194?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #48" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #48</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/195" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/195?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #49" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #49</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/196" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/196?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #50" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #50</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/197" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/197?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #51" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #51</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/198" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/198?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #52" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #52</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/199" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/199?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #53" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #53</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/200" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/200?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #54" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #54</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/201" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/201?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #55" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #55</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/202" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/202?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #56" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #56</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/203" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/203?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #57" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #57</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/205" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/205?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #58" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #58</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/206" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/206?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #59" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #59</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/207" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/207?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #60" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #60</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/210" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/210?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #61" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #61</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/211" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/211?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #62" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #62</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/212" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/212?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #63" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #63</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/213" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/213?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #64" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #64</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/214" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/214?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #65" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #65</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/215" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/215?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #66" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #66</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/216" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/216?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #67" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #67</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/217" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/217?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #68" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #68</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/218" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/218?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #69" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #69</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/219" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/219?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #70" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #70</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/220" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/220?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #71" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #71</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/221" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/221?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #72" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #72</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/222" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/222?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #73" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #73</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/223" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/223?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #74" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #74</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/224" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/224?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #75" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #75</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/225" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/225?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #76" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #76</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/226" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/226?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #77" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #77</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/228" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/228?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #78" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #78</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/229" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/229?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #79" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #79</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/230" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/230?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #80" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #80</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/232" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/232?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #81" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #81</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/233" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/233?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #82" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #82</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/234" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/234?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #83" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #83</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/236" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/236?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #84" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #84</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/237" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/237?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #85" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #85</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/238" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/238?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #86" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #86</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/240" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/240?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #87" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #87</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/241" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/241?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #88" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #88</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/243" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/243?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #89" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #89</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/244" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/244?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #90" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #90</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/245" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/245?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #91" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #91</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/246" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/246?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #92" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #92</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/247" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/247?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #93" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #93</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/248" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/248?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #94" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #94</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/249" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/249?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #95" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #95</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/250" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/250?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #96" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #96</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/251" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/251?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #97" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #97</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/254" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/254?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #98" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #98</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/255" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/255?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #99" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #99</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/256" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/256?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #100" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #100</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/257" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/257?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #101" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #101</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/258" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/258?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #102" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #102</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/262" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/262?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #103" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #103</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/263" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/263?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #104" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #104</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/264" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/264?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #105" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #105</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/265" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/265?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #106" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #106</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/266" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/266?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #107" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #107</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/267" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/267?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #108" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #108</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/278" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/278?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #109" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #109</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/279" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/279?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #110" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #110</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/280" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/280?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #111" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #111</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/281" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/281?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #112" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #112</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/283" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/283?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #113" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #113</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/287" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/287?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #114" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #114</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/289" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/289?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #115" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #115</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/290" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/290?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #116" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #116</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/291" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/291?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #117" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #117</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/292" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/292?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #118" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #118</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/293" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/293?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #119" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #119</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/294" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/294?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #120" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #120</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/295" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/295?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #121" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #121</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/301" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/301?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #122" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #122</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/306" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/306?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #123" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #123</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/307" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/307?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #124" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #124</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/308" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/308?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #125" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #125</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/320" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/320?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #126" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #126</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/321" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/321?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #127" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #127</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/322" class="artwork-card" target="_blank">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/322?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #128" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #128</div>
+            </a>
+
+    </div>
+    
+    <canvas id="webgl"></canvas>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    
+    </script>
+
+    <script id="fragmentShader" type="x-shader/x-fragment">
+
+        precision highp float;
+
+        uniform sampler2D tDiffuse;
+        uniform float time;
+        uniform float aspect;
+        
+        uniform int u_active_effect;
+        uniform float u_effect_seed;
+        uniform float u_intensity;
+        
+        uniform vec3 u_phos_color;
+        uniform float u_v_offset;
+        uniform bool u_apply_crt;
+        uniform bool u_safe_mode;
+        uniform vec4 u_glitch_region;
+
+        varying vec2 vUv;
+
+        #define PI 3.14159265359
+
+        // --- UTILS ---
+        float rand(vec2 co){ return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453); }
+        float luma(vec3 c) { return dot(c, vec3(0.299, 0.587, 0.114)); }
+        
+        vec3 rgb2hsv(vec3 c) {
+            vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+            vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
+            vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
+            float d = q.x - min(q.w, q.y);
+            float e = 1.0e-10;
+            return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+        }
+
+        vec3 hsv2rgb(vec3 c) {
+            vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+            vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+            return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+        }
+
+        mat2 rotate2d(float angle) {
+            return mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+        }
+
+        // Simplex Noise
+        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+        vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+        float snoise(vec3 v) {
+            const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+            const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+            vec3 i  = floor(v + dot(v, C.yyy));
+            vec3 x0 = v - i + dot(i, C.xxx);
+            vec3 g = step(x0.yzx, x0.xyz);
+            vec3 l = 1.0 - g;
+            vec3 i1 = min(g.xyz, l.zxy);
+            vec3 i2 = max(g.xyz, l.zxy);
+            vec3 x1 = x0 - i1 + C.xxx;
+            vec3 x2 = x0 - i2 + C.yyy;
+            vec3 x3 = x0 - D.yyy;
+            i = mod289(i);
+            vec4 p = permute(permute(permute(i.z + vec4(0.0, i1.z, i2.z, 1.0)) + i.y + vec4(0.0, i1.y, i2.y, 1.0)) + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+            float n_ = 0.142857142857;
+            vec3 ns = n_ * D.wyz - D.xzx;
+            vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+            vec4 x_ = floor(j * ns.z);
+            vec4 y_ = floor(j - 7.0 * x_);
+            vec4 x = x_ * ns.x + ns.yyyy;
+            vec4 y = y_ * ns.x + ns.yyyy;
+            vec4 h = 1.0 - abs(x) - abs(y);
+            vec4 b0 = vec4(x.xy, y.xy);
+            vec4 b1 = vec4(x.zw, y.zw);
+            vec4 s0 = floor(b0)*2.0 + 1.0;
+            vec4 s1 = floor(b1)*2.0 + 1.0;
+            vec4 sh = -step(h, vec4(0.0));
+            vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+            vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+            vec3 p0 = vec3(a0.xy,h.x);
+            vec3 p1 = vec3(a0.zw,h.y);
+            vec3 p2 = vec3(a1.xy,h.z);
+            vec3 p3 = vec3(a1.zw,h.w);
+            vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+            p0 *= norm.x;
+            p1 *= norm.y;
+            p2 *= norm.z;
+            p3 *= norm.w;
+            vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+            m = m * m;
+            return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+        }
+
+        vec2 getRegionCenter(vec4 region) { return vec2(region.x + region.z / 2.0, region.y + region.w / 2.0); }
+
+        // --- EFFECTS DEFINITIONS ---
+
+        vec4 effect_ChannelSwap(vec4 color, float seed) { float speed = mix(0.5, 2.0, seed); float time_seed = mod(time * speed, 3.0); if (time_seed < 1.0) return vec4(color.g, color.b, color.r, color.a); if (time_seed < 2.0) return vec4(color.b, color.r, color.g, color.a); return vec4(color.g, color.r, color.b, color.a); }
+        vec4 effect_Posterize(vec4 color, float seed) { float speed = mix(2.0, 5.0, seed); float numColors = floor(mix(5.0, 20.0, seed)) + sin(time * speed) * 4.0; return floor(color * numColors) / numColors; }
+        vec4 effect_PixelSort(vec2 uv, float seed) { float t = mix(0.1, 0.4, seed); float d = floor(mix(10.0, 50.0, u_intensity * seed)); vec2 dir = vec2(1.0/1024.0, 0.0); vec2 f_uv = uv; for (float i = 1.0; i < 30.0; i++) { if(i>=d) break; vec2 s_uv = uv + dir * i; if(s_uv.x>1.0) break; if(luma(texture2D(tDiffuse, s_uv).rgb)<t) break; f_uv = s_uv; } return texture2D(tDiffuse, f_uv); }
+        vec4 effect_Thermal(vec4 color, float seed) { float brightness = luma(color.rgb); vec3 t = vec3(1.0, 0.0, 0.0); if (brightness > 0.8) t = vec3(1.0, 1.0, 1.0); else if (brightness > 0.5) t = vec3(1.0, 1.0, 0.0); else if (brightness > 0.2) t = vec3(0.0, 0.0, 1.0); else t = vec3(0.0, 0.0, 0.0); return mix(color, vec4(t, color.a), 0.85); }
+        vec4 effect_WaveDistort(vec2 uv, float seed) { vec2 distorted_uv = uv; float freq = mix(5.0, 30.0, seed); float amp = mix(0.01, 0.05, seed) * u_intensity; distorted_uv.x += sin(distorted_uv.y * freq + time * 1.5) * amp; return texture2D(tDiffuse, distorted_uv); }
+        vec4 effect_RGBShift(vec2 uv, float seed) { float s = mix(0.005, 0.03, seed) * u_intensity; return vec4(texture2D(tDiffuse, vec2(uv.x+s, uv.y)).r, texture2D(tDiffuse, uv).g, texture2D(tDiffuse, vec2(uv.x-s, uv.y)).b, 1.0); }
+        vec4 effect_Pixelate(vec2 uv, float seed) { float b = floor(mix(50.0, 150.0, seed) * (1.0 - u_intensity * 0.5)); if(b<2.0) return texture2D(tDiffuse, uv); return texture2D(tDiffuse, floor(uv*b)/b); }
+        vec4 effect_Noise(vec4 c, vec2 uv, float s) { float n = (rand(uv+time)-0.5) * mix(0.2, 0.7, s) * u_intensity; return c + n; }
+        vec4 effect_Tear(vec2 uv, float s) { if(rand(vec2(floor(uv.y*50.0), time)) < mix(0.05, 0.5, s)*u_intensity) uv.x += (rand(vec2(uv.y, time))-0.5)*0.1; return texture2D(tDiffuse, uv); }
+        vec4 effect_Shear(vec2 uv, vec4 region, float seed) { if (u_safe_mode) return texture2D(tDiffuse, uv); float speed = mix(1.0, 3.0, seed); vec2 sheared_uv = uv; float shear_factor = (mix(-0.5, 0.5, seed)) * u_intensity * sin(time * speed); float progress = (uv.y - region.y) / region.w; sheared_uv.x += progress * shear_factor; return texture2D(tDiffuse, sheared_uv); }
+        vec4 effect_SlitScan(vec2 uv, float seed) { float p=fract(time*0.2+seed); if(abs(uv.y-p)<0.1*u_intensity) return texture2D(tDiffuse, vec2(uv.x+sin(time)*0.1,uv.y)); return texture2D(tDiffuse, uv); }
+        vec4 effect_Strobe(vec4 c, float s) { if (u_safe_mode) return c; return mix(c, vec4(1.0), step(0.5, sin(time * mix(5.0, 20.0, s))) * u_intensity); }
+        vec4 effect_ChromaticAberration(vec2 uv, float s) { float a=mix(0.001,0.02,s)*u_intensity*(1.0+sin(time*2.0)*0.8); return vec4(texture2D(tDiffuse, vec2(uv.x+a,uv.y+a)).r, texture2D(tDiffuse, uv).g, texture2D(tDiffuse, vec2(uv.x-a,uv.y-a)).b, 1.0); }
+        vec4 effect_PixelStretch(vec2 uv, float seed) { vec4 color = texture2D(tDiffuse, uv); float brightness = luma(color.rgb); float threshold = mix(0.2, 0.8, seed); float stretch = smoothstep(threshold, 1.0, brightness) * (sin(time * mix(5.0, 20.0, seed) + uv.y * 10.0) + 1.0) * 2.0 * u_intensity; vec2 stretched_uv = vec2(uv.x + stretch, uv.y); return texture2D(tDiffuse, stretched_uv); }
+        vec4 effect_Dither(vec4 color, vec2 uv, float seed) { mat4 bayerMatrix = mat4(0.0, 8.0, 2.0, 10.0, 12.0, 4.0, 14.0, 6.0, 3.0, 11.0, 1.0, 9.0, 15.0, 7.0, 13.0, 5.0) / 16.0; float brightness = luma(color.rgb); vec2 coord = floor(mod(gl_FragCoord.xy, 4.0)); float threshold = bayerMatrix[int(coord.x)][int(coord.y)]; vec3 ditheredColor = vec3(step(threshold, brightness)); return mix(color, vec4(ditheredColor, color.a), u_intensity * mix(0.5, 1.0, seed)); }
+        vec4 effect_SlitScanVertical(vec2 uv, float seed) { float scan_pos = fract(time + seed); float scan_width = 0.05 * u_intensity; if (abs(uv.x - scan_pos) < scan_width) return texture2D(tDiffuse, vec2(scan_pos, uv.y)); return texture2D(tDiffuse, uv); }
+        vec4 effect_ScanlinesEffect(vec4 color, vec2 uv, float seed) { float frequency = mix(400.0, 1000.0, seed); float intensity = mix(0.05, 0.2, seed) * u_intensity; float scanline = sin((uv.y + time * 0.1) * frequency) * intensity; return color - scanline; }
+        vec4 effect_Jitter(vec2 uv, float seed) { float bands = floor(mix(20.0, 60.0, seed)); float band_index = floor(uv.y * bands); float strength = mix(0.005, 0.05, seed) * u_intensity; float offset = (rand(vec2(band_index, floor(time * 10.0))) - 0.5) * strength; return texture2D(tDiffuse, uv + vec2(offset, 0.0)); }
+        vec4 effect_HueCycle(vec4 color, float seed) { vec3 hsv = rgb2hsv(color.rgb); float speed = mix(0.1, 0.5, seed); hsv.x = fract(hsv.x + time * speed); vec3 rgb = hsv2rgb(hsv); return vec4(rgb, color.a); }
+        vec4 effect_LCD(vec2 uv, float seed) { float scale = mix(150.0, 300.0, fract(seed * 1.234)); vec2 pixel_uv = uv * scale; vec2 pixel_frac = fract(pixel_uv); float pixel_width = 1.0 / scale; vec2 red_uv_offset = vec2(pixel_width * 0.333, 0.0); vec2 blue_uv_offset = vec2(-pixel_width * 0.333, 0.0); float r = texture2D(tDiffuse, uv - red_uv_offset).r; float g = texture2D(tDiffuse, uv).g; float b = texture2D(tDiffuse, uv - blue_uv_offset).b; vec3 color = vec3(r, g, b); float grid_intensity = mix(0.3, 0.8, fract(seed * 2.345)); if (pixel_frac.x < 0.1 || pixel_frac.y < 0.1) color *= grid_intensity; return vec4(color, 1.0); }
+        vec4 effect_8Bit(vec4 color, float seed) { float speed = mix(2.0, 5.0, seed); float numColors = floor(mix(2.0, 8.0, seed) + sin(time * speed) * 2.0); return floor(color * numColors) / numColors; }
+        vec4 effect_ASCII(vec2 uv, float seed) { float scale = mix(80.0, 150.0, seed); vec2 charUV = floor(uv * scale) / scale; vec4 color = texture2D(tDiffuse, charUV); float brightness = luma(color.rgb); float charLevel = floor(brightness * 4.0) / 4.0; return vec4(vec3(charLevel), 1.0); }
+        vec4 effect_PerlinNoise(vec2 uv, float seed) { float scale = mix(5.0, 15.0, seed); float noise = snoise(vec3(uv * scale, time * 0.2)); vec2 distortedUv = uv + vec2(noise, noise) * 0.05 * u_intensity; return texture2D(tDiffuse, distortedUv); }
+        vec4 effect_LumaMesh(vec2 uv, float seed) { float speed = mix(0.5, 2.0, seed); float gridSize = mix(10.0, 40.0, seed) * (1.0 + u_intensity * 2.0) * (1.0 + sin(time * speed) * 0.1); vec2 step = vec2(1.0 / 1024.0, 1.0 / 1024.0); vec4 color = texture2D(tDiffuse, uv); float currentLuma = luma(color.rgb); float rightLuma = luma(texture2D(tDiffuse, uv + vec2(step.x, 0.0)).rgb); float bottomLuma = luma(texture2D(tDiffuse, uv + vec2(0.0, step.y)).rgb); float diffX = abs(currentLuma - rightLuma); float diffY = abs(currentLuma - bottomLuma); vec2 gridUV = fract(uv * gridSize); float lineThickness = 0.1; float lineX = smoothstep(lineThickness, 0.0, abs(gridUV.x - 0.5) * 2.0); float lineY = smoothstep(lineThickness, 0.0, abs(gridUV.y - 0.5) * 2.0); float threshold = mix(0.02, 0.25, 1.0 - seed); float mesh = 0.0; if (diffX > threshold) mesh = max(mesh, lineY); if (diffY > threshold) mesh = max(mesh, lineX); float vividness = pow(mesh, 0.5) * 2.0; return mix(color, vec4(0.0, 1.0, 0.2, 1.0), clamp(vividness, 0.0, 1.0) * u_intensity); }
+        vec4 effect_VHS(vec2 uv, vec4 color, float seed) { float shift = mix(0.01, 0.05, seed) * u_intensity; float r = texture2D(tDiffuse, vec2(uv.x + shift, uv.y)).r; float b = texture2D(tDiffuse, vec2(uv.x - shift, uv.y)).b; vec3 shiftedColor = vec3(r, color.g, b); float speed = mix(1.0, 4.0, seed); float distortion = sin(uv.y * 300.0 + time * speed) * 0.02 * u_intensity; if (rand(vec2(floor(uv.y * 25.0), time * 0.5)) < 0.15 * u_intensity) distortion *= 15.0; vec2 distortedUv = uv + vec2(distortion, 0.0); vec4 finalColor = texture2D(tDiffuse, distortedUv); finalColor.rgb = mix(finalColor.rgb, shiftedColor, 0.6); finalColor.rgb -= sin(uv.y * 1024.0 * 0.9) * mix(0.1, 0.25, seed); finalColor.rgb += (rand(uv + time) - 0.5) * mix(0.15, 0.5, seed) * u_intensity; return clamp(finalColor, 0.0, 1.0); }
+        vec4 effect_FindEdges(vec2 uv, float seed) { float threshold = mix(0.1, 0.5, seed); vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); float l = luma(texture2D(tDiffuse, uv - pixelStep).rgb); float r = luma(texture2D(tDiffuse, uv + pixelStep).rgb); float u = luma(texture2D(tDiffuse, uv - vec2(0.0, pixelStep.y)).rgb); float d = luma(texture2D(tDiffuse, uv + vec2(0.0, pixelStep.y)).rgb); float edge = pow(pow(r - l, 2.0) + pow(u - d, 2.0), 0.5); return vec4(vec3(step(threshold, edge)), 1.0); }
+        vec4 effect_MovingLines(vec4 color, vec2 uv, float seed) { float density = mix(0.1, 1.5, fract(seed * 10.0)); float speed = mix(0.1, 2.0, fract(seed * 100.0)); float phaseStart = time * speed; vec3 source_color = texture2D(tDiffuse, uv).rgb; float brightness = luma(source_color); float phase = brightness * density + phaseStart; float line_thickness = 0.05 * u_intensity; float line = 1.0 - smoothstep(0.0, line_thickness, fract(phase)); float fade = abs(sin(time * PI * 0.5)); line *= fade; return mix(color, vec4(1.0), line); }
+        vec4 effect_PencilSketch(vec2 uv, float seed) { vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); vec4 originalColor = texture2D(tDiffuse, uv); float luma_base = luma(originalColor.rgb); float blur_strength = mix(1.0, 4.0, seed); float luma_inverted_blurred = 0.0; luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(-1.0, -1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(0.0, -1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(1.0, -1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(-1.0, 0.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(0.0, 0.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(1.0, 0.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(-1.0, 1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(0.0, 1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(1.0, 1.0) * blur_strength).rgb)); luma_inverted_blurred /= 9.0; float sketch = luma_base / (1.0 - luma_inverted_blurred + 0.001); float noise = rand(uv) * 0.1; vec3 sketch_color = vec3(clamp(sketch - noise, 0.0, 1.0)); return mix(originalColor, vec4(sketch_color, 1.0), u_intensity); }
+        vec4 effect_Glow(vec2 uv, float seed) { vec4 originalColor = texture2D(tDiffuse, uv); vec3 finalColor = vec3(0.0); float radius = mix(2.0, 8.0, seed); float brightness_threshold = mix(0.6, 0.95, 1.0 - seed); float glow_intensity = mix(0.5, 1.5, seed) * u_intensity; vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); for (float x = -3.0; x <= 3.0; x++) { for (float y = -3.0; y <= 3.0; y++) { vec2 offset = vec2(x, y) * pixelStep; vec3 sampleColor = texture2D(tDiffuse, uv + offset).rgb; if (luma(sampleColor) > brightness_threshold) finalColor += sampleColor; } } finalColor /= 49.0; return vec4(originalColor.rgb + finalColor * glow_intensity, 1.0); }
+        vec4 effect_MeltingLines(vec2 uv, float seed) { float melt_speed = mix(0.1, 0.5, seed); float melt_amount = texture2D(tDiffuse, vec2(uv.x, uv.y - fract(time * melt_speed))).r * 0.2 * u_intensity; vec2 melted_uv = uv - vec2(0.0, melt_amount); return texture2D(tDiffuse, melted_uv); }
+        vec4 effect_BlockDisplacement(vec2 uv, float seed) { float grid_size = floor(mix(10.0, 30.0, seed)); vec2 block_uv = floor(uv * grid_size) / grid_size; vec2 displacement = vec2(rand(block_uv) - 0.5, rand(block_uv + 0.1) - 0.5) * 0.05 * u_intensity; return texture2D(tDiffuse, uv + displacement); }
+
+        // --- MAIN PIPELINE ---
+        void main() {
+            vec2 uv = vUv;
+            
+            // Feature 4: VERTICAL HOLD FAILURE (Automatic)
+            if (u_apply_crt && !u_safe_mode) {
+                uv.y = fract(uv.y + u_v_offset);
+            }
+
+            // CRT Curvature
+            if (u_apply_crt) {
+                vec2 centeredUv = uv - 0.5;
+                centeredUv.y /= aspect;
+                float dist = dot(centeredUv, centeredUv);
+                uv = uv + (uv - 0.5) * dist * 0.1;
+                if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
+                    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+                    return;
+                }
+            }
+
+            vec4 region = vec4(0.0, 0.0, 1.0, 1.0); 
+            vec4 final_color = texture2D(tDiffuse, uv);
+            vec4 effect_color = final_color;
+
+            bool inRegion = (uv.x >= u_glitch_region.x && uv.x <= u_glitch_region.x + u_glitch_region.z &&
+                             uv.y >= u_glitch_region.y && uv.y <= u_glitch_region.y + u_glitch_region.w);
+
+            // Effect Switcher
+            if (inRegion) {
+                if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
+                else if(u_active_effect == 3) effect_color = effect_PixelSort(uv, u_effect_seed);
+                else if(u_active_effect == 4) effect_color = effect_Thermal(final_color, u_effect_seed);
+                else if(u_active_effect == 6) effect_color = effect_RGBShift(uv, u_effect_seed);
+                else if(u_active_effect == 7) effect_color = effect_Pixelate(uv, u_effect_seed);
+                else if(u_active_effect == 8) effect_color = effect_Noise(final_color, uv, u_effect_seed);
+                else if(u_active_effect == 9) effect_color = effect_Tear(uv, u_effect_seed);
+                else if(u_active_effect == 11) effect_color = effect_Shear(uv, region, u_effect_seed);
+                else if(u_active_effect == 13) effect_color = effect_SlitScan(uv, u_effect_seed);
+                else if(u_active_effect == 14) effect_color = effect_Strobe(final_color, u_effect_seed);
+                else if(u_active_effect == 15) effect_color = effect_ChromaticAberration(uv, u_effect_seed);
+                else if(u_active_effect == 16) effect_color = effect_PixelStretch(uv, u_effect_seed);
+                else if(u_active_effect == 17) effect_color = effect_Dither(final_color, uv, u_effect_seed);
+                else if(u_active_effect == 18) effect_color = effect_SlitScanVertical(uv, u_effect_seed);
+                else if(u_active_effect == 19) effect_color = effect_ScanlinesEffect(final_color, uv, u_effect_seed);
+                else if(u_active_effect == 20) effect_color = effect_Jitter(uv, u_effect_seed);
+                else if(u_active_effect == 21) effect_color = effect_HueCycle(final_color, u_effect_seed);
+                else if(u_active_effect == 23) effect_color = effect_LCD(uv, u_effect_seed);
+                else if(u_active_effect == 24) effect_color = effect_8Bit(final_color, u_effect_seed);
+                else if(u_active_effect == 25) effect_color = effect_ASCII(uv, u_effect_seed);
+                else if(u_active_effect == 26) effect_color = effect_PerlinNoise(uv, u_effect_seed);
+                else if(u_active_effect == 27) effect_color = effect_LumaMesh(uv, u_effect_seed);
+                else if(u_active_effect == 28) effect_color = effect_VHS(uv, final_color, u_effect_seed);
+                else if(u_active_effect == 29) effect_color = effect_FindEdges(uv, u_effect_seed);
+                else if(u_active_effect == 30) effect_color = effect_MovingLines(final_color, uv, u_effect_seed);
+                else if(u_active_effect == 32) effect_color = effect_PencilSketch(uv, u_effect_seed);
+                else if(u_active_effect == 33) effect_color = effect_Glow(uv, u_effect_seed);
+                else if(u_active_effect == 35) effect_color = effect_MeltingLines(uv, u_effect_seed);
+                else if(u_active_effect == 36) effect_color = effect_BlockDisplacement(uv, u_effect_seed);
+            }
+
+            if (!u_apply_crt) {
+                gl_FragColor = effect_color;
+                return;
+            }
+
+            // --- FINAL CRT COMPOSITION ---
+            
+            // Map the heavily glitched colors down to pure grayscale/monochrome luminosity
+            float lumaVal = dot(effect_color.rgb, vec3(0.299, 0.587, 0.114));
+            
+            // Scanlines
+            float scanline = mod(gl_FragCoord.y, 2.0) < 1.0 ? 0.7 : 1.0;
+            lumaVal *= scanline;
+
+            // Feature 7: SCREEN REFLECTIONS (Automatic)
+            // Simple diagonal glare
+            float reflection = smoothstep(0.48, 0.5, uv.x + uv.y * 0.5 + 0.1) * smoothstep(0.52, 0.5, uv.x + uv.y * 0.5 + 0.1);
+            lumaVal += reflection * 0.05;
+
+            // Apply Phosphor Color (Grayscale)
+            vec3 phosphorColor = u_phos_color * lumaVal * 1.5;
+            
+            // Flicker
+            float flicker = 1.0;
+            if (!u_safe_mode) {
+                flicker = 0.98 + 0.02 * sin(time * 20.0);
+            }
+            phosphorColor *= flicker;
+
+            // Vignette
+            vec2 centeredUv = uv - 0.5;
+            centeredUv.y /= aspect;
+            float dist = dot(centeredUv, centeredUv);
+            float vignette = 1.0 - dist * 1.2;
+            phosphorColor *= vignette;
+
+            gl_FragColor = vec4(phosphorColor, 1.0);
+        }
+    
+    </script>
+
+    <script>
+        const canvas = document.getElementById('webgl');
+        const textCanvas = document.createElement('canvas');
+        textCanvas.width = window.innerWidth;
+        textCanvas.height = window.innerHeight; 
+        const tCtx = textCanvas.getContext('2d');
+
+        let renderer, scene, camera, plane;
+        let textTexture, shaderMaterial;
+        let rtA, rtB; 
+        
+        let effectTimer = 0;
+        const EFFECT_SWITCH_INTERVAL = 150; 
+        const TOTAL_EFFECTS = 36;
+        
+        let activeEffects = [0, 0, 0];
+        let effectSeeds = [0.5, 0.5, 0.5];
+        let isPhotosensitiveMode = false;
+        let targetWordRect = { x: 0, y: 0, w: 1, h: 1 };
+
+        function init() {
+            if (typeof THREE === 'undefined') {
+                setTimeout(init, 100);
+                return;
+            }
+
+            scene = new THREE.Scene();
+            const aspect = window.innerWidth / window.innerHeight;
+            
+            camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+            
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false });
+            renderer.setPixelRatio(window.devicePixelRatio); 
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            rtA = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+            rtB = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+
+            textTexture = new THREE.CanvasTexture(textCanvas);
+            textTexture.minFilter = THREE.LinearFilter;
+            textTexture.magFilter = THREE.LinearFilter;
+
+            shaderMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    tDiffuse: { value: textTexture },
+                    time: { value: 0 },
+                    aspect: { value: aspect },
+                    u_active_effect: { value: 0 },
+                    u_effect_seed: { value: 0.5 },
+                    u_intensity: { value: 0.8 },
+                    u_apply_crt: { value: false },
+                    u_safe_mode: { value: false },
+                    u_phos_color: { value: new THREE.Vector3(0.9, 0.9, 0.9) }, 
+                    u_v_offset: { value: 0.0 },
+                    u_glitch_region: { value: new THREE.Vector4(0.0, 0.0, 1.0, 1.0) }
+                },
+                vertexShader: document.getElementById('vertexShader').textContent,
+                fragmentShader: document.getElementById('fragmentShader').textContent
+            });
+
+            plane = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), shaderMaterial);
+            scene.add(plane);
+
+            requestAnimationFrame(animate);
+        }
+
+        function updateTextLogic(timeSeconds) {
+            tCtx.fillStyle = isPhotosensitiveMode ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.15)'; 
+            tCtx.fillRect(0, 0, textCanvas.width, textCanvas.height);
+
+            let offsetX = 0;
+            if (!isPhotosensitiveMode && Math.random() > 0.9) {
+                offsetX = (Math.random() - 0.5) * 5; 
+            }
+
+            // Draw images and their titles
+            const cards = document.querySelectorAll('.artwork-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                // Check if card is in viewport
+                if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                    if (!card.matches(':hover')) {
+                        const img = card.querySelector('.artwork-image');
+                        const title = card.querySelector('.artwork-title');
+                        
+                        if (img && img.complete && img.naturalWidth !== 0) {
+                            const imgRect = img.getBoundingClientRect();
+                            tCtx.drawImage(img, imgRect.left + offsetX, imgRect.top, imgRect.width, imgRect.height);
+                        }
+                        
+                        if (title) {
+                            const titleRect = title.getBoundingClientRect();
+                            tCtx.font = '700 1rem "Courier Prime"';
+                            tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
+                            tCtx.textAlign = 'left';
+                            tCtx.textBaseline = 'top';
+                            tCtx.fillText(title.textContent, titleRect.left + offsetX, titleRect.top);
+                            
+                            if (!isPhotosensitiveMode && Math.random() > 0.85) {
+                                tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                                tCtx.fillText(title.textContent, titleRect.left - (offsetX * 2), titleRect.top);
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Draw persistent UI
+            const title = document.querySelector('h1');
+            const backLink = document.querySelector('.back-link');
+            const toggleBtn = document.getElementById('photosensitive-toggle');
+            
+            [title, backLink, toggleBtn].forEach(el => {
+                if(!el) return;
+                const rect = el.getBoundingClientRect();
+                if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+                let fontSize = '24px';
+                if (el.tagName === 'H1') fontSize = '2.5rem';
+                
+                tCtx.font = `700 ${fontSize} "Courier Prime"`;
+                tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
+                tCtx.textAlign = 'left';
+                tCtx.textBaseline = 'top';
+                
+                // For toggle button we just draw the bolt
+                let text = el.textContent;
+                
+                tCtx.fillText(text, rect.left + offsetX, rect.top);
+
+                if (!isPhotosensitiveMode && Math.random() > 0.85) {
+                    tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                    tCtx.fillText(text, rect.left - (offsetX * 2), rect.top);
+                }
+            });
+
+            textTexture.needsUpdate = true;
+        }
+
+        function animate(t) {
+            const timeSeconds = t * 0.001;
+            updateTextLogic(timeSeconds);
+            shaderMaterial.uniforms.time.value = timeSeconds;
+
+            effectTimer++;
+            if (effectTimer > EFFECT_SWITCH_INTERVAL) {
+                effectTimer = 0;
+
+                const cards = Array.from(document.querySelectorAll('.artwork-card'));
+                const title = document.querySelector('h1');
+                const possibleTargets = [...cards, title];
+                
+                const visibleTargets = possibleTargets.filter(el => {
+                    if(!el) return false;
+                    const rect = el.getBoundingClientRect();
+                    return rect.bottom > 0 && rect.top < window.innerHeight;
+                });
+                
+                if (visibleTargets.length > 0) {
+                    const target = visibleTargets[Math.floor(Math.random() * visibleTargets.length)];
+                    const rect = target.getBoundingClientRect();
+                    
+                    const paddingX = 40; 
+                    const paddingY = 20; 
+                    
+                    const nx = (rect.left - paddingX) / window.innerWidth;
+                    const nw = (rect.width + paddingX * 2) / window.innerWidth;
+                    
+                    const ny = 1.0 - ((rect.top + rect.height + paddingY) / window.innerHeight);
+                    const nh = (rect.height + paddingY * 2) / window.innerHeight;
+                    
+                    targetWordRect = { x: nx, y: ny, w: nw, h: nh };
+                }
+
+                if (Math.random() > 0.2) {
+                    let nextEffect = Math.floor(Math.random() * TOTAL_EFFECTS) + 1;
+                    while ([1, 5, 10, 12, 22, 31, 34].includes(nextEffect)) {
+                        nextEffect = Math.floor(Math.random() * TOTAL_EFFECTS) + 1; 
+                    }
+                    activeEffects.unshift(nextEffect);
+                    effectSeeds.unshift(Math.random());
+                } else {
+                    activeEffects.unshift(0); 
+                    effectSeeds.unshift(Math.random());
+                }
+                activeEffects.length = 3; 
+                effectSeeds.length = 3;
+            }
+
+            shaderMaterial.uniforms.u_glitch_region.value.set(targetWordRect.x, targetWordRect.y, targetWordRect.w, targetWordRect.h);
+            
+            // Pass 1
+            shaderMaterial.uniforms.tDiffuse.value = textTexture;
+            shaderMaterial.uniforms.u_active_effect.value = activeEffects[0];
+            shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[0];
+            shaderMaterial.uniforms.u_apply_crt.value = false;
+            renderer.setRenderTarget(rtA);
+            renderer.render(scene, camera);
+
+            // Pass 2
+            shaderMaterial.uniforms.tDiffuse.value = rtA.texture;
+            shaderMaterial.uniforms.u_active_effect.value = activeEffects[1];
+            shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[1];
+            shaderMaterial.uniforms.u_apply_crt.value = false;
+            renderer.setRenderTarget(rtB);
+            renderer.render(scene, camera);
+
+            // Pass 3 (Final)
+            shaderMaterial.uniforms.tDiffuse.value = rtB.texture;
+            shaderMaterial.uniforms.u_active_effect.value = activeEffects[2];
+            shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[2];
+            shaderMaterial.uniforms.u_apply_crt.value = true;
+            renderer.setRenderTarget(null);
+            renderer.render(scene, camera);
+
+            requestAnimationFrame(animate);
+        }
+
+        window.onresize = () => {
+            if (renderer && camera && shaderMaterial) {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                const aspect = width / height;
+                renderer.setSize(width, height);
+                rtA.setSize(width, height);
+                rtB.setSize(width, height);
+                
+                textCanvas.width = width;
+                textCanvas.height = height;
+                
+                camera.updateProjectionMatrix();
+                shaderMaterial.uniforms.aspect.value = aspect;
+            }
+        };
+
+        document.getElementById('photosensitive-toggle').addEventListener('click', (e) => {
+            isPhotosensitiveMode = !isPhotosensitiveMode;
+            shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
+        });
+
+        window.onload = init;
+    </script>
+</body>
+</html>

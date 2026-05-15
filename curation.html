@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curation View - Other mind</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #FFFFFF;
+            font-family: 'Courier Prime', monospace;
+            margin: 0;
+            padding: 60px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        .artworks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .artwork-card {
+            border: 1px solid #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: border-color 0.3s ease;
+        }
+        .artwork-card:hover {
+            border-color: #FFFFFF;
+        }
+        .artwork-placeholder {
+            width: 100%;
+            aspect-ratio: 1;
+            background-color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 0.9rem;
+            border: 1px dashed #333;
+        }
+        .artwork-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .objkt-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid #555;
+            padding: 8px 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .objkt-link:hover {
+            background-color: #FFFFFF;
+            color: #050505;
+            border-color: #FFFFFF;
+        }
+        .back-link {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 700;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">Back</a>
+    <h1 id="curation-title">Curation View</h1>
+    <div class="artworks-grid">
+        <!-- Placeholder Artwork 1 -->
+        <div class="artwork-card">
+            <div class="artwork-placeholder">[Image Placeholder]</div>
+            <div class="artwork-title">Neural Artifact #001</div>
+            <a href="https://objkt.com/" target="_blank" class="objkt-link">View on objkt.com</a>
+        </div>
+        <!-- Placeholder Artwork 2 -->
+        <div class="artwork-card">
+            <div class="artwork-placeholder">[Image Placeholder]</div>
+            <div class="artwork-title">Glitch Construct #042</div>
+            <a href="https://objkt.com/" target="_blank" class="objkt-link">View on objkt.com</a>
+        </div>
+        <!-- Placeholder Artwork 3 -->
+        <div class="artwork-card">
+            <div class="artwork-placeholder">[Image Placeholder]</div>
+            <div class="artwork-title">Void Topology #007</div>
+            <a href="https://objkt.com/" target="_blank" class="objkt-link">View on objkt.com</a>
+        </div>
+        <!-- Placeholder Artwork 4 -->
+        <div class="artwork-card">
+            <div class="artwork-placeholder">[Image Placeholder]</div>
+            <div class="artwork-title">Synthetic Flora #011</div>
+            <a href="https://objkt.com/" target="_blank" class="objkt-link">View on objkt.com</a>
+        </div>
+    </div>
+    
+    <script>
+        // Simple logic to change title based on URL param just for presentation
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const titles = {
+            '1': 'Generative Systems',
+            '2': 'Monochrome Studies',
+            '3': 'Algorithmic Botany'
+        };
+        if(id && titles[id]) {
+            document.getElementById('curation-title').innerText = titles[id];
+            document.title = titles[id] + " - Other mind";
+        }
+    </script>
+</body>
+</html>

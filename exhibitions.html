@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exhibitions - Other mind</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #FFFFFF;
+            font-family: 'Courier Prime', monospace;
+            margin: 0;
+            padding: 60px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* The vertical line */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #333;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        /* The horizontal line connecting to the box */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: #333;
+            top: 40px;
+        }
+
+        /* The dot on the timeline */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #050505;
+            border: 2px solid #FFFFFF;
+            border-radius: 50%;
+            top: 33px;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::before {
+            right: 0;
+        }
+        
+        .right::before {
+            left: 0;
+        }
+
+        .left::after {
+            right: -7px;
+        }
+
+        .right::after {
+            left: -7px;
+        }
+
+        .content {
+            padding: 20px;
+            border: 1px solid #333;
+            position: relative;
+            transition: border-color 0.3s ease;
+        }
+        
+        .content:hover {
+            border-color: #FFFFFF;
+        }
+
+        .year {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #888;
+        }
+
+        .exhibition-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .exhibition-desc {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .exhibition-link {
+            color: #FFFFFF;
+            text-decoration: underline;
+            font-size: 0.9rem;
+        }
+
+        .exhibition-link:hover {
+            color: #888;
+        }
+
+        @media screen and (max-width: 600px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item::before {
+                left: 31px;
+                width: 39px;
+            }
+            .right {
+                left: 0%;
+            }
+            .left::after, .right::after {
+                left: 24px;
+            }
+        }
+        .back-link {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 700;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">Back</a>
+    <h1>Exhibitions</h1>
+    
+    <div class="timeline">
+        <div class="timeline-item left">
+            <div class="content">
+                <div class="year">2026</div>
+                <div class="exhibition-title">Algorithmic Echoes</div>
+                <div class="exhibition-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</div>
+                <a href="#" class="exhibition-link" target="_blank">View details</a>
+            </div>
+        </div>
+        
+        <div class="timeline-item right">
+            <div class="content">
+                <div class="year">2025</div>
+                <div class="exhibition-title">Digital Voids</div>
+                <div class="exhibition-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                <a href="#" class="exhibition-link" target="_blank">View details</a>
+            </div>
+        </div>
+        
+        <div class="timeline-item left">
+            <div class="content">
+                <div class="year">2024</div>
+                <div class="exhibition-title">Monochrome Realities</div>
+                <div class="exhibition-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+                <a href="#" class="exhibition-link" target="_blank">View details</a>
+            </div>
+        </div>
+        
+        <div class="timeline-item right">
+            <div class="content">
+                <div class="year">2022</div>
+                <div class="exhibition-title">Generative Spaces</div>
+                <div class="exhibition-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                <a href="#" class="exhibition-link" target="_blank">View details</a>
+            </div>
+        </div>
+        
+        <div class="timeline-item left">
+            <div class="content">
+                <div class="year">2020</div>
+                <div class="exhibition-title">Genesis</div>
+                <div class="exhibition-desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</div>
+                <a href="#" class="exhibition-link" target="_blank">View details</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
