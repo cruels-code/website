@@ -5,7 +5,7 @@ const curations = data.data.gallery.filter(g => g.name !== 'PiotcoTeam Hot Curat
 
 const galleryHtml = fs.readFileSync('gallery.html', 'utf8');
 
-const fragMatch = galleryHtml.match(/<script id="fragmentShader" type="x-shader\/x-fragment">([\s\S]*?)<\/script>/);
+const fragMatch = galleryHtml.match(/<script id="fragmentShader" type="x-shader\\/x-fragment">([\\s\\S]*?)<\\/script>/);
 const fragmentShaderSrc = fragMatch[1];
 
 const vertMatch = galleryHtml.match(/<script id="vertexShader" type="x-shader\/x-vertex">([\s\S]*?)<\/script>/);
@@ -329,9 +329,6 @@ ${fragmentShaderSrc}
 
                 if (Math.random() > 0.2) {
                     let nextEffect = Math.floor(Math.random() * TOTAL_EFFECTS) + 1;
-                    while ([1, 5, 10, 12, 22, 31, 34].includes(nextEffect)) {
-                        nextEffect = Math.floor(Math.random() * TOTAL_EFFECTS) + 1; 
-                    }
                     activeEffects.unshift(nextEffect);
                     effectSeeds.unshift(Math.random());
                 } else {
@@ -418,7 +415,8 @@ curations.forEach(curation => {
         
         let imgUrl = resolveIpfs(token.display_uri || token.thumbnail_uri || token.artifact_uri);
         if (imgUrl.includes('assets-003') && token.display_uri) {
-           imgUrl = 'https://assets.objkt.media/file/assets-003/' + token.fa_contract + '/' + token.token_id + '/thumb400';
+           // Instead of hitting assets.objkt.media (which blocks hotlinking), use an IPFS gateway
+           imgUrl = 'https://nftstorage.link/ipfs/' + token.display_uri.replace('ipfs://', '');
         }
         
         // Bootloader API is missing CORS headers on some routes, proxy through wsrv.nl
