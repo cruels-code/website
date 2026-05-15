@@ -21,6 +21,7 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
     <title>${title} - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -418,6 +419,12 @@ curations.forEach(curation => {
         let imgUrl = resolveIpfs(token.display_uri || token.thumbnail_uri || token.artifact_uri);
         if (imgUrl.includes('assets-003') && token.display_uri) {
            imgUrl = 'https://assets.objkt.media/file/assets-003/' + token.fa_contract + '/' + token.token_id + '/thumb400';
+        }
+        
+        // Bootloader API is missing CORS headers on some routes, proxy through wsrv.nl
+        if (imgUrl.includes('bootloader.art')) {
+            const strippedUrl = imgUrl.replace('https://', '').replace('http://', '');
+            imgUrl = 'https://wsrv.nl/?url=' + encodeURIComponent(strippedUrl);
         }
 
         // Add crossorigin="anonymous" so canvas can draw it without tainting
