@@ -106,6 +106,36 @@
             padding: 20px;
             pointer-events: auto;
         }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 20px;
+                padding-bottom: 80px;
+            }
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 30px;
+            }
+            .artworks-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .artwork-title {
+                font-size: 0.9rem;
+            }
+            .back-link {
+                bottom: 10px;
+                left: 10px;
+                padding: 10px;
+                font-size: 20px;
+            }
+            #photosensitive-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 10px;
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -284,16 +314,9 @@
                 uv.y = fract(uv.y + u_v_offset);
             }
 
-            // CRT Curvature
+            // CRT Curvature (Removed)
             if (u_apply_crt) {
-                vec2 centeredUv = uv - 0.5;
-                centeredUv.y /= aspect;
-                float dist = dot(centeredUv, centeredUv);
-                uv = uv + (uv - 0.5) * dist * 0.1;
-                if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
-                    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-                    return;
-                }
+                // Curvature logic removed
             }
 
             vec4 region = vec4(0.0, 0.0, 1.0, 1.0); 
@@ -303,16 +326,24 @@
             bool inRegion = (uv.x >= u_glitch_region.x && uv.x <= u_glitch_region.x + u_glitch_region.z &&
                              uv.y >= u_glitch_region.y && uv.y <= u_glitch_region.y + u_glitch_region.w);
 
+            // Break word into individual letters/chunks for glitching
+            float chunk = floor((uv.x - u_glitch_region.x) / u_glitch_region.z * 12.0);
+            float letter_active = step(0.4, rand(vec2(chunk, floor(time * 5.0 + u_effect_seed))));
+
             // Effect Switcher
-            if (inRegion) {
-                if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
+            if (inRegion && letter_active > 0.0) {
+                if(u_active_effect == 1) effect_color = effect_ChannelSwap(final_color, u_effect_seed);
+                else if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
                 else if(u_active_effect == 3) effect_color = effect_PixelSort(uv, u_effect_seed);
                 else if(u_active_effect == 4) effect_color = effect_Thermal(final_color, u_effect_seed);
+                else if(u_active_effect == 5) effect_color = effect_WaveDistort(uv, u_effect_seed);
                 else if(u_active_effect == 6) effect_color = effect_RGBShift(uv, u_effect_seed);
                 else if(u_active_effect == 7) effect_color = effect_Pixelate(uv, u_effect_seed);
                 else if(u_active_effect == 8) effect_color = effect_Noise(final_color, uv, u_effect_seed);
                 else if(u_active_effect == 9) effect_color = effect_Tear(uv, u_effect_seed);
+                else if(u_active_effect == 10) effect_color = effect_Shear(uv, region, u_effect_seed);
                 else if(u_active_effect == 11) effect_color = effect_Shear(uv, region, u_effect_seed);
+                else if(u_active_effect == 12) effect_color = effect_SlitScan(uv, u_effect_seed);
                 else if(u_active_effect == 13) effect_color = effect_SlitScan(uv, u_effect_seed);
                 else if(u_active_effect == 14) effect_color = effect_Strobe(final_color, u_effect_seed);
                 else if(u_active_effect == 15) effect_color = effect_ChromaticAberration(uv, u_effect_seed);
@@ -322,6 +353,7 @@
                 else if(u_active_effect == 19) effect_color = effect_ScanlinesEffect(final_color, uv, u_effect_seed);
                 else if(u_active_effect == 20) effect_color = effect_Jitter(uv, u_effect_seed);
                 else if(u_active_effect == 21) effect_color = effect_HueCycle(final_color, u_effect_seed);
+                else if(u_active_effect == 22) effect_color = effect_LCD(uv, u_effect_seed);
                 else if(u_active_effect == 23) effect_color = effect_LCD(uv, u_effect_seed);
                 else if(u_active_effect == 24) effect_color = effect_8Bit(final_color, u_effect_seed);
                 else if(u_active_effect == 25) effect_color = effect_ASCII(uv, u_effect_seed);
@@ -330,8 +362,10 @@
                 else if(u_active_effect == 28) effect_color = effect_VHS(uv, final_color, u_effect_seed);
                 else if(u_active_effect == 29) effect_color = effect_FindEdges(uv, u_effect_seed);
                 else if(u_active_effect == 30) effect_color = effect_MovingLines(final_color, uv, u_effect_seed);
+                else if(u_active_effect == 31) effect_color = effect_PencilSketch(uv, u_effect_seed);
                 else if(u_active_effect == 32) effect_color = effect_PencilSketch(uv, u_effect_seed);
                 else if(u_active_effect == 33) effect_color = effect_Glow(uv, u_effect_seed);
+                else if(u_active_effect == 34) effect_color = effect_MeltingLines(uv, u_effect_seed);
                 else if(u_active_effect == 35) effect_color = effect_MeltingLines(uv, u_effect_seed);
                 else if(u_active_effect == 36) effect_color = effect_BlockDisplacement(uv, u_effect_seed);
             }
@@ -560,9 +594,6 @@
 
                 if (Math.random() > 0.2) {
                     let nextEffect = Math.floor(Math.random() * TOTAL_EFFECTS) + 1;
-                    while ([1, 5, 10, 12, 22, 31, 34].includes(nextEffect)) {
-                        nextEffect = Math.floor(Math.random() * TOTAL_EFFECTS) + 1; 
-                    }
                     activeEffects.unshift(nextEffect);
                     effectSeeds.unshift(Math.random());
                 } else {

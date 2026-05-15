@@ -5,7 +5,7 @@ const curations = data.data.gallery.filter(g => g.name !== 'PiotcoTeam Hot Curat
 
 const galleryHtml = fs.readFileSync('gallery.html', 'utf8');
 
-const fragMatch = galleryHtml.match(/<script id="fragmentShader" type="x-shader\\/x-fragment">([\\s\\S]*?)<\\/script>/);
+const fragMatch = galleryHtml.match(/<script id="fragmentShader" type="x-shader\/x-fragment">([\s\S]*?)<\/script>/);
 const fragmentShaderSrc = fragMatch[1];
 
 const vertMatch = galleryHtml.match(/<script id="vertexShader" type="x-shader\/x-vertex">([\s\S]*?)<\/script>/);
@@ -123,6 +123,36 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             z-index: 20;
             padding: 20px;
             pointer-events: auto;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 20px;
+                padding-bottom: 80px;
+            }
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 30px;
+            }
+            .artworks-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .artwork-title {
+                font-size: 0.9rem;
+            }
+            .back-link {
+                bottom: 10px;
+                left: 10px;
+                padding: 10px;
+                font-size: 20px;
+            }
+            #photosensitive-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 10px;
+                font-size: 20px;
+            }
         }
     </style>
 </head>
