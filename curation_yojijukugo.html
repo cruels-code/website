@@ -7,12 +7,13 @@
     <title>yojijukugo (四字熟語) - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
             color: #FFFFFF;
-            font-family: 'Courier Prime', monospace;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 300;
             margin: 0;
             padding: 60px 60px 100px 60px;
         }
@@ -370,8 +371,17 @@
             float chunk = floor((uv.x - u_glitch_region.x) / u_glitch_region.z * 12.0);
             float letter_active = step(0.4, rand(vec2(chunk, floor(time * 5.0 + u_effect_seed))));
 
+            bool isFullScreen = (
+                u_active_effect == 2 || u_active_effect == 4 || u_active_effect == 7 || 
+                u_active_effect == 8 || u_active_effect == 14 || u_active_effect == 17 || 
+                u_active_effect == 19 || u_active_effect == 21 || u_active_effect == 22 || 
+                u_active_effect == 23 || u_active_effect == 24 || u_active_effect == 25 || 
+                u_active_effect == 27 || u_active_effect == 28 || u_active_effect == 29 ||
+                u_active_effect == 31 || u_active_effect == 32
+            );
+
             // Effect Switcher
-            if (inRegion && letter_active > 0.0) {
+            if (isFullScreen || (inRegion && letter_active > 0.0)) {
                 if(u_active_effect == 1) effect_color = effect_ChannelSwap(final_color, u_effect_seed);
                 else if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
                 else if(u_active_effect == 3) effect_color = effect_PixelSort(uv, u_effect_seed);
@@ -424,10 +434,8 @@
             float scanline = mod(gl_FragCoord.y, 2.0) < 1.0 ? 0.7 : 1.0;
             lumaVal *= scanline;
 
-            // Feature 7: SCREEN REFLECTIONS (Automatic)
-            // Simple diagonal glare
-            float reflection = smoothstep(0.48, 0.5, uv.x + uv.y * 0.5 + 0.1) * smoothstep(0.52, 0.5, uv.x + uv.y * 0.5 + 0.1);
-            lumaVal += reflection * 0.05;
+            // Feature 7: SCREEN REFLECTIONS (Removed)
+            // lumaVal += reflection * 0.05;
 
             // Apply Phosphor Color (Grayscale)
             vec3 phosphorColor = u_phos_color * lumaVal * 1.5;
@@ -439,12 +447,12 @@
             }
             phosphorColor *= flicker;
 
-            // Vignette
-            vec2 centeredUv = uv - 0.5;
-            centeredUv.y /= aspect;
-            float dist = dot(centeredUv, centeredUv);
-            float vignette = 1.0 - dist * 1.2;
-            phosphorColor *= vignette;
+            // Vignette (Removed)
+            // vec2 centeredUv = uv - 0.5;
+            // centeredUv.y /= aspect;
+            // float dist = dot(centeredUv, centeredUv);
+            // float vignette = 1.0 - dist * 1.2;
+            // phosphorColor *= vignette;
 
             gl_FragColor = vec4(phosphorColor, 1.0);
         }

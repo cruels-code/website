@@ -395,8 +395,17 @@
             float chunk = floor((uv.x - u_glitch_region.x) / u_glitch_region.z * 12.0);
             float letter_active = step(0.4, rand(vec2(chunk, floor(time * 5.0 + u_effect_seed))));
 
+            bool isFullScreen = (
+                u_active_effect == 2 || u_active_effect == 4 || u_active_effect == 7 || 
+                u_active_effect == 8 || u_active_effect == 14 || u_active_effect == 17 || 
+                u_active_effect == 19 || u_active_effect == 21 || u_active_effect == 22 || 
+                u_active_effect == 23 || u_active_effect == 24 || u_active_effect == 25 || 
+                u_active_effect == 27 || u_active_effect == 28 || u_active_effect == 29 ||
+                u_active_effect == 31 || u_active_effect == 32
+            );
+
             // Effect Switcher
-            if (inRegion && letter_active > 0.0) {
+            if (isFullScreen || (inRegion && letter_active > 0.0)) {
                 if(u_active_effect == 1) effect_color = effect_ChannelSwap(final_color, u_effect_seed);
                 else if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
                 else if(u_active_effect == 3) effect_color = effect_PixelSort(uv, u_effect_seed);
