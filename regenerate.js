@@ -412,6 +412,14 @@ curations.forEach(curation => {
         if (imgUrl.includes('assets-003') && token.display_uri) {
            imgUrl = 'https://assets.objkt.media/file/assets-003/' + token.fa_contract + '/' + token.token_id + '/thumb400';
         }
+        
+        // Fix CORS cache issues by adding a cache buster
+        imgUrl += (imgUrl.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+
+        // Bootloader specific CORS proxy to ensure it works on Github Pages
+        if (imgUrl.includes('bootloader.art')) {
+            imgUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(imgUrl);
+        }
 
         // Add crossorigin="anonymous" so canvas can draw it without tainting
         itemsHtml += '            <a href="' + link + '" class="artwork-card" target="_blank">\n';
