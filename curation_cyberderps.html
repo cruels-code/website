@@ -27,8 +27,8 @@
         }
         #photosensitive-toggle {
             position: fixed;
-            top: 40px;
-            right: 40px;
+            top: 20px;
+            right: 20px;
             z-index: 10;
             background: transparent;
             border: none;
@@ -36,7 +36,7 @@
             font-family: 'Courier Prime', monospace;
             font-size: 24px;
             cursor: pointer;
-            padding: 0;
+            padding: 20px;
             pointer-events: auto;
         }
         h1 {
@@ -95,14 +95,14 @@
         }
         .back-link {
             position: fixed;
-            bottom: 40px;
-            left: 40px;
+            bottom: 20px;
+            left: 20px;
             color: transparent;
             text-decoration: none;
             font-size: 24px;
             font-weight: 700;
             z-index: 20;
-            padding: 5px 10px;
+            padding: 20px;
             pointer-events: auto;
         }
     </style>
@@ -113,19 +113,19 @@
     <h1>cyber_derps</h1>
     <div class="artworks-grid">
             <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4707" class="artwork-card" target="_blank">
-                <img src="https://api.allorigins.win/raw?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4707%3Fv%3D1%26cb%3D1778871471768" crossorigin="anonymous" alt="cyber_derps #1" class="artwork-image">
+                <img src="https://media.bootloader.art/thumbnail/4707?v=1" crossorigin="anonymous" alt="cyber_derps #1" class="artwork-image">
                 <div class="artwork-title">cyber_derps #1</div>
             </a>
             <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4714" class="artwork-card" target="_blank">
-                <img src="https://api.allorigins.win/raw?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4714%3Fv%3D1%26cb%3D1778871471768" crossorigin="anonymous" alt="cyber_derps #2" class="artwork-image">
+                <img src="https://media.bootloader.art/thumbnail/4714?v=1" crossorigin="anonymous" alt="cyber_derps #2" class="artwork-image">
                 <div class="artwork-title">cyber_derps #2</div>
             </a>
             <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4715" class="artwork-card" target="_blank">
-                <img src="https://api.allorigins.win/raw?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4715%3Fv%3D1%26cb%3D1778871471768" crossorigin="anonymous" alt="cyber_derps #3" class="artwork-image">
+                <img src="https://media.bootloader.art/thumbnail/4715?v=1" crossorigin="anonymous" alt="cyber_derps #3" class="artwork-image">
                 <div class="artwork-title">cyber_derps #3</div>
             </a>
             <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4724" class="artwork-card" target="_blank">
-                <img src="https://api.allorigins.win/raw?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4724%3Fv%3D1%26cb%3D1778871471768" crossorigin="anonymous" alt="cyber_derps #4" class="artwork-image">
+                <img src="https://media.bootloader.art/thumbnail/4724?v=1" crossorigin="anonymous" alt="cyber_derps #4" class="artwork-image">
                 <div class="artwork-title">cyber_derps #4</div>
             </a>
 
@@ -493,22 +493,29 @@
                 const rect = el.getBoundingClientRect();
                 if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
+                let textColor = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
+                if (el.id === 'photosensitive-toggle' && isPhotosensitiveMode) {
+                    textColor = '#888888';
+                }
+                
                 let fontSize = '24px';
                 if (el.tagName === 'H1') fontSize = '2.5rem';
                 
                 tCtx.font = `700 ${fontSize} "Courier Prime"`;
-                tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
-                tCtx.textAlign = 'left';
-                tCtx.textBaseline = 'top';
+                tCtx.fillStyle = textColor;
+                tCtx.textAlign = 'center';
+                tCtx.textBaseline = 'middle';
                 
-                // For toggle button we just draw the bolt
                 let text = el.textContent;
                 
-                tCtx.fillText(text, rect.left + offsetX, rect.top);
+                const centerX = rect.left + rect.width / 2 + offsetX;
+                const centerY = rect.top + rect.height / 2;
+                
+                tCtx.fillText(text, centerX, centerY);
 
                 if (!isPhotosensitiveMode && Math.random() > 0.85) {
                     tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-                    tCtx.fillText(text, rect.left - (offsetX * 2), rect.top);
+                    tCtx.fillText(text, centerX - (offsetX * 2), centerY);
                 }
             });
 

@@ -45,8 +45,8 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
         }
         #photosensitive-toggle {
             position: fixed;
-            top: 40px;
-            right: 40px;
+            top: 20px;
+            right: 20px;
             z-index: 10;
             background: transparent;
             border: none;
@@ -54,7 +54,7 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             font-family: 'Courier Prime', monospace;
             font-size: 24px;
             cursor: pointer;
-            padding: 0;
+            padding: 20px;
             pointer-events: auto;
         }
         h1 {
@@ -113,14 +113,14 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
         }
         .back-link {
             position: fixed;
-            bottom: 40px;
-            left: 40px;
+            bottom: 20px;
+            left: 20px;
             color: transparent;
             text-decoration: none;
             font-size: 24px;
             font-weight: 700;
             z-index: 20;
-            padding: 5px 10px;
+            padding: 20px;
             pointer-events: auto;
         }
     </style>
@@ -262,22 +262,29 @@ ${fragmentShaderSrc}
                 const rect = el.getBoundingClientRect();
                 if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
+                let textColor = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
+                if (el.id === 'photosensitive-toggle' && isPhotosensitiveMode) {
+                    textColor = '#888888';
+                }
+                
                 let fontSize = '24px';
                 if (el.tagName === 'H1') fontSize = '2.5rem';
                 
                 tCtx.font = \`700 \${fontSize} "Courier Prime"\`;
-                tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
-                tCtx.textAlign = 'left';
-                tCtx.textBaseline = 'top';
+                tCtx.fillStyle = textColor;
+                tCtx.textAlign = 'center';
+                tCtx.textBaseline = 'middle';
                 
-                // For toggle button we just draw the bolt
                 let text = el.textContent;
                 
-                tCtx.fillText(text, rect.left + offsetX, rect.top);
+                const centerX = rect.left + rect.width / 2 + offsetX;
+                const centerY = rect.top + rect.height / 2;
+                
+                tCtx.fillText(text, centerX, centerY);
 
                 if (!isPhotosensitiveMode && Math.random() > 0.85) {
                     tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-                    tCtx.fillText(text, rect.left - (offsetX * 2), rect.top);
+                    tCtx.fillText(text, centerX - (offsetX * 2), centerY);
                 }
             });
 
@@ -411,14 +418,6 @@ curations.forEach(curation => {
         let imgUrl = resolveIpfs(token.display_uri || token.thumbnail_uri || token.artifact_uri);
         if (imgUrl.includes('assets-003') && token.display_uri) {
            imgUrl = 'https://assets.objkt.media/file/assets-003/' + token.fa_contract + '/' + token.token_id + '/thumb400';
-        }
-        
-        // Fix CORS cache issues by adding a cache buster
-        imgUrl += (imgUrl.includes('?') ? '&' : '?') + 'cb=' + Date.now();
-
-        // Bootloader specific CORS proxy to ensure it works on Github Pages
-        if (imgUrl.includes('bootloader.art')) {
-            imgUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(imgUrl);
         }
 
         // Add crossorigin="anonymous" so canvas can draw it without tainting

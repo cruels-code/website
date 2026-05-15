@@ -51,19 +51,19 @@
         }
         .back-link {
             position: fixed;
-            bottom: 40px;
-            left: 40px;
+            bottom: 20px;
+            left: 20px;
             color: transparent;
             text-decoration: none;
             font-size: 24px;
             font-weight: 700;
             z-index: 20;
-            cursor: pointer;
+            padding: 20px;
         }
         #photosensitive-toggle {
             position: fixed;
-            top: 40px;
-            right: 40px;
+            top: 20px;
+            right: 20px;
             z-index: 10;
             background: transparent;
             border: none;
@@ -71,8 +71,7 @@
             font-family: 'Courier Prime', monospace;
             font-size: 24px;
             cursor: pointer;
-            padding: 0;
-        }
+            padding: 20px;
         }
     </style>
 </head>
@@ -415,10 +414,6 @@
                 offsetX = (Math.random() - 0.5) * 5; 
             }
 
-            tCtx.font = `700 20px "Courier Prime"`;
-            tCtx.textAlign = 'left';
-            tCtx.textBaseline = 'top';
-
             const links = document.querySelectorAll('#nav-links a');
             const toggleBtn = document.getElementById('photosensitive-toggle');
             const backLink = document.querySelector('.back-link');
@@ -430,16 +425,25 @@
             elementsToDraw.forEach(el => {
                 const rect = el.getBoundingClientRect();
                 
-                // Draw primary text
-                tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
+                let textColor = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
+                if (el.id === 'photosensitive-toggle' && isPhotosensitiveMode) {
+                    textColor = '#888888';
+                }
+                tCtx.fillStyle = textColor;
+                
+                let computedStyle = window.getComputedStyle(el);
+                tCtx.font = `${computedStyle.fontWeight} ${computedStyle.fontSize} "${computedStyle.fontFamily.replace(/"/g, '')}"`;
+                
                 tCtx.textAlign = 'center';
+                tCtx.textBaseline = 'middle';
                 const centerX = rect.left + (rect.width / 2) + offsetX;
-                tCtx.fillText(el.textContent, centerX, rect.top);
+                const centerY = rect.top + (rect.height / 2);
+                tCtx.fillText(el.textContent, centerX, centerY);
 
                 // Double draw occasionally for a canvas-level ghosting/split effect
                 if (!isPhotosensitiveMode && Math.random() > 0.85) {
                     tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-                    tCtx.fillText(el.textContent, centerX - offsetX * 3, rect.top);
+                    tCtx.fillText(el.textContent, centerX - offsetX * 3, centerY);
                 }
             });
 
