@@ -11,26 +11,65 @@ const fragmentShaderSrc = fragMatch[1];
 const vertMatch = galleryHtml.match(/<script id="vertexShader" type="x-shader\/x-vertex">([\s\S]*?)<\/script>/);
 const vertexShaderSrc = vertMatch[1];
 
+const resolveIpfs = (rawUri) => {
+    if (!rawUri) return '';
+    if (rawUri.startsWith('data:')) return rawUri;
+    if (rawUri.startsWith('ipfs://')) {
+        const cid = rawUri.replace('ipfs://', '').split('?')[0];
+        // nftstorage.link is confirmed working (returns 302 to content)
+        return 'https://nftstorage.link/ipfs/' + cid;
+    }
+    // Already an HTTP URL - return directly (no proxy needed)
+    return rawUri;
+};
+
 const resolveImage = (token) => {
     // Pick best URI: display > thumbnail > artifact
     const rawUri = token.display_uri || token.thumbnail_uri || token.artifact_uri;
     if (!rawUri) return '';
-
-    let url;
+    const url = resolveIpfs(rawUri);
+    // Only route IPFS through wsrv.nl (for CORS + WebP). Direct HTTP URLs serve fine without proxy.
     if (rawUri.startsWith('ipfs://')) {
-        // Strip any query params (generative artwork index params) – just use the CID
-        const cid = rawUri.replace('ipfs://', '').split('?')[0];
-        // nftstorage.link is a reliable CORS-enabled IPFS gateway
-        url = 'https://nftstorage.link/ipfs/' + cid;
-    } else {
-        // Already an HTTP URL (e.g. media.bootloader.art)
-        url = rawUri;
+        return 'https://wsrv.nl/?url=' + encodeURIComponent(url) + '&output=webp&q=85';
     }
+    return url;
+};
 
-    // Route everything through wsrv.nl which:
-    //  1) Adds proper CORS headers so canvas can draw without tainting
-    //  2) Acts as a CDN-bypass for hotlink-protected origins like assets.objkt.media
-    return 'https://wsrv.nl/?url=' + encodeURIComponent(url) + '&output=webp&q=85';
+// Resolves artifact URI to a proxy URL that preserves animation (no format conversion)
+const resolveArtifact = (token) => {
+    const rawUri = token.artifact_uri;
+    if (!rawUri) return '';
+    if (rawUri.startsWith('data:')) return '';
+    if (rawUri.includes('?')) return ''; // generative art (HTML), not an image
+    const url = resolveIpfs(rawUri);
+    if (rawUri.startsWith('ipfs://')) {
+        // No output= so GIFs stay animated
+        return 'https://wsrv.nl/?url=' + encodeURIComponent(url) + '&q=85';
+    }
+    return url;
+};
+
+// Resolves thumbnail URI as fallback
+const resolveThumbnail = (token) => {
+    const rawUri = token.thumbnail_uri;
+    if (!rawUri || rawUri.startsWith('data:')) return '';
+    const url = resolveIpfs(rawUri);
+    if (rawUri.startsWith('ipfs://')) {
+        return 'https://wsrv.nl/?url=' + encodeURIComponent(url) + '&output=webp&q=75';
+    }
+    return url;
+};
+
+// Resolves generative art iframe URL from artifact_uri ipfs://CID?s=SEED
+// Uses subdomain-style IPFS routing (CID.ipfs.dweb.link) which preserves query params
+const resolveGenerator = (token) => {
+    const rawUri = token.artifact_uri;
+    if (!rawUri || !rawUri.startsWith('ipfs://') || !rawUri.includes('?s=')) return '';
+    const withoutProto = rawUri.replace('ipfs://', '');
+    const qIdx = withoutProto.indexOf('?');
+    const cid = withoutProto.substring(0, qIdx);
+    const query = withoutProto.substring(qIdx + 1); // e.g. s=abc123
+    return `https://${cid}.ipfs.dweb.link/?${query}`;
 };
 
 const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
@@ -42,13 +81,13 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
     <title>${title} - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
             color: #FFFFFF;
             font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 300;
+            font-weight: 100;
             margin: 0;
             padding: 60px 60px 100px 60px;
         }
@@ -70,7 +109,7 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             background: transparent;
             border: none;
             color: transparent;
-            font-family: 'Courier Prime', monospace;
+            font-family: 'Roboto Condensed', sans-serif;
             font-size: 24px;
             cursor: pointer;
             padding: 20px;
@@ -114,17 +153,17 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             aspect-ratio: 1;
             object-fit: cover;
             border: 1px solid #222;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+            filter: grayscale(100%) brightness(0.45);
+            transition: filter 0.4s ease, opacity 0.3s ease;
         }
         .artwork-card:hover .artwork-image {
-            opacity: 1;
+            filter: none;
         }
         .artwork-title {
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 100;
             line-height: 1.4;
-            color: #aaa;
+            color: transparent;
             transition: color 0.3s ease;
         }
         .artwork-card:hover .artwork-title {
@@ -137,7 +176,7 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             color: transparent;
             text-decoration: none;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 100;
             z-index: 20;
             padding: 20px;
             pointer-events: auto;
@@ -172,6 +211,10 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
                 font-size: 20px;
             }
         }
+        /* Generative art preview iframe */
+        #art-preview {
+            image-rendering: pixelated;
+        }
     </style>
 </head>
 <body>
@@ -183,6 +226,14 @@ ${itemsHtml}
     </div>
     
     <canvas id="webgl"></canvas>
+
+    <!-- Shared generative art preview iframe - only activated on hover for cards with data-generator -->
+    <iframe id="art-preview"
+        sandbox="allow-scripts"
+        style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
+        src="about:blank"
+        title="Generative art preview">
+    </iframe>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -286,7 +337,7 @@ ${fragmentShaderSrc}
                         
                         if (title) {
                             const titleRect = title.getBoundingClientRect();
-                            tCtx.font = '700 1rem "Courier Prime"';
+                            tCtx.font = '100 1rem "Roboto Condensed"';
                             tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
                             tCtx.textAlign = 'left';
                             tCtx.textBaseline = 'top';
@@ -319,7 +370,7 @@ ${fragmentShaderSrc}
                 let fontSize = '24px';
                 if (el.tagName === 'H1') fontSize = '2.5rem';
                 
-                tCtx.font = \`700 \${fontSize} "Courier Prime"\`;
+                tCtx.font = \`300 \${fontSize} "Roboto Condensed"\`;
                 tCtx.fillStyle = textColor;
                 tCtx.textAlign = 'center';
                 tCtx.textBaseline = 'middle';
@@ -337,6 +388,50 @@ ${fragmentShaderSrc}
                 }
             });
 
+            // --- Per-artwork torus ring loaders drawn on canvas (glitch shader affects them) ---
+            if (!window._imgTracked) {
+                window._imgTracked = true;
+                document.querySelectorAll('.artwork-image').forEach(img => {
+                    img._loadStart = performance.now();
+                    img._loaded = img.complete && img.naturalWidth > 0;
+                    if (!img._loaded) {
+                        img.addEventListener('load',  () => { img._loaded = true; });
+                        img.addEventListener('error', () => { img._loaded = true; });
+                    }
+                });
+            }
+            document.querySelectorAll('.artwork-image').forEach(img => {
+                if (img._loaded) return;
+                const rect = img.getBoundingClientRect();
+                if (rect.width === 0) return;
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const outer = rect.width * 0.12;
+                const inner = outer * 0.65;
+                const elapsed = performance.now() - (img._loadStart || performance.now());
+                // Ease to ~90% over 4s; never reaches 100% until load event fires
+                const p = 0.9 * (1 - Math.exp(-3 * elapsed / 4000));
+                // Background track (dim hollow ring)
+                tCtx.globalAlpha = 0.22;
+                tCtx.beginPath();
+                tCtx.arc(cx, cy, outer, 0, Math.PI * 2);
+                tCtx.arc(cx, cy, inner, 0, Math.PI * 2, true);
+                tCtx.fillStyle = '#FFFFFF';
+                tCtx.fill('evenodd');
+                // Progress fill clockwise from 12 o'clock
+                if (p > 0.005) {
+                    tCtx.globalAlpha = 0.92;
+                    const a0 = -Math.PI / 2;
+                    const a1 = a0 + Math.PI * 2 * p;
+                    tCtx.beginPath();
+                    tCtx.arc(cx, cy, outer, a0, a1);
+                    tCtx.arc(cx, cy, inner, a1, a0, true);
+                    tCtx.closePath();
+                    tCtx.fillStyle = '#FFFFFF';
+                    tCtx.fill();
+                }
+                tCtx.globalAlpha = 1;
+            });
             textTexture.needsUpdate = true;
         }
 
@@ -438,6 +533,74 @@ ${fragmentShaderSrc}
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
 
+        // --- IMAGE HOVER ANIMATION ---
+        // On mouseenter: swap to artifact (GIF/original) if available
+        // On mouseleave: restore display image
+        document.querySelectorAll('.artwork-card').forEach(card => {
+            const img = card.querySelector('.artwork-image');
+            if (!img) return;
+            const displaySrc = img.src;
+            const artifactSrc = img.dataset.artifact;
+
+            card.addEventListener('mouseenter', () => {
+                if (artifactSrc) {
+                    const probe = new Image();
+                    probe.crossOrigin = 'anonymous';
+                    probe.onload = () => { img.src = probe.src; };
+                    probe.onerror = () => {}; // stay on display image
+                    probe.src = artifactSrc;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                img.src = displaySrc;
+            });
+        });
+
+        // --- IMAGE ERROR FALLBACK ---
+        // If display_uri fails to load, try thumbnail, then hide gracefully
+        document.querySelectorAll('.artwork-image').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                // Already broken on load
+                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
+                else img.style.visibility = 'hidden';
+            }
+            img.addEventListener('error', function() {
+                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
+                    this.src = this.dataset.thumbnail;
+                } else {
+                    this.style.visibility = 'hidden';
+                }
+            });
+        });
+
+        // --- GENERATIVE ART PREVIEW IFRAME ---
+        // Cards with data-generator (e.g. Ctrl-C) show a live iframe on hover
+        const artPreview = document.getElementById('art-preview');
+        if (artPreview) {
+            let previewTimeout = null;
+
+            document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    clearTimeout(previewTimeout);
+                    const img = card.querySelector('.artwork-image');
+                    if (!img) return;
+                    const rect = img.getBoundingClientRect();
+                    artPreview.style.left   = rect.left   + 'px';
+                    artPreview.style.top    = rect.top    + 'px';
+                    artPreview.style.width  = rect.width  + 'px';
+                    artPreview.style.height = rect.height + 'px';
+                    artPreview.src = card.dataset.generator;
+                    artPreview.style.display = 'block';
+                });
+                card.addEventListener('mouseleave', () => {
+                    previewTimeout = setTimeout(() => {
+                        artPreview.style.display = 'none';
+                        artPreview.src = 'about:blank';
+                    }, 80);
+                });
+            });
+        }
+
         window.onload = init;
     </script>
 </body>
@@ -462,8 +625,13 @@ curations.forEach(curation => {
         const link = 'https://objkt.com/tokens/' + token.fa_contract + '/' + token.token_id;
         const imgUrl = resolveImage(token);
 
-        itemsHtml += '            <a href="' + link + '" class="artwork-card" target="_blank">\n';
-        itemsHtml += '                <img src="' + imgUrl + '" crossorigin="anonymous" alt="' + token.name.replace(/"/g, '&quot;') + '" class="artwork-image">\n';
+        itemsHtml += '            <a href="' + link + '" class="artwork-card" target="_blank"'
+            + (resolveGenerator(token) ? ' data-generator="' + resolveGenerator(token) + '"' : '')
+            + '>\n';
+        itemsHtml += '                <img src="' + imgUrl + '"'
+            + (resolveArtifact(token) ? ' data-artifact="' + resolveArtifact(token) + '"' : '')
+            + (resolveThumbnail(token) ? ' data-thumbnail="' + resolveThumbnail(token) + '"' : '')
+            + ' crossorigin="anonymous" alt="' + token.name.replace(/"/g, '&quot;') + '" class="artwork-image">\n';
         itemsHtml += '                <div class="artwork-title">' + token.name + '</div>\n';
         itemsHtml += '            </a>\n';
     });

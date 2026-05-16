@@ -7,13 +7,13 @@
     <title>scenes̷̜̐̏͐ - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
             color: #FFFFFF;
             font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 300;
+            font-weight: 100;
             margin: 0;
             padding: 60px 60px 100px 60px;
         }
@@ -35,7 +35,7 @@
             background: transparent;
             border: none;
             color: transparent;
-            font-family: 'Courier Prime', monospace;
+            font-family: 'Roboto Condensed', sans-serif;
             font-size: 24px;
             cursor: pointer;
             padding: 20px;
@@ -79,17 +79,17 @@
             aspect-ratio: 1;
             object-fit: cover;
             border: 1px solid #222;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+            filter: grayscale(100%) brightness(0.45);
+            transition: filter 0.4s ease, opacity 0.3s ease;
         }
         .artwork-card:hover .artwork-image {
-            opacity: 1;
+            filter: none;
         }
         .artwork-title {
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 100;
             line-height: 1.4;
-            color: #aaa;
+            color: transparent;
             transition: color 0.3s ease;
         }
         .artwork-card:hover .artwork-title {
@@ -102,7 +102,7 @@
             color: transparent;
             text-decoration: none;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 100;
             z-index: 20;
             padding: 20px;
             pointer-events: auto;
@@ -137,6 +137,10 @@
                 font-size: 20px;
             }
         }
+        /* Generative art preview iframe */
+        #art-preview {
+            image-rendering: pixelated;
+        }
     </style>
 </head>
 <body>
@@ -145,77 +149,85 @@
     <h1>scenes̷̜̐̏͐</h1>
     <div class="artworks-grid">
             <a href="https://objkt.com/tokens/KT1W34fj4GNfmaYPsy7abbn1K9dhsAByf7S2/12" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmbnJjNFhteW91BC8QMUFpBfHdo6inmxj7uEeZwUA93mWz&output=webp&q=85" crossorigin="anonymous" alt="installation ǫ̵͔̣̖̞̖̲̊̓̎̈́ne" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmbnJjNFhteW91BC8QMUFpBfHdo6inmxj7uEeZwUA93mWz&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmT88LaVXPMwC3xhMyUTRLPH8LmygN8PxYAo31ATXLWao8&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmRLTSqbyDMjcaDguwrNVRurJ357kXtGiXyCNCKkHzGV7T&output=webp&q=75" crossorigin="anonymous" alt="installation ǫ̵͔̣̖̞̖̲̊̓̎̈́ne" class="artwork-image">
                 <div class="artwork-title">installation ǫ̵͔̣̖̞̖̲̊̓̎̈́ne</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/173747" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmdrcgLdkpmqomQoGMSdKbK5hZdKEHd2Z48AzREaSu6LKd&output=webp&q=85" crossorigin="anonymous" alt="'Lotus'" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmdrcgLdkpmqomQoGMSdKbK5hZdKEHd2Z48AzREaSu6LKd&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYWUQvDKhKt1ME9mbCRryA3WmHhgJsdrC43cQon9f5gtJ&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="'Lotus'" class="artwork-image">
                 <div class="artwork-title">'Lotus'</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/187978" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYYMg7Bs3rDARHw9KBN7K55m7V5Y35rWECEkXrZ8XJxaE&output=webp&q=85" crossorigin="anonymous" alt="Just bee" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYYMg7Bs3rDARHw9KBN7K55m7V5Y35rWECEkXrZ8XJxaE&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmVBfME4kU4UY3gDtorxwE8QhPc5yuAHnAKUuYFUuBWiLr&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="Just bee" class="artwork-image">
                 <div class="artwork-title">Just bee</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/189083" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmVXrBSEJYz1mUBAHrVrcDM83sqxUD6eiYnPZvpMvG7sfJ&output=webp&q=85" crossorigin="anonymous" alt="Just bee II" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmVXrBSEJYz1mUBAHrVrcDM83sqxUD6eiYnPZvpMvG7sfJ&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmaUF1ZHMMS31rNHLovjFNpsHC2pVHy83yJhoNaHcC7dGV&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="Just bee II" class="artwork-image">
                 <div class="artwork-title">Just bee II</div>
             </a>
             <a href="https://objkt.com/tokens/KT1LjmAdYQCLBjwv4S2oFkEzyHVkomAf5MrW/23792" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQme6rDkUUTBtEmrvBoeHvpYzQ4dUbBZKXmbVnMkjmWuSjh&output=webp&q=85" crossorigin="anonymous" alt="𝚅𝚊𝚙𝚘𝚛 𝚃𝚒𝚖𝚎" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQme6rDkUUTBtEmrvBoeHvpYzQ4dUbBZKXmbVnMkjmWuSjh&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmXjdQxwNuP7aLyYg4dwQLuzoQm6rjWWUzAEQjP9huVKDM&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmSBQRUwuoviCfTY3xvoRUHgTJghFKWLM7j6RXWPYqqXNg&output=webp&q=75" crossorigin="anonymous" alt="𝚅𝚊𝚙𝚘𝚛 𝚃𝚒𝚖𝚎" class="artwork-image">
                 <div class="artwork-title">𝚅𝚊𝚙𝚘𝚛 𝚃𝚒𝚖𝚎</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/251738" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmWKks9YBFC3WdZjNJucA7aXHWzyRDBgCjvMviFdSeib66&output=webp&q=85" crossorigin="anonymous" alt="Transcendence" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmWKks9YBFC3WdZjNJucA7aXHWzyRDBgCjvMviFdSeib66&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmSFWPDSsN4GSdugt49h63znoXNNFVyzRrbYD8uiFbn7qV&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="Transcendence" class="artwork-image">
                 <div class="artwork-title">Transcendence</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/260155" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiccyatzxr3ozgcvs6mfwxce7b375vlt2ayyaynsin6qwb6nkov5xm&output=webp&q=85" crossorigin="anonymous" alt="TV Ambience" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiccyatzxr3ozgcvs6mfwxce7b375vlt2ayyaynsin6qwb6nkov5xm&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeicfwxcaosv7q4ruv3ltgqtduwjajrycavblbcbbasjchzaregsvhi&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="TV Ambience" class="artwork-image">
                 <div class="artwork-title">TV Ambience</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/524898" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZhpPYMjkQeLYmwE4KYbuwjLXFfKo66N4KheYJMgjcJVk&output=webp&q=85" crossorigin="anonymous" alt="A Monument to the Death of the Video Store" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZhpPYMjkQeLYmwE4KYbuwjLXFfKo66N4KheYJMgjcJVk&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmX2x9R2tUtLDRH1KbjTepkFZTy6mk8vB6raThKqa12YN4&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="A Monument to the Death of the Video Store" class="artwork-image">
                 <div class="artwork-title">A Monument to the Death of the Video Store</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/811811" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmX7YPpw9g57jWSoBjiEFcFDg1FLQY9o95F71qpg5HqKBs&output=webp&q=85" crossorigin="anonymous" alt="The Tessera̶͈͇̯͇̞̝̜̞͍͗ct" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmX7YPpw9g57jWSoBjiEFcFDg1FLQY9o95F71qpg5HqKBs&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmQwBYKGz1vWechKcu3M1DwJymXRcnpmrkhjyz4vfWeHbK&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmddchiYMQGZYLZf86jhyhkxRqrGfpBNr53b4oiV76q6aq&output=webp&q=75" crossorigin="anonymous" alt="The Tessera̶͈͇̯͇̞̝̜̞͍͗ct" class="artwork-image">
                 <div class="artwork-title">The Tessera̶͈͇̯͇̞̝̜̞͍͗ct</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/812274" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZByV5cyPZXADGKvinvtfPj51zuNaCytWqQ4YUW9Mg9ZY&output=webp&q=85" crossorigin="anonymous" alt="ＰＯＯＬＲＯＯＭ░０４" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZByV5cyPZXADGKvinvtfPj51zuNaCytWqQ4YUW9Mg9ZY&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZCwYiACD1VKoozAW7veW2T7ADwD3pP9cnvjCCkj5YyfD&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmddchiYMQGZYLZf86jhyhkxRqrGfpBNr53b4oiV76q6aq&output=webp&q=75" crossorigin="anonymous" alt="ＰＯＯＬＲＯＯＭ░０４" class="artwork-image">
                 <div class="artwork-title">ＰＯＯＬＲＯＯＭ░０４</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/812460" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmaHjiwkyfzk1Tv4FBqv8LqmFoXM9vAHH1ftnXiu7xsAZv&output=webp&q=85" crossorigin="anonymous" alt="ｐｏｏｌ ｒｏｏｍ░０７" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmaHjiwkyfzk1Tv4FBqv8LqmFoXM9vAHH1ftnXiu7xsAZv&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmeyM2MPeiwdf47zMs6TjZ3Hua9dHLXf7GT5agmuznuGag&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmddchiYMQGZYLZf86jhyhkxRqrGfpBNr53b4oiV76q6aq&output=webp&q=75" crossorigin="anonymous" alt="ｐｏｏｌ ｒｏｏｍ░０７" class="artwork-image">
                 <div class="artwork-title">ｐｏｏｌ ｒｏｏｍ░０７</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/812856" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmeFc74dN4BVToeCVyqKKKzLpJqMqSX3pWd4MjJFtxcEcq&output=webp&q=85" crossorigin="anonymous" alt="Tessera̷̳͉͈͍̾̒͋̄͌͜ct II" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmeFc74dN4BVToeCVyqKKKzLpJqMqSX3pWd4MjJFtxcEcq&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYez5YxF3rEC33Xqed7YPVmPyHht4UgnWiC7r58i9U2Ld&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmddchiYMQGZYLZf86jhyhkxRqrGfpBNr53b4oiV76q6aq&output=webp&q=75" crossorigin="anonymous" alt="Tessera̷̳͉͈͍̾̒͋̄͌͜ct II" class="artwork-image">
                 <div class="artwork-title">Tessera̷̳͉͈͍̾̒͋̄͌͜ct II</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/813284" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmWPG74qRDQodR5W3yjKhVgSaQ8rr9SsL6boLSdRuEHzt9&output=webp&q=85" crossorigin="anonymous" alt="infoxicatioņ̸̛̩̭͈̂́̊̋̏͒̐̍̑" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmWPG74qRDQodR5W3yjKhVgSaQ8rr9SsL6boLSdRuEHzt9&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmVPMWtrbm1Gb7MLiAE89faZM5H5daAKkqxx57f3xTdGbC&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNdBY2A6T5vAqS1iE3kNu6eHXgnDFjKPdv1SSkcv2Tw1s&output=webp&q=75" crossorigin="anonymous" alt="infoxicatioņ̸̛̩̭͈̂́̊̋̏͒̐̍̑" class="artwork-image">
                 <div class="artwork-title">infoxicatioņ̸̛̩̭͈̂́̊̋̏͒̐̍̑</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/827744" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmRQRoY9PPB2satfPy3m4rRZCHqJvFAGLj72T95WouRwXW&output=webp&q=85" crossorigin="anonymous" alt="Escape Room" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmRQRoY9PPB2satfPy3m4rRZCHqJvFAGLj72T95WouRwXW&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeie4tvab5tf47nxbfijx2f4v7onbnmwt3vo7l6kk3uwhl2hflxmnyu&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmRQRoY9PPB2satfPy3m4rRZCHqJvFAGLj72T95WouRwXW&output=webp&q=75" crossorigin="anonymous" alt="Escape Room" class="artwork-image">
                 <div class="artwork-title">Escape Room</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/828818" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmY2uatmsFCy2s6yYtfvuxjHUgZ6g2K6KpTkQ4Sa7Fv84q&output=webp&q=85" crossorigin="anonymous" alt="clandestine cloud̶̛͔̰̺͓̘̳͔̥̰̦̀̋̋̆͆̈́̕̚" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmY2uatmsFCy2s6yYtfvuxjHUgZ6g2K6KpTkQ4Sa7Fv84q&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmaeLSe124uXmfeZaTAJsC533hAnkUAMrxjE1yzjKmWd4J&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmY2uatmsFCy2s6yYtfvuxjHUgZ6g2K6KpTkQ4Sa7Fv84q&output=webp&q=75" crossorigin="anonymous" alt="clandestine cloud̶̛͔̰̺͓̘̳͔̥̰̦̀̋̋̆͆̈́̕̚" class="artwork-image">
                 <div class="artwork-title">clandestine cloud̶̛͔̰̺͓̘̳͔̥̰̦̀̋̋̆͆̈́̕̚</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/841949" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZRyBTTsnRCuW9gg18dybRTV4T6RDJrVy7dUz6hmGxSKu&output=webp&q=85" crossorigin="anonymous" alt="The Tezpole" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZRyBTTsnRCuW9gg18dybRTV4T6RDJrVy7dUz6hmGxSKu&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmR77qTSD5qxYdgUjbEPioQ9MUcB4LK8n492WnFhvhJpap&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmR77qTSD5qxYdgUjbEPioQ9MUcB4LK8n492WnFhvhJpap&output=webp&q=75" crossorigin="anonymous" alt="The Tezpole" class="artwork-image">
                 <div class="artwork-title">The Tezpole</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/842661" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZz9SbaVSBrhjyFtxpDdG5WSQZBGHqu9CDM1NpXwbDFXR&output=webp&q=85" crossorigin="anonymous" alt="Find Your Own Way" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZz9SbaVSBrhjyFtxpDdG5WSQZBGHqu9CDM1NpXwbDFXR&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYeceYb4gLTaUXVtA5aGkoLEmNohAyBa27RZWM6nBu7QM&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYeceYb4gLTaUXVtA5aGkoLEmNohAyBa27RZWM6nBu7QM&output=webp&q=75" crossorigin="anonymous" alt="Find Your Own Way" class="artwork-image">
                 <div class="artwork-title">Find Your Own Way</div>
             </a>
 
     </div>
     
     <canvas id="webgl"></canvas>
+
+    <!-- Shared generative art preview iframe - only activated on hover for cards with data-generator -->
+    <iframe id="art-preview"
+        sandbox="allow-scripts"
+        style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
+        src="about:blank"
+        title="Generative art preview">
+    </iframe>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -563,7 +575,7 @@
                         
                         if (title) {
                             const titleRect = title.getBoundingClientRect();
-                            tCtx.font = '700 1rem "Courier Prime"';
+                            tCtx.font = '100 1rem "Roboto Condensed"';
                             tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
                             tCtx.textAlign = 'left';
                             tCtx.textBaseline = 'top';
@@ -596,7 +608,7 @@
                 let fontSize = '24px';
                 if (el.tagName === 'H1') fontSize = '2.5rem';
                 
-                tCtx.font = `700 ${fontSize} "Courier Prime"`;
+                tCtx.font = `300 ${fontSize} "Roboto Condensed"`;
                 tCtx.fillStyle = textColor;
                 tCtx.textAlign = 'center';
                 tCtx.textBaseline = 'middle';
@@ -614,6 +626,50 @@
                 }
             });
 
+            // --- Per-artwork torus ring loaders drawn on canvas (glitch shader affects them) ---
+            if (!window._imgTracked) {
+                window._imgTracked = true;
+                document.querySelectorAll('.artwork-image').forEach(img => {
+                    img._loadStart = performance.now();
+                    img._loaded = img.complete && img.naturalWidth > 0;
+                    if (!img._loaded) {
+                        img.addEventListener('load',  () => { img._loaded = true; });
+                        img.addEventListener('error', () => { img._loaded = true; });
+                    }
+                });
+            }
+            document.querySelectorAll('.artwork-image').forEach(img => {
+                if (img._loaded) return;
+                const rect = img.getBoundingClientRect();
+                if (rect.width === 0) return;
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const outer = rect.width * 0.12;
+                const inner = outer * 0.65;
+                const elapsed = performance.now() - (img._loadStart || performance.now());
+                // Ease to ~90% over 4s; never reaches 100% until load event fires
+                const p = 0.9 * (1 - Math.exp(-3 * elapsed / 4000));
+                // Background track (dim hollow ring)
+                tCtx.globalAlpha = 0.22;
+                tCtx.beginPath();
+                tCtx.arc(cx, cy, outer, 0, Math.PI * 2);
+                tCtx.arc(cx, cy, inner, 0, Math.PI * 2, true);
+                tCtx.fillStyle = '#FFFFFF';
+                tCtx.fill('evenodd');
+                // Progress fill clockwise from 12 o'clock
+                if (p > 0.005) {
+                    tCtx.globalAlpha = 0.92;
+                    const a0 = -Math.PI / 2;
+                    const a1 = a0 + Math.PI * 2 * p;
+                    tCtx.beginPath();
+                    tCtx.arc(cx, cy, outer, a0, a1);
+                    tCtx.arc(cx, cy, inner, a1, a0, true);
+                    tCtx.closePath();
+                    tCtx.fillStyle = '#FFFFFF';
+                    tCtx.fill();
+                }
+                tCtx.globalAlpha = 1;
+            });
             textTexture.needsUpdate = true;
         }
 
@@ -714,6 +770,74 @@
             isPhotosensitiveMode = !isPhotosensitiveMode;
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
+
+        // --- IMAGE HOVER ANIMATION ---
+        // On mouseenter: swap to artifact (GIF/original) if available
+        // On mouseleave: restore display image
+        document.querySelectorAll('.artwork-card').forEach(card => {
+            const img = card.querySelector('.artwork-image');
+            if (!img) return;
+            const displaySrc = img.src;
+            const artifactSrc = img.dataset.artifact;
+
+            card.addEventListener('mouseenter', () => {
+                if (artifactSrc) {
+                    const probe = new Image();
+                    probe.crossOrigin = 'anonymous';
+                    probe.onload = () => { img.src = probe.src; };
+                    probe.onerror = () => {}; // stay on display image
+                    probe.src = artifactSrc;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                img.src = displaySrc;
+            });
+        });
+
+        // --- IMAGE ERROR FALLBACK ---
+        // If display_uri fails to load, try thumbnail, then hide gracefully
+        document.querySelectorAll('.artwork-image').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                // Already broken on load
+                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
+                else img.style.visibility = 'hidden';
+            }
+            img.addEventListener('error', function() {
+                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
+                    this.src = this.dataset.thumbnail;
+                } else {
+                    this.style.visibility = 'hidden';
+                }
+            });
+        });
+
+        // --- GENERATIVE ART PREVIEW IFRAME ---
+        // Cards with data-generator (e.g. Ctrl-C) show a live iframe on hover
+        const artPreview = document.getElementById('art-preview');
+        if (artPreview) {
+            let previewTimeout = null;
+
+            document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    clearTimeout(previewTimeout);
+                    const img = card.querySelector('.artwork-image');
+                    if (!img) return;
+                    const rect = img.getBoundingClientRect();
+                    artPreview.style.left   = rect.left   + 'px';
+                    artPreview.style.top    = rect.top    + 'px';
+                    artPreview.style.width  = rect.width  + 'px';
+                    artPreview.style.height = rect.height + 'px';
+                    artPreview.src = card.dataset.generator;
+                    artPreview.style.display = 'block';
+                });
+                card.addEventListener('mouseleave', () => {
+                    previewTimeout = setTimeout(() => {
+                        artPreview.style.display = 'none';
+                        artPreview.src = 'about:blank';
+                    }, 80);
+                });
+            });
+        }
 
         window.onload = init;
     </script>

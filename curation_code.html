@@ -7,13 +7,13 @@
     <title>code̵̻̩̩͋ - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
             color: #FFFFFF;
             font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 300;
+            font-weight: 100;
             margin: 0;
             padding: 60px 60px 100px 60px;
         }
@@ -35,7 +35,7 @@
             background: transparent;
             border: none;
             color: transparent;
-            font-family: 'Courier Prime', monospace;
+            font-family: 'Roboto Condensed', sans-serif;
             font-size: 24px;
             cursor: pointer;
             padding: 20px;
@@ -79,17 +79,17 @@
             aspect-ratio: 1;
             object-fit: cover;
             border: 1px solid #222;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+            filter: grayscale(100%) brightness(0.45);
+            transition: filter 0.4s ease, opacity 0.3s ease;
         }
         .artwork-card:hover .artwork-image {
-            opacity: 1;
+            filter: none;
         }
         .artwork-title {
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 100;
             line-height: 1.4;
-            color: #aaa;
+            color: transparent;
             transition: color 0.3s ease;
         }
         .artwork-card:hover .artwork-title {
@@ -102,7 +102,7 @@
             color: transparent;
             text-decoration: none;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 100;
             z-index: 20;
             padding: 20px;
             pointer-events: auto;
@@ -137,6 +137,10 @@
                 font-size: 20px;
             }
         }
+        /* Generative art preview iframe */
+        #art-preview {
+            image-rendering: pixelated;
+        }
     </style>
 </head>
 <body>
@@ -145,93 +149,101 @@
     <h1>code̵̻̩̩͋</h1>
     <div class="artworks-grid">
             <a href="https://objkt.com/tokens/KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg/0" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeid3b3fstrsime4kp2z2rq7d3ajow3wp5hpfnsrerzlnizbe6zwrte&output=webp&q=85" crossorigin="anonymous" alt="cluster̷̦͐" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeid3b3fstrsime4kp2z2rq7d3ajow3wp5hpfnsrerzlnizbe6zwrte&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeibuc5ax5en2mdog4tsmam5njos727idwu6k3gki2lmoshukaunhtq&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeid3b3fstrsime4kp2z2rq7d3ajow3wp5hpfnsrerzlnizbe6zwrte&output=webp&q=75" crossorigin="anonymous" alt="cluster̷̦͐" class="artwork-image">
                 <div class="artwork-title">cluster̷̦͐</div>
             </a>
             <a href="https://objkt.com/tokens/KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg/10" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihuiksy4kw5snlreigwuvgb3iphnojl2muzwj4wp7agock3s3ycdq&output=webp&q=85" crossorigin="anonymous" alt="entropy enginë̵̡̢̼͔͖͎͕͔̥̹́͂͐́̈́̀̀͂" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihuiksy4kw5snlreigwuvgb3iphnojl2muzwj4wp7agock3s3ycdq&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeig43czskvhppl5efc6w75hxx4afvjbyk4wdmcoslx5rdjx6mxiyqa&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihfmegyiacndu6od3ggykguoivww4ki5rmjzr4avgczn3z4rfowcm&output=webp&q=75" crossorigin="anonymous" alt="entropy enginë̵̡̢̼͔͖͎͕͔̥̹́͂͐́̈́̀̀͂" class="artwork-image">
                 <div class="artwork-title">entropy enginë̵̡̢̼͔͖͎͕͔̥̹́͂͐́̈́̀̀͂</div>
             </a>
             <a href="https://objkt.com/tokens/KT1HSsgtJBWXsyHMYrg6FpprgAF5e5Eszvac/10" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeic5epwlhif5ziln3oizk4vgqw2syhorx2qh2ts424pbjrvhv7jyz4&output=webp&q=85" crossorigin="anonymous" alt="Phosphenes" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeic5epwlhif5ziln3oizk4vgqw2syhorx2qh2ts424pbjrvhv7jyz4&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifi557lq3375x7oxauei6xfqrswyllih2wc5s3vglyk5rjbusdkma&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreibtgas5ngd5n6emrblxlsngcwgsbhqy4unb3bri7gnudbfpl5cdpq&output=webp&q=75" crossorigin="anonymous" alt="Phosphenes" class="artwork-image">
                 <div class="artwork-title">Phosphenes</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/11481" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihjzq2odz4cexvn7jb6yvv3hmv3nonmpjwmchmrouhdaoxdejwyri&output=webp&q=85" crossorigin="anonymous" alt="Tezos Retro Terminal" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihjzq2odz4cexvn7jb6yvv3hmv3nonmpjwmchmrouhdaoxdejwyri&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeigovhn7fwbxjqza65pbl4asvx4royk2idnitsojyazu6d46ddztiq&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihqop5kprrrk4btmc2rjqgi5btha2346z42zazufycpo32cmffyny&output=webp&q=75" crossorigin="anonymous" alt="Tezos Retro Terminal" class="artwork-image">
                 <div class="artwork-title">Tezos Retro Terminal</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/134895" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmSX5tNB95WrXSTTXeUQZxKEJeMUh8rHZ8mp9M3b9oErEN&output=webp&q=85" crossorigin="anonymous" alt="CLOUD TIME" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmSX5tNB95WrXSTTXeUQZxKEJeMUh8rHZ8mp9M3b9oErEN&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmaLt94Kpf96K7gAXkEQt4eWRTjqFjzznJdgZ1YsjUMhnD&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYK2Z4giP89We7AhAJ1QAoZv8UzkDAAdjmS4Qpvddy2na&output=webp&q=75" crossorigin="anonymous" alt="CLOUD TIME" class="artwork-image">
                 <div class="artwork-title">CLOUD TIME</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/13657" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeia3yyuuxrpcocmhlgls3bd5pj2y6le5pscgbr4chtdcryrrn7aayi&output=webp&q=85" crossorigin="anonymous" alt="{ x-t-z_F-X }" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeia3yyuuxrpcocmhlgls3bd5pj2y6le5pscgbr4chtdcryrrn7aayi&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeig76zn2bz3vq46df3nkxneotjqpiskvydlcm4m2roucyi3f3olequ&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihvrbmvigju2wmjaaw4lbt7rdb4wftpwbxiiy53pzvxqa6zor7txe&output=webp&q=75" crossorigin="anonymous" alt="{ x-t-z_F-X }" class="artwork-image">
                 <div class="artwork-title">{ x-t-z_F-X }</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/14017" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreihyp5j6rzw22lc6w7nbspojj4ripsw466dnry5b3loxulkpstgeau&output=webp&q=85" crossorigin="anonymous" alt="Tezos Solar System Generator (Ver 1.1)" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreihyp5j6rzw22lc6w7nbspojj4ripsw466dnry5b3loxulkpstgeau&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeigxgonypksiibvelswrkrnd4qf5zzrzejozkvjje54hhalbsosivu&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreihiordvusgkbbnrchwfqlxbvtvvbzntsoojjaata55lppvv6nxoma&output=webp&q=75" crossorigin="anonymous" alt="Tezos Solar System Generator (Ver 1.1)" class="artwork-image">
                 <div class="artwork-title">Tezos Solar System Generator (Ver 1.1)</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/14534" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeieakalycppi6ejr4sjsmaahswg44vp3jyrb5puzhafxnjnyc7fdyq&output=webp&q=85" crossorigin="anonymous" alt="Patternicity̴̜̟̆̃͐" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeieakalycppi6ejr4sjsmaahswg44vp3jyrb5puzhafxnjnyc7fdyq&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeie57swpizgaqgmnlgrlhvzsz7mmwjl3viveu6may6zertgpevj7ie&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeieakalycppi6ejr4sjsmaahswg44vp3jyrb5puzhafxnjnyc7fdyq&output=webp&q=75" crossorigin="anonymous" alt="Patternicity̴̜̟̆̃͐" class="artwork-image">
                 <div class="artwork-title">Patternicity̴̜̟̆̃͐</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/16482" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreib5je4bzznpavdpimux4cmbyntwiro6wj4i67plkxiwkyvgd3c6ry&output=webp&q=85" crossorigin="anonymous" alt="cloud seeding" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreib5je4bzznpavdpimux4cmbyntwiro6wj4i67plkxiwkyvgd3c6ry&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeibyzqwxlza53pr7xs6tzjbaw6co4xxqo53dyfi2iynx2mbm7be2mm&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreieppic42bxcd3mwilqcb3jlnq6b5af6tuwchcrxh4mebaowsshiym&output=webp&q=75" crossorigin="anonymous" alt="cloud seeding" class="artwork-image">
                 <div class="artwork-title">cloud seeding</div>
             </a>
             <a href="https://objkt.com/tokens/KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg/2" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiet7atyauodunfshbl5anrz44qd3yhfsmflhw35sa67obw5egf6m4&output=webp&q=85" crossorigin="anonymous" alt="Seasonal shifter̷̹̱̬̳̥̎ͅ" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiet7atyauodunfshbl5anrz44qd3yhfsmflhw35sa67obw5egf6m4&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiap5e25mojgtkuncbm62jps7jrf6b4gmidcv33lj4vqu2rwkf6wby&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreidnmlxmkf6zxjavwhii6bx32pg3c2c544baqvsecaxm4ckugc6i4q&output=webp&q=75" crossorigin="anonymous" alt="Seasonal shifter̷̹̱̬̳̥̎ͅ" class="artwork-image">
                 <div class="artwork-title">Seasonal shifter̷̹̱̬̳̥̎ͅ</div>
             </a>
             <a href="https://objkt.com/tokens/KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg/3" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreifrlstbrttffdyq2ou2hpce3tudhhckaf4zvmm5ad2iby27g4535u&output=webp&q=85" crossorigin="anonymous" alt="alignment̴͈͑" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreifrlstbrttffdyq2ou2hpce3tudhhckaf4zvmm5ad2iby27g4535u&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeigs7w53qpijsj7fmaulwzozmjjemc73ykkk2yvt6hqygdbdvasgua&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreifrlstbrttffdyq2ou2hpce3tudhhckaf4zvmm5ad2iby27g4535u&output=webp&q=75" crossorigin="anonymous" alt="alignment̴͈͑" class="artwork-image">
                 <div class="artwork-title">alignment̴͈͑</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/31183" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeidgn5wr4576jrxj7ubvmbjyn74lrgpxfv5mgq5qb6r6pcjtivvuvm&output=webp&q=85" crossorigin="anonymous" alt="compartmented noisę̴̢̨͙̣͇̘̆͛͂́́͐͠" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeidgn5wr4576jrxj7ubvmbjyn74lrgpxfv5mgq5qb6r6pcjtivvuvm&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeieqrwnt5phyu7hov4vkjtoo662rthjb55xnihhgjpnpvbwoyx6cva&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeidgn5wr4576jrxj7ubvmbjyn74lrgpxfv5mgq5qb6r6pcjtivvuvm&output=webp&q=75" crossorigin="anonymous" alt="compartmented noisę̴̢̨͙̣͇̘̆͛͂́́͐͠" class="artwork-image">
                 <div class="artwork-title">compartmented noisę̴̢̨͙̣͇̘̆͛͂́́͐͠</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/32179" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeicdjiimoy3hebr4vx7d5v62hmq6hw3gzgfofn62pfzdlpwdruccry&output=webp&q=85" crossorigin="anonymous" alt="cloud time II" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeicdjiimoy3hebr4vx7d5v62hmq6hw3gzgfofn62pfzdlpwdruccry&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeighqbuthkdt6gndbalgaufu7cw5imydih4p36qkhxztmt4e6dce4m&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeicdjiimoy3hebr4vx7d5v62hmq6hw3gzgfofn62pfzdlpwdruccry&output=webp&q=75" crossorigin="anonymous" alt="cloud time II" class="artwork-image">
                 <div class="artwork-title">cloud time II</div>
             </a>
             <a href="https://objkt.com/tokens/KT1W34fj4GNfmaYPsy7abbn1K9dhsAByf7S2/35" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeif5jetmg7jawm2dfwqgafkm32nmlpt6nfi47lhvju2syldldscsfu&output=webp&q=85" crossorigin="anonymous" alt="Monochrome Melẗ̶͎̰" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeif5jetmg7jawm2dfwqgafkm32nmlpt6nfi47lhvju2syldldscsfu&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihr2vvgdpv2as2zdwvhwkluw54esdkzmfrso3ictzmvnhc2npmaf4&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeif5jetmg7jawm2dfwqgafkm32nmlpt6nfi47lhvju2syldldscsfu&output=webp&q=75" crossorigin="anonymous" alt="Monochrome Melẗ̶͎̰" class="artwork-image">
                 <div class="artwork-title">Monochrome Melẗ̶͎̰</div>
             </a>
             <a href="https://objkt.com/tokens/KT1W34fj4GNfmaYPsy7abbn1K9dhsAByf7S2/36" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeignnaass3t4gisvxrciqwxq65qhn4ck52jnx4dxk7aps35joxbo7e&output=webp&q=85" crossorigin="anonymous" alt="ｐｉｘｅｌ░ｄｒｉｆｔｅｒ" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeignnaass3t4gisvxrciqwxq65qhn4ck52jnx4dxk7aps35joxbo7e&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeigkenizgzced4wxytnrsydmyc3dyo5qqf2lhfqhgtw4cajihjlhny&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeignnaass3t4gisvxrciqwxq65qhn4ck52jnx4dxk7aps35joxbo7e&output=webp&q=75" crossorigin="anonymous" alt="ｐｉｘｅｌ░ｄｒｉｆｔｅｒ" class="artwork-image">
                 <div class="artwork-title">ｐｉｘｅｌ░ｄｒｉｆｔｅｒ</div>
             </a>
             <a href="https://objkt.com/tokens/KT1W34fj4GNfmaYPsy7abbn1K9dhsAByf7S2/37" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiakhvoqxdflgfhi5abeb7rucbww73kkwmwdgdp6y6gg4giilnd5iq&output=webp&q=85" crossorigin="anonymous" alt="Swarm" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiakhvoqxdflgfhi5abeb7rucbww73kkwmwdgdp6y6gg4giilnd5iq&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeigkof7mbscqvkfxw5ammd5wnmaexkzuez5lfljirxxb6boqvcljqm&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiefbtcavxl3gzgldkwudtoee3mpv4opfotbg55jr2lksncvyzjqlq&output=webp&q=75" crossorigin="anonymous" alt="Swarm" class="artwork-image">
                 <div class="artwork-title">Swarm</div>
             </a>
             <a href="https://objkt.com/tokens/KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg/4" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifrwuixxewylgrgb7iwpy5ze2milwqg42f23vvmyo7xpuwpqryaey&output=webp&q=85" crossorigin="anonymous" alt="subdivision̴͎̈́͛" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifrwuixxewylgrgb7iwpy5ze2milwqg42f23vvmyo7xpuwpqryaey&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiabwy4m366kwftqhqx2ydlwsesshlcvyuqqn4wfad5uvwvd6oc2ny&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifrwuixxewylgrgb7iwpy5ze2milwqg42f23vvmyo7xpuwpqryaey&output=webp&q=75" crossorigin="anonymous" alt="subdivision̴͎̈́͛" class="artwork-image">
                 <div class="artwork-title">subdivision̴͎̈́͛</div>
             </a>
             <a href="https://objkt.com/tokens/KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg/5" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreig2ltpdyvbuumk2qufvsxhccz4klqefzfewo3rkrxadr3lmsegify&output=webp&q=85" crossorigin="anonymous" alt="motion̸̻̼̈́" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreig2ltpdyvbuumk2qufvsxhccz4klqefzfewo3rkrxadr3lmsegify&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiaeg3qgnaxh5gbik3n24dpt3fufpxgphep3mh6y57d2xrm3hjcgmi&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreig2ltpdyvbuumk2qufvsxhccz4klqefzfewo3rkrxadr3lmsegify&output=webp&q=75" crossorigin="anonymous" alt="motion̸̻̼̈́" class="artwork-image">
                 <div class="artwork-title">motion̸̻̼̈́</div>
             </a>
             <a href="https://objkt.com/tokens/KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg/7" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeib4bkeqrgxfvb6xabtrsp7pmjs7dk45x7cuvsdzyoeoftre6phajm&output=webp&q=85" crossorigin="anonymous" alt="TxnTexturȇ̷̛͎͍̅̒̆͑̓͐̔͆̒́̈̿" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeib4bkeqrgxfvb6xabtrsp7pmjs7dk45x7cuvsdzyoeoftre6phajm&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihqcxbcvb3pwqrq4j65wkgyzhfjc7a55zr5z7cvczpfreeodm3o3q&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeigs3zoba6uma5l5ai4ivft3rkyx3v6aifllfzsuz5zsyukalgsdou&output=webp&q=75" crossorigin="anonymous" alt="TxnTexturȇ̷̛͎͍̅̒̆͑̓͐̔͆̒́̈̿" class="artwork-image">
                 <div class="artwork-title">TxnTexturȇ̷̛͎͍̅̒̆͑̓͐̔͆̒́̈̿</div>
             </a>
             <a href="https://objkt.com/tokens/KT1HSsgtJBWXsyHMYrg6FpprgAF5e5Eszvac/9" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifqe5bmbkuta6l2fdsl6dqfm5us5qfjb4pko5raihfw4ngirjjp3e&output=webp&q=85" crossorigin="anonymous" alt="Sol Gazing" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifqe5bmbkuta6l2fdsl6dqfm5us5qfjb4pko5raihfw4ngirjjp3e&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifgmqv6azjg4i6quenftfpyyzeqerixwjtletdendysaxroydqpxm&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreigfcc2ojqw3zv3k46ccp2ssxuse5hvf22ymrdup3w4d5talx7jhki&output=webp&q=75" crossorigin="anonymous" alt="Sol Gazing" class="artwork-image">
                 <div class="artwork-title">Sol Gazing</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/9867" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihpzagphslmhyd55sledajor7uvaotmnm7ttcp2vjodic4yr5brre&output=webp&q=85" crossorigin="anonymous" alt="Digital Decay̶̛̩̦̦̩̟̘̤͎͕̾̾́́̌͊̑̈́͜͜" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihpzagphslmhyd55sledajor7uvaotmnm7ttcp2vjodic4yr5brre&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeihic64p35ntm5ptbif3dtr2fvcoln2fn7oa6g67i4ckvqfjcmhwaa&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafkreial4pmsk2z4sjcxfe5hzb3imjsa2uxrtokf5fm6aetbgwytcskiby&output=webp&q=75" crossorigin="anonymous" alt="Digital Decay̶̛̩̦̦̩̟̘̤͎͕̾̾́́̌͊̑̈́͜͜" class="artwork-image">
                 <div class="artwork-title">Digital Decay̶̛̩̦̦̩̟̘̤͎͕̾̾́́̌͊̑̈́͜͜</div>
             </a>
 
     </div>
     
     <canvas id="webgl"></canvas>
+
+    <!-- Shared generative art preview iframe - only activated on hover for cards with data-generator -->
+    <iframe id="art-preview"
+        sandbox="allow-scripts"
+        style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
+        src="about:blank"
+        title="Generative art preview">
+    </iframe>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -579,7 +591,7 @@
                         
                         if (title) {
                             const titleRect = title.getBoundingClientRect();
-                            tCtx.font = '700 1rem "Courier Prime"';
+                            tCtx.font = '100 1rem "Roboto Condensed"';
                             tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
                             tCtx.textAlign = 'left';
                             tCtx.textBaseline = 'top';
@@ -612,7 +624,7 @@
                 let fontSize = '24px';
                 if (el.tagName === 'H1') fontSize = '2.5rem';
                 
-                tCtx.font = `700 ${fontSize} "Courier Prime"`;
+                tCtx.font = `300 ${fontSize} "Roboto Condensed"`;
                 tCtx.fillStyle = textColor;
                 tCtx.textAlign = 'center';
                 tCtx.textBaseline = 'middle';
@@ -630,6 +642,50 @@
                 }
             });
 
+            // --- Per-artwork torus ring loaders drawn on canvas (glitch shader affects them) ---
+            if (!window._imgTracked) {
+                window._imgTracked = true;
+                document.querySelectorAll('.artwork-image').forEach(img => {
+                    img._loadStart = performance.now();
+                    img._loaded = img.complete && img.naturalWidth > 0;
+                    if (!img._loaded) {
+                        img.addEventListener('load',  () => { img._loaded = true; });
+                        img.addEventListener('error', () => { img._loaded = true; });
+                    }
+                });
+            }
+            document.querySelectorAll('.artwork-image').forEach(img => {
+                if (img._loaded) return;
+                const rect = img.getBoundingClientRect();
+                if (rect.width === 0) return;
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const outer = rect.width * 0.12;
+                const inner = outer * 0.65;
+                const elapsed = performance.now() - (img._loadStart || performance.now());
+                // Ease to ~90% over 4s; never reaches 100% until load event fires
+                const p = 0.9 * (1 - Math.exp(-3 * elapsed / 4000));
+                // Background track (dim hollow ring)
+                tCtx.globalAlpha = 0.22;
+                tCtx.beginPath();
+                tCtx.arc(cx, cy, outer, 0, Math.PI * 2);
+                tCtx.arc(cx, cy, inner, 0, Math.PI * 2, true);
+                tCtx.fillStyle = '#FFFFFF';
+                tCtx.fill('evenodd');
+                // Progress fill clockwise from 12 o'clock
+                if (p > 0.005) {
+                    tCtx.globalAlpha = 0.92;
+                    const a0 = -Math.PI / 2;
+                    const a1 = a0 + Math.PI * 2 * p;
+                    tCtx.beginPath();
+                    tCtx.arc(cx, cy, outer, a0, a1);
+                    tCtx.arc(cx, cy, inner, a1, a0, true);
+                    tCtx.closePath();
+                    tCtx.fillStyle = '#FFFFFF';
+                    tCtx.fill();
+                }
+                tCtx.globalAlpha = 1;
+            });
             textTexture.needsUpdate = true;
         }
 
@@ -730,6 +786,74 @@
             isPhotosensitiveMode = !isPhotosensitiveMode;
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
+
+        // --- IMAGE HOVER ANIMATION ---
+        // On mouseenter: swap to artifact (GIF/original) if available
+        // On mouseleave: restore display image
+        document.querySelectorAll('.artwork-card').forEach(card => {
+            const img = card.querySelector('.artwork-image');
+            if (!img) return;
+            const displaySrc = img.src;
+            const artifactSrc = img.dataset.artifact;
+
+            card.addEventListener('mouseenter', () => {
+                if (artifactSrc) {
+                    const probe = new Image();
+                    probe.crossOrigin = 'anonymous';
+                    probe.onload = () => { img.src = probe.src; };
+                    probe.onerror = () => {}; // stay on display image
+                    probe.src = artifactSrc;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                img.src = displaySrc;
+            });
+        });
+
+        // --- IMAGE ERROR FALLBACK ---
+        // If display_uri fails to load, try thumbnail, then hide gracefully
+        document.querySelectorAll('.artwork-image').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                // Already broken on load
+                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
+                else img.style.visibility = 'hidden';
+            }
+            img.addEventListener('error', function() {
+                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
+                    this.src = this.dataset.thumbnail;
+                } else {
+                    this.style.visibility = 'hidden';
+                }
+            });
+        });
+
+        // --- GENERATIVE ART PREVIEW IFRAME ---
+        // Cards with data-generator (e.g. Ctrl-C) show a live iframe on hover
+        const artPreview = document.getElementById('art-preview');
+        if (artPreview) {
+            let previewTimeout = null;
+
+            document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    clearTimeout(previewTimeout);
+                    const img = card.querySelector('.artwork-image');
+                    if (!img) return;
+                    const rect = img.getBoundingClientRect();
+                    artPreview.style.left   = rect.left   + 'px';
+                    artPreview.style.top    = rect.top    + 'px';
+                    artPreview.style.width  = rect.width  + 'px';
+                    artPreview.style.height = rect.height + 'px';
+                    artPreview.src = card.dataset.generator;
+                    artPreview.style.display = 'block';
+                });
+                card.addEventListener('mouseleave', () => {
+                    previewTimeout = setTimeout(() => {
+                        artPreview.style.display = 'none';
+                        artPreview.src = 'about:blank';
+                    }, 80);
+                });
+            });
+        }
 
         window.onload = init;
     </script>

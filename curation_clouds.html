@@ -7,13 +7,13 @@
     <title>corrupted clouds̷̢̨̨͔͓̣͚͓͈̍̈ - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
             color: #FFFFFF;
             font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 300;
+            font-weight: 100;
             margin: 0;
             padding: 60px 60px 100px 60px;
         }
@@ -35,7 +35,7 @@
             background: transparent;
             border: none;
             color: transparent;
-            font-family: 'Courier Prime', monospace;
+            font-family: 'Roboto Condensed', sans-serif;
             font-size: 24px;
             cursor: pointer;
             padding: 20px;
@@ -79,17 +79,17 @@
             aspect-ratio: 1;
             object-fit: cover;
             border: 1px solid #222;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+            filter: grayscale(100%) brightness(0.45);
+            transition: filter 0.4s ease, opacity 0.3s ease;
         }
         .artwork-card:hover .artwork-image {
-            opacity: 1;
+            filter: none;
         }
         .artwork-title {
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 100;
             line-height: 1.4;
-            color: #aaa;
+            color: transparent;
             transition: color 0.3s ease;
         }
         .artwork-card:hover .artwork-title {
@@ -102,7 +102,7 @@
             color: transparent;
             text-decoration: none;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 100;
             z-index: 20;
             padding: 20px;
             pointer-events: auto;
@@ -137,6 +137,10 @@
                 font-size: 20px;
             }
         }
+        /* Generative art preview iframe */
+        #art-preview {
+            image-rendering: pixelated;
+        }
     </style>
 </head>
 <body>
@@ -145,69 +149,77 @@
     <h1>corrupted clouds̷̢̨̨͔͓̣͚͓͈̍̈</h1>
     <div class="artworks-grid">
             <a href="https://objkt.com/tokens/KT1W34fj4GNfmaYPsy7abbn1K9dhsAByf7S2/25" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmUjEEp3GkEjcYjnh4BGMKM3Yq4bJbz6pV7wqJF5UYBhN3&output=webp&q=85" crossorigin="anonymous" alt="c̶̡̔͠l̶̟͉̙̊̏ͅö̴͓͙̱̰ų̶̲͇̯́̑̒̔d̵̡̩̬͐͒" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmUjEEp3GkEjcYjnh4BGMKM3Yq4bJbz6pV7wqJF5UYBhN3&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmW9SoRCptoAvGdzY3yQUsSjZTWUu9MZDCPjC2ZhAjgZFr&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmbBArHxMdSYDnv9P6dyT7WdhPYhHt8LgAmDmWHZejMDrs&output=webp&q=75" crossorigin="anonymous" alt="c̶̡̔͠l̶̟͉̙̊̏ͅö̴͓͙̱̰ų̶̲͇̯́̑̒̔d̵̡̩̬͐͒" class="artwork-image">
                 <div class="artwork-title">c̶̡̔͠l̶̟͉̙̊̏ͅö̴͓͙̱̰ų̶̲͇̯́̑̒̔d̵̡̩̬͐͒</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/664879" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYKAGEcMnrNPGfbFN4dJcoQdT2iGctmbbHszTHigxXhvo&output=webp&q=85" crossorigin="anonymous" alt="gm" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYKAGEcMnrNPGfbFN4dJcoQdT2iGctmbbHszTHigxXhvo&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmZ498h6L3kaE12VNxABybeMc1zA4d8PLRaeVFB1uJYcpJ&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="gm" class="artwork-image">
                 <div class="artwork-title">gm</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/691471" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmWDYMxWDeoB47XH2Jr5yeeTPLMieDtxRtLpUA1p73pBhh&output=webp&q=85" crossorigin="anonymous" alt="ｃｌｏｕｄｓ  ｔｏｄａｙ ░" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmWDYMxWDeoB47XH2Jr5yeeTPLMieDtxRtLpUA1p73pBhh&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmY9RWtuYD7XbkU2wRGrTZHtaL7BqSCa5N7x2cugoxQaZ6&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｌｏｕｄｓ  ｔｏｄａｙ ░" class="artwork-image">
                 <div class="artwork-title">ｃｌｏｕｄｓ  ｔｏｄａｙ ░</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/697832" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQma1Px5VFssBrR6fFHZo2QjVS1ZYUwMg6Zqsdu8aDdUtRT&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃６" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQma1Px5VFssBrR6fFHZo2QjVS1ZYUwMg6Zqsdu8aDdUtRT&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmXb6W3weVhQVnfjLh7SwojSupnSFMpu8NB7S7uPwvLxGL&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃６" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃６</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/698595" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmamVJmKkNroDiSwicZVQmBZT42DpDsX9oyFKzWAZ9zs51&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃7" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmamVJmKkNroDiSwicZVQmBZT42DpDsX9oyFKzWAZ9zs51&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmWFCHrYy6kdsGftPUsziDY4FQmfEmqG9WHhQjv6KFmHeH&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃7" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃7</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/699399" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmdvjb3h8b59F5JhQ6UC9ZF6fYZvm2NyeGs6DWbgNEBhFV&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃8" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmdvjb3h8b59F5JhQ6UC9ZF6fYZvm2NyeGs6DWbgNEBhFV&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYtWydHiqiACndvREg6zLibKwRFmoiVwVXHGKCGFsmpLa&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃8" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃8</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/710812" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQme9vaqRtUvZUEZ46NV8Gaaq694gCWN4f9PpHenNFbDuWh&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃9" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQme9vaqRtUvZUEZ46NV8Gaaq694gCWN4f9PpHenNFbDuWh&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmSqKM9FUVqWohKwF8ZUCd18puU43VEdeCL4Qu5nS2gB2g&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃9" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃9</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/713366" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmUHkgnWKd4sWN7CSVyaQTjnwYcUjn5FzvypmjZGVUB6W4&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１０" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmUHkgnWKd4sWN7CSVyaQTjnwYcUjn5FzvypmjZGVUB6W4&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmTyStkyZtJ669HgBZgtfqsnHBuosigbm4zdER2G7yhNyw&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１０" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１０</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/720739" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmTeXJ6v5evrSJqLSV91aeNBpT2jiACgTe9RVrXfptYjUz&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１１" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmTeXJ6v5evrSJqLSV91aeNBpT2jiACgTe9RVrXfptYjUz&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmbCgVwJU1qdC8BRR3ZrVnoGbEWCk4vkpUDDpwvb1Mw7dZ&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１１" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１１</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/725833" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmUAkw18mC5n8yFGNrgRT2Grh1eNbVpZHTgWZK9wQo3UP9&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１２" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmUAkw18mC5n8yFGNrgRT2Grh1eNbVpZHTgWZK9wQo3UP9&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmSjkPj9BuQc4GdfjM15tSA55vCQwd91YfmGCgQturY2Rd&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１２" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１２</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/729604" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmWsafVLE6AeaYX7ruQ2YUM2FkhuA41oUmez3VRX5GmaQz&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１３" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmWsafVLE6AeaYX7ruQ2YUM2FkhuA41oUmez3VRX5GmaQz&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmbcjreTJGDRR3cQLeueYroGerTfDNtjWSUYMhVPbNsot2&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１３" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ ░ ｃｌｏｕｄ＃１３</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/748674" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmSedFcwWXjmB3hAjeeGvij2qMfg3EbcHFzVu1eNoeZv6q&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ░ｃｌｏｕｄ＃１４" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmSedFcwWXjmB3hAjeeGvij2qMfg3EbcHFzVu1eNoeZv6q&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmbjLkHutKB98ixZ3Kf9c82csVDH8AXjh47HSETPDkGWc6&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ░ｃｌｏｕｄ＃１４" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ░ｃｌｏｕｄ＃１４</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/750814" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmegwf5qPoYbhgPdQkndFBZNcN1yszrLrX6GEMUQ3eRYh8&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ░ｃｌｏｕｄ＃１５" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmegwf5qPoYbhgPdQkndFBZNcN1yszrLrX6GEMUQ3eRYh8&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmUmiEmPc4srA22UgExqYWCPnwEYvWoEsfV6FfBCCnbGii&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ░ｃｌｏｕｄ＃１５" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ░ｃｌｏｕｄ＃１５</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/755160" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmP3GdeooGTXKor3ZxUKfAtWmSoC6YwBdFixeYtCvvxzCJ&output=webp&q=85" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ  ｃｌｏｕｄ░＃１6" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmP3GdeooGTXKor3ZxUKfAtWmSoC6YwBdFixeYtCvvxzCJ&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmPt9KhYfYvtdJYTgw9XMehgYxdFtqRXsFBuUD4sGNonGu&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc&output=webp&q=75" crossorigin="anonymous" alt="ｃｏｒｒｕｐｔｅｄ  ｃｌｏｕｄ░＃１6" class="artwork-image">
                 <div class="artwork-title">ｃｏｒｒｕｐｔｅｄ  ｃｌｏｕｄ░＃１6</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/828818" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmY2uatmsFCy2s6yYtfvuxjHUgZ6g2K6KpTkQ4Sa7Fv84q&output=webp&q=85" crossorigin="anonymous" alt="clandestine cloud̶̛͔̰̺͓̘̳͔̥̰̦̀̋̋̆͆̈́̕̚" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmY2uatmsFCy2s6yYtfvuxjHUgZ6g2K6KpTkQ4Sa7Fv84q&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmaeLSe124uXmfeZaTAJsC533hAnkUAMrxjE1yzjKmWd4J&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmY2uatmsFCy2s6yYtfvuxjHUgZ6g2K6KpTkQ4Sa7Fv84q&output=webp&q=75" crossorigin="anonymous" alt="clandestine cloud̶̛͔̰̺͓̘̳͔̥̰̦̀̋̋̆͆̈́̕̚" class="artwork-image">
                 <div class="artwork-title">clandestine cloud̶̛͔̰̺͓̘̳͔̥̰̦̀̋̋̆͆̈́̕̚</div>
             </a>
 
     </div>
     
     <canvas id="webgl"></canvas>
+
+    <!-- Shared generative art preview iframe - only activated on hover for cards with data-generator -->
+    <iframe id="art-preview"
+        sandbox="allow-scripts"
+        style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
+        src="about:blank"
+        title="Generative art preview">
+    </iframe>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -555,7 +567,7 @@
                         
                         if (title) {
                             const titleRect = title.getBoundingClientRect();
-                            tCtx.font = '700 1rem "Courier Prime"';
+                            tCtx.font = '100 1rem "Roboto Condensed"';
                             tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
                             tCtx.textAlign = 'left';
                             tCtx.textBaseline = 'top';
@@ -588,7 +600,7 @@
                 let fontSize = '24px';
                 if (el.tagName === 'H1') fontSize = '2.5rem';
                 
-                tCtx.font = `700 ${fontSize} "Courier Prime"`;
+                tCtx.font = `300 ${fontSize} "Roboto Condensed"`;
                 tCtx.fillStyle = textColor;
                 tCtx.textAlign = 'center';
                 tCtx.textBaseline = 'middle';
@@ -606,6 +618,50 @@
                 }
             });
 
+            // --- Per-artwork torus ring loaders drawn on canvas (glitch shader affects them) ---
+            if (!window._imgTracked) {
+                window._imgTracked = true;
+                document.querySelectorAll('.artwork-image').forEach(img => {
+                    img._loadStart = performance.now();
+                    img._loaded = img.complete && img.naturalWidth > 0;
+                    if (!img._loaded) {
+                        img.addEventListener('load',  () => { img._loaded = true; });
+                        img.addEventListener('error', () => { img._loaded = true; });
+                    }
+                });
+            }
+            document.querySelectorAll('.artwork-image').forEach(img => {
+                if (img._loaded) return;
+                const rect = img.getBoundingClientRect();
+                if (rect.width === 0) return;
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const outer = rect.width * 0.12;
+                const inner = outer * 0.65;
+                const elapsed = performance.now() - (img._loadStart || performance.now());
+                // Ease to ~90% over 4s; never reaches 100% until load event fires
+                const p = 0.9 * (1 - Math.exp(-3 * elapsed / 4000));
+                // Background track (dim hollow ring)
+                tCtx.globalAlpha = 0.22;
+                tCtx.beginPath();
+                tCtx.arc(cx, cy, outer, 0, Math.PI * 2);
+                tCtx.arc(cx, cy, inner, 0, Math.PI * 2, true);
+                tCtx.fillStyle = '#FFFFFF';
+                tCtx.fill('evenodd');
+                // Progress fill clockwise from 12 o'clock
+                if (p > 0.005) {
+                    tCtx.globalAlpha = 0.92;
+                    const a0 = -Math.PI / 2;
+                    const a1 = a0 + Math.PI * 2 * p;
+                    tCtx.beginPath();
+                    tCtx.arc(cx, cy, outer, a0, a1);
+                    tCtx.arc(cx, cy, inner, a1, a0, true);
+                    tCtx.closePath();
+                    tCtx.fillStyle = '#FFFFFF';
+                    tCtx.fill();
+                }
+                tCtx.globalAlpha = 1;
+            });
             textTexture.needsUpdate = true;
         }
 
@@ -706,6 +762,74 @@
             isPhotosensitiveMode = !isPhotosensitiveMode;
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
+
+        // --- IMAGE HOVER ANIMATION ---
+        // On mouseenter: swap to artifact (GIF/original) if available
+        // On mouseleave: restore display image
+        document.querySelectorAll('.artwork-card').forEach(card => {
+            const img = card.querySelector('.artwork-image');
+            if (!img) return;
+            const displaySrc = img.src;
+            const artifactSrc = img.dataset.artifact;
+
+            card.addEventListener('mouseenter', () => {
+                if (artifactSrc) {
+                    const probe = new Image();
+                    probe.crossOrigin = 'anonymous';
+                    probe.onload = () => { img.src = probe.src; };
+                    probe.onerror = () => {}; // stay on display image
+                    probe.src = artifactSrc;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                img.src = displaySrc;
+            });
+        });
+
+        // --- IMAGE ERROR FALLBACK ---
+        // If display_uri fails to load, try thumbnail, then hide gracefully
+        document.querySelectorAll('.artwork-image').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                // Already broken on load
+                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
+                else img.style.visibility = 'hidden';
+            }
+            img.addEventListener('error', function() {
+                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
+                    this.src = this.dataset.thumbnail;
+                } else {
+                    this.style.visibility = 'hidden';
+                }
+            });
+        });
+
+        // --- GENERATIVE ART PREVIEW IFRAME ---
+        // Cards with data-generator (e.g. Ctrl-C) show a live iframe on hover
+        const artPreview = document.getElementById('art-preview');
+        if (artPreview) {
+            let previewTimeout = null;
+
+            document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    clearTimeout(previewTimeout);
+                    const img = card.querySelector('.artwork-image');
+                    if (!img) return;
+                    const rect = img.getBoundingClientRect();
+                    artPreview.style.left   = rect.left   + 'px';
+                    artPreview.style.top    = rect.top    + 'px';
+                    artPreview.style.width  = rect.width  + 'px';
+                    artPreview.style.height = rect.height + 'px';
+                    artPreview.src = card.dataset.generator;
+                    artPreview.style.display = 'block';
+                });
+                card.addEventListener('mouseleave', () => {
+                    previewTimeout = setTimeout(() => {
+                        artPreview.style.display = 'none';
+                        artPreview.src = 'about:blank';
+                    }, 80);
+                });
+            });
+        }
 
         window.onload = init;
     </script>

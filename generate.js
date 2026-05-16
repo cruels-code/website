@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 
 const data = JSON.parse(fs.readFileSync('objkt_data.json', 'utf8'));
 
@@ -12,12 +12,12 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
     <title>${title} - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
             color: #FFFFFF;
-            font-family: 'Courier Prime', monospace;
+            font-family: 'Roboto Condensed', sans-serif;
             margin: 0;
             padding: 60px 60px 100px 60px;
         }
@@ -56,7 +56,7 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
         }
         .artwork-title {
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 100;
             line-height: 1.4;
         }
         .back-link {
@@ -66,7 +66,7 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             color: #FFFFFF;
             text-decoration: none;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 100;
             z-index: 20;
             background-color: #050505;
             padding: 5px 10px;

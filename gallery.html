@@ -6,7 +6,7 @@
     <title>Gallery - Other mind</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
@@ -14,7 +14,7 @@
             overflow: hidden;
             color: #FFFFFF;
             font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 300;
+            font-weight: 100;
             user-select: none;
         }
         canvas#webgl {
@@ -34,7 +34,7 @@
             height: 70%;
             z-index: 10;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
             gap: 20px;
             align-items: center;
@@ -45,7 +45,7 @@
             text-decoration: none;
             font-size: 20px;
             font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 300;
+            font-weight: 100;
             cursor: pointer;
             text-align: center;
             white-space: nowrap;
@@ -57,7 +57,7 @@
             color: transparent;
             text-decoration: none;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 100;
             z-index: 20;
             padding: 20px;
         }
@@ -91,6 +91,7 @@
                 white-space: normal;
                 line-height: 1.2;
                 text-align: left;
+                font-size: 30px;
             }
             .back-link {
                 bottom: 10px;
@@ -112,13 +113,10 @@
         <a href="curation_concerned.html">concerned with̷̢̙́̆̍͆̏̕͘͝...</a>
         <a href="curation_clouds.html">corrupted clouds̷̢̨̨͔͓̣͚͓͈̍̈</a>
         <a href="curation_ctrlc.html">ctrl-c</a>
-        <a href="curation_cyberderps.html">Cyber Derps</a>
         <a href="curation_geometries.html">geometries̵̼͎̞̠̮̈̓</a>
         <a href="curation_glitchart.html">glitchart̵̖̦̬̦̎̈́͐̊͋̓͌̅̚͘̕͠</a>
         <a href="curation_mondriansstatic.html">Mondrian's Static</a>
         <a href="curation_othermind.html">other mind̴͍͉̳̞͍̬̟̥̭̟̰̗̈́̊ͅͅ</a>
-        <a href="curation_scenes.html">scenes̷̜̐̏͐</a>
-        <a href="curation_yojijukugo.html">yojijukugo (四字熟語)</a>
     </div>
     <a href="index.html" class="back-link">Back</a>
     <button id="photosensitive-toggle" title="Toggle Photosensitive Mode">⚡</button>
@@ -473,7 +471,7 @@
                 tCtx.fillStyle = textColor;
                 
                 let computedStyle = window.getComputedStyle(el);
-                tCtx.font = `${computedStyle.fontWeight} ${computedStyle.fontSize} "${computedStyle.fontFamily.replace(/"/g, '')}"`;
+                tCtx.font = `100 ${computedStyle.fontSize} "Roboto Condensed"`;
                 
                 tCtx.textAlign = 'center';
                 tCtx.textBaseline = 'middle';

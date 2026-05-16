@@ -7,13 +7,13 @@
     <title>Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
             color: #FFFFFF;
             font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 300;
+            font-weight: 100;
             margin: 0;
             padding: 60px 60px 100px 60px;
         }
@@ -35,7 +35,7 @@
             background: transparent;
             border: none;
             color: transparent;
-            font-family: 'Courier Prime', monospace;
+            font-family: 'Roboto Condensed', sans-serif;
             font-size: 24px;
             cursor: pointer;
             padding: 20px;
@@ -79,17 +79,17 @@
             aspect-ratio: 1;
             object-fit: cover;
             border: 1px solid #222;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+            filter: grayscale(100%) brightness(0.45);
+            transition: filter 0.4s ease, opacity 0.3s ease;
         }
         .artwork-card:hover .artwork-image {
-            opacity: 1;
+            filter: none;
         }
         .artwork-title {
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 100;
             line-height: 1.4;
-            color: #aaa;
+            color: transparent;
             transition: color 0.3s ease;
         }
         .artwork-card:hover .artwork-title {
@@ -102,7 +102,7 @@
             color: transparent;
             text-decoration: none;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 100;
             z-index: 20;
             padding: 20px;
             pointer-events: auto;
@@ -137,6 +137,10 @@
                 font-size: 20px;
             }
         }
+        /* Generative art preview iframe */
+        #art-preview {
+            image-rendering: pixelated;
+        }
     </style>
 </head>
 <body>
@@ -144,522 +148,530 @@
     <a href="gallery.html" class="back-link">Back</a>
     <h1>Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎</h1>
     <div class="artworks-grid">
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/144" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F144%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #1" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/144" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=3595ab1f6e13cdf8cfe3e5d67c105519a862170d3cd18961508506611e1ea021&i=1">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/144?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/144?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #1" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #1</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/145" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F145%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #2" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/145" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=a96f9c6663b30b8864160e46a614ba4de432a8c27baadf6ba3d167b6c8c3a148&i=2">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/145?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/145?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #2" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #2</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/146" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F146%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #3" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/146" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=3124777cc276759ee3a8dbdf0c4f889dfa29ba6cd0f1bdd08518436299ea88d3&i=3">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/146?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/146?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #3" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #3</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/147" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F147%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #4" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/147" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=e0498a7bf36a2364f177e44dfabb3c0d81e260fab9e5ab64ea4c4b6151a7ffd6&i=4">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/147?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/147?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #4" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #4</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/148" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F148%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #5" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/148" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=2849bfbc124b62ebac25e8d7285052bda06ba003b8a3d89ccd6b34fddf32c716&i=5">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/148?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/148?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #5" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #5</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/149" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F149%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #6" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/149" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=54efbd0bf0f3371beb07cb7f092b77e93df8f7128073f7bd7dc7eb9ada4df44f&i=6">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/149?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/149?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #6" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #6</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/150" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F150%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #7" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/150" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=982a78cc22da6484d5d3f652a4a7c825a3c45cae2702a1d625bc8345a4536cc2&i=7">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/150?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/150?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #7" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #7</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/151" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F151%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #8" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/151" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=f00bffa4722aed579abb62a1f249fb8b84a89470c77853d322bf4f37c2e8da12&i=8">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/151?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/151?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #8" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #8</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/152" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F152%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #9" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/152" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=977d4255acc402f4333cc7d18854e8f15d20ff791d76ab2194a610459dfd421f&i=9">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/152?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/152?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #9" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #9</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/153" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F153%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #10" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/153" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=4501e06a55e3b3decde5f018d8f0beec836558ba363bdcb4582b334da0faaf9b&i=10">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/153?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/153?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #10" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #10</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/154" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F154%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #11" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/154" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=3b5776633d2db442e8fb685f8009c71cb74807522fc6eb38e3fe049dbf028c0c&i=11">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/154?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/154?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #11" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #11</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/155" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F155%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #12" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/155" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=c47a4a7de41b6f712363fdfbaceeb82ae7efc05451bdd990cd884d940e2d99ef&i=12">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/155?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/155?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #12" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #12</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/156" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F156%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #13" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/156" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=ae306853c5916bd737aef4cfaceae5fffd84f502361a26a01181f3e321c2af31&i=13">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/156?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/156?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #13" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #13</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/157" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F157%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #14" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/157" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=57f912dd7d36c0b6e062a46e88648634f8c174b5409ba27e82a0589b3903d391&i=14">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/157?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/157?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #14" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #14</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/158" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F158%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #15" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/158" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=07b3a0f1a565472f0737ad60764a3de904edbfbdf60aa003250e2e844557aac1&i=15">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/158?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/158?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #15" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #15</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/159" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F159%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #16" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/159" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=430ba56ebdd270fe5c72f02d2db1a490ccb6f0b717d8349089028ed700a42b8f&i=16">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/159?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/159?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #16" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #16</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/160" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F160%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #17" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/160" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=51d8be1dea75035779cf90db57c2058669bb4fb26121bc1052b8f8c61029fa52&i=17">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/160?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/160?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #17" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #17</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/161" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F161%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #18" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/161" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=92e3a7f4bb3100290ed036fa1bfa700cd3ee00a0848094ec9514d1fabf5788ce&i=18">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/161?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/161?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #18" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #18</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/162" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F162%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #19" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/162" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=b10e5167dc8d70915e48d72c5ce9570afcbbd77420d0500e4de2bbc55d834100&i=19">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/162?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/162?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #19" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #19</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/163" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F163%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #20" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/163" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=75828666e3dbb3e70f83e8bf77e659eb3b57cc1eba1fd03bfccdbad0c1093140&i=20">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/163?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/163?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #20" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #20</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/164" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F164%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #21" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/164" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=134a226199d4155d4a4dece8a164d77572a85f6c35ff79b9d2a326cef6d3ff8c&i=21">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/164?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/164?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #21" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #21</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/165" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F165%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #22" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/165" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=3c21bcc58ddac04b3e4e89d5e49050def2b4bf6340a8b453e8e2b1bd46a28439&i=22">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/165?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/165?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #22" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #22</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/166" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F166%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #23" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/166" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=68b83ce8355567f2f6e87d54009742ba792db5e92dfd55fd5caa9996e9823e79&i=23">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/166?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/166?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #23" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #23</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/167" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F167%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #24" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/167" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=35211519b89c2ea1019150db546dd518a2b84b03d4684c8cab50406198e70421&i=24">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/167?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/167?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #24" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #24</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/168" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F168%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #25" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/168" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=f29c09aa5cf87525894da46f9794aae44af53d1dc11f53260dd2e1bfa84a3ac0&i=25">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/168?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/168?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #25" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #25</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/169" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F169%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #26" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/169" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=ea2048b373a6f851377e4eaa9e1c39522be4f4a740e0d1a7151da31ab83bb5f0&i=26">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/169?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/169?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #26" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #26</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/170" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F170%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #27" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/170" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=bfaaaebc95ca4a9193a38f93fdc37c095c853f9e063c3c3b8774632c6f4b0371&i=27">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/170?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/170?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #27" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #27</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/171" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F171%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #28" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/171" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=284ca862aaa92b367a5ed5fd01210dc47744711b9cc620d42be7a6a53c84ce3a&i=28">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/171?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/171?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #28" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #28</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/172" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F172%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #29" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/172" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=0224af25f190b757cf22bcdd9b7c2aa204e55e4291e56f75d685bee42570bd54&i=29">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/172?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/172?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #29" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #29</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/173" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F173%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #30" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/173" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=30f09d8e5918b3ec30a122fac398e05f8984c58f11fa84e7507132015905cc02&i=30">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/173?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/173?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #30" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #30</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/174" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F174%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #31" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/174" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=ab469ded1d02d8e27bcaef30bba1fb8ba7cd40f97f5c0ea40a518bbe1a972be9&i=31">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/174?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/174?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #31" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #31</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/175" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F175%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #32" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/175" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=a47dbb6e80b4567ed759c1234344e97f044bf45a7de38fff2420714bc0f293c1&i=32">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/175?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/175?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #32" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #32</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/176" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F176%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #33" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/176" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=c669c24c36e8f001d43f1e512c3147a04089df35b2b01ccbb15a0508ba366cae&i=33">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/176?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/176?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #33" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #33</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/178" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F178%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #34" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/178" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=5d6a0b0cc53eb861d59a4ad0cd07ccea7a9879c8c15938a496cb9df4d56b6eb5&i=34">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/178?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/178?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #34" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #34</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/179" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F179%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #35" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/179" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=e9ed1d893c21a0d5629900b10e05029f953cee05c24bc49e149724f2210f9899&i=35">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/179?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/179?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #35" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #35</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/180" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F180%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #36" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/180" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=8db070a8141cfdea022efb2f83efc1eb38e365966aa8b802356703eeff98e130&i=36">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/180?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/180?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #36" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #36</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/181" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F181%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #37" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/181" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=fa306dfd28d1c8537d3db07c7147726254370a08298f1c694153afa5a62d8b6c&i=37">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/181?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/181?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #37" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #37</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/182" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F182%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #38" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/182" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=0a3c972d184795fb505de6d63a3f169d81a61ddc797e408194e7bdd21b0f415b&i=38">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/182?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/182?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #38" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #38</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/183" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F183%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #39" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/183" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=bd5e1c0af94a5e415f7a252c2448090b0b24c079dcb8deb35e2c61522740313c&i=39">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/183?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/183?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #39" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #39</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/184" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F184%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #40" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/184" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=a899c6deb0e085bcea265135205ed3c10beb8678addc423a489b01ed20527049&i=40">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/184?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/184?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #40" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #40</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/185" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F185%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #41" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/185" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=d3fdf3d5332d5158a72f4fc1c24e5fba20744256280911b9cd13d9c6e0ccf801&i=41">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/185?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/185?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #41" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #41</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/186" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F186%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #42" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/186" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=d8b48f2241df469297ae482307f819d7d262d7cba0ba368dbcf92399626ea59a&i=42">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/186?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/186?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #42" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #42</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/187" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F187%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #43" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/187" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=befd180113a14e140c3f0d5104bb4327f67a873bb8040425b944057b0d935562&i=43">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/187?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/187?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #43" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #43</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/188" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F188%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #44" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/188" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=6d1ce59a9ba82a580c7ea21a7897e973042995cbbb86fcebbcaa3a40187f64fb&i=44">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/188?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/188?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #44" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #44</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/190" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F190%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #45" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/190" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=de0841b42d14c6c450a2fcbc1003dd2e2a2c4046b5f26ba9a98be1eb3dad4cb0&i=45">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/190?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/190?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #45" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #45</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/191" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F191%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #46" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/191" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=5d6c03ddefa0fe823cda06315dcec9a01fe0acc33a791f57715b958936b44136&i=46">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/191?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/191?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #46" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #46</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/193" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F193%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #47" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/193" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=26610920b51d12960f1565680bfe81e47c1131bd6a2d10a6ecf4df2b4c4ff324&i=47">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/193?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/193?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #47" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #47</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/194" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F194%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #48" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/194" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=4baf8546f79bc7e93ac433db7bec9235d86400705d3ad1766a5b79600ca60365&i=48">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/194?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/194?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #48" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #48</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/195" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F195%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #49" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/195" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=02bd2e937e3988c389b271be0998285963803089be5ab5b8e456365fcd87efa2&i=49">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/195?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/195?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #49" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #49</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/196" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F196%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #50" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/196" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=10c241e964db190dd210859e28fc701134b0457c93b251f72c8e755b119c5255&i=50">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/196?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/196?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #50" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #50</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/197" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F197%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #51" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/197" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=10e12e76f20a356dc38613cefc4a059b0a2b3bb8eeef04984c9ea7cbebcc51f9&i=51">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/197?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/197?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #51" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #51</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/198" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F198%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #52" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/198" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=664e54f9a69f45d2c48ede46e64e19ab73af9724bdefa4eeae9708ea407b247f&i=52">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/198?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/198?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #52" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #52</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/199" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F199%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #53" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/199" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=80a143737c16be605226079224ec6eac040a64fbe6f6852e9f1d355b6f487a0e&i=53">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/199?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/199?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #53" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #53</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/200" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F200%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #54" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/200" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=277bac7e0087f729918f904418a92cb7923f03d7ec544d83f19658841f04e647&i=54">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/200?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/200?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #54" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #54</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/201" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F201%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #55" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/201" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=e1185db0845711d2131cf078e79f5798e9847737a3a10c47723196620fe49c96&i=55">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/201?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/201?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #55" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #55</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/202" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F202%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #56" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/202" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=af9dc20a46c5f9d64b3ffe8194133ccad014910032d2010d1efab8b8d610ea57&i=56">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/202?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/202?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #56" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #56</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/203" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F203%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #57" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/203" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=c4cba8ae495ddfe0f9bf8e11d2861116552f7150114cb1e504fff897225724f0&i=57">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/203?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/203?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #57" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #57</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/205" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F205%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #58" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/205" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=f3ae8f3e9bcdbcd3eb2cbc2257074ab6b7fbaa3385304a74f666968676d1d64f&i=58">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/205?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/205?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #58" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #58</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/206" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F206%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #59" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/206" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=e9f4e6b8d3739fc0e37258a3811f6dc588920b90ddb0147c81915eb34dca5773&i=59">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/206?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/206?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #59" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #59</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/207" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F207%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #60" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/207" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=da322b0491dcfd588619a2a148295f32f02ffd79bffe5a554a66a1d5d98c22fd&i=60">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/207?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/207?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #60" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #60</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/210" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F210%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #61" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/210" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=83a188036a6454a27d7a7be71a1c069c54f20ea8fa93d9b3c6fe6c5b256507a4&i=61">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/210?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/210?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #61" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #61</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/211" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F211%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #62" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/211" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=4feb42953a2394908a81fc69f6cfb67e57fb192058f926f5e8e4c4ee310f4145&i=62">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/211?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/211?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #62" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #62</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/212" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F212%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #63" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/212" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=30587dd45e218b03b74d81989e2c07978ccd95a06392448f11f138a003278688&i=63">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/212?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/212?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #63" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #63</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/213" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F213%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #64" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/213" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=2aad9fd74ef2f1ee8106c8c6fbc101e10da63ce94727b47c2b61a36744a51b5d&i=64">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/213?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/213?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #64" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #64</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/214" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F214%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #65" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/214" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=19107c6556cd38c01f76e7557c40b95af4aca64013831a68df882f468ba578ec&i=65">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/214?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/214?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #65" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #65</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/215" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F215%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #66" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/215" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=80a5958eea303abbca944224107bb3a33d4cad45eb3fae0cba17fc5bfad1aff2&i=66">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/215?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/215?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #66" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #66</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/216" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F216%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #67" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/216" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=4c3dad11bebf31ee857097a23502fe34f36bd5a4779cba414f5ee242b3c7adc2&i=67">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/216?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/216?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #67" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #67</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/217" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F217%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #68" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/217" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=320a9cbe7d792b127c587a37839b812b5c429fea730fb213dda1df96aa147599&i=68">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/217?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/217?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #68" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #68</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/218" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F218%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #69" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/218" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=bc1182f2ea6d4d766cfbd251b1a8209ee37b1330dcd597d63204986323fb33c6&i=69">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/218?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/218?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #69" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #69</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/219" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F219%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #70" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/219" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=5dca6df45822dca887b40bd727f575ebbb9f99bee486d4adc4021af43b867ad7&i=70">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/219?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/219?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #70" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #70</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/220" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F220%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #71" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/220" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=f201cff42ae3833651fd893a3737202692a4908dfd98dded1254fe609aa3f4b1&i=71">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/220?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/220?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #71" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #71</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/221" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F221%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #72" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/221" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=e58c8bddc4add150938605e7a9e313c5b637ed2a72a5e09c55c7aeefd30c8f1c&i=72">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/221?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/221?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #72" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #72</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/222" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F222%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #73" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/222" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=0705bf67ff9d548f6c88f5c43ac6bb7fcc2f2012270925621ae14f643c796a3d&i=73">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/222?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/222?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #73" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #73</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/223" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F223%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #74" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/223" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=d2f633f88fda3c3afa3d369e0ac675a7b00f8b167660a5cfa5a97078e68f12c6&i=74">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/223?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/223?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #74" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #74</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/224" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F224%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #75" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/224" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=956617074d4ad93a781f40cdf0c917abd68abc6010f0988840926a479d39121f&i=75">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/224?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/224?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #75" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #75</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/225" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F225%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #76" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/225" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=c1d2ecdcbac4824e2120ffbf4a515cde725d4d306f59fbd718c90c0333bc60aa&i=76">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/225?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/225?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #76" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #76</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/226" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F226%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #77" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/226" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=524d335126ddd102e62e18936303f4bc1e8372eba11c161751aa5461159b4fae&i=77">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/226?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/226?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #77" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #77</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/228" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F228%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #78" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/228" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=326455b08eaf18e82662aea801c629ce34f64f47d031397d5e38bd9be41e85d4&i=78">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/228?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/228?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #78" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #78</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/229" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F229%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #79" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/229" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=0fdf9ff4b70e1b728d6c1c243248203c10630717348f85092467dcae475decb3&i=79">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/229?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/229?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #79" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #79</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/230" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F230%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #80" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/230" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=f7e53e19fbaf368a2c8a1b55c95f1a75b0a1dcce76fc4a010433681bc86272cf&i=80">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/230?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/230?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #80" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #80</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/232" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F232%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #81" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/232" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=5ec78ede434c27e4a37c1818838fcc196642cf12d9d49e5c3c791a8263a8e80b&i=81">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/232?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/232?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #81" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #81</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/233" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F233%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #82" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/233" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=2b9b0f379bf83a439739f5bf2e9a94d7430ddde11804f8dbf5e94c87e5c1d0c3&i=82">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/233?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/233?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #82" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #82</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/234" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F234%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #83" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/234" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=8af501e788ab8239c86b8fa3aeb99268dd570bee1b01fc8ca4ed981bbf479837&i=83">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/234?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/234?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #83" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #83</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/236" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F236%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #84" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/236" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=a2af1a6dd2f3fe4f06b69601266668c0279a27c1b7ffc6e928ff7ee91c6bf22b&i=84">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/236?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/236?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #84" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #84</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/237" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F237%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #85" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/237" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=69c5ea47b8de720e974c3842ce0cd9bfdac3568dd0830102795e64ce9cfad924&i=85">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/237?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/237?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #85" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #85</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/238" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F238%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #86" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/238" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=abfc1fc44b7f67916ca27c47931bae17403b03ace2d4111791effd39959d5fbe&i=86">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/238?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/238?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #86" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #86</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/240" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F240%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #87" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/240" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=d39b124d7fd71b48259a1b66b3ff8fe8a4377638c1f2257bda3719c01c985f67&i=87">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/240?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/240?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #87" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #87</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/241" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F241%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #88" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/241" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=e0dc5ac048e5def9e52d8ae877e92bc38757fb1cbe9156744d6b7f24003d9a80&i=88">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/241?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/241?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #88" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #88</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/243" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F243%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #89" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/243" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=ed376fe9f85b1ff66954b6e3c0fb29859233c69333de8322ec22be4825fa9153&i=89">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/243?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/243?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #89" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #89</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/244" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F244%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #90" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/244" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=e657b7a91f53cbd69883ab24d517f337b5201650c6d1440d26cb746f5ef8e856&i=90">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/244?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/244?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #90" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #90</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/245" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F245%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #91" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/245" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=1222877c18fc2d0f14d4d4574d359cc56333f97475fa02a9c7ad4f4212183bbd&i=91">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/245?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/245?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #91" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #91</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/246" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F246%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #92" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/246" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=9e9b3705ca0b31a231650fe9b1d876e9b3c709abaae480ae8596593ec41f7be8&i=92">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/246?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/246?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #92" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #92</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/247" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F247%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #93" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/247" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=b5feb27a8f02cb363ea19966ad3d99ffdbd08da8486b1e3fac51c327e9360120&i=93">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/247?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/247?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #93" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #93</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/248" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F248%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #94" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/248" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=6e37de2ad0ee31cb0905a425941ce8425f3ab5e2a5958ec12d5115ab20b69197&i=94">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/248?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/248?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #94" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #94</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/249" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F249%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #95" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/249" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=bd13b1118ba3e03612414908f02b0d55649e5d60e6a0beb5956e025e3048bcd3&i=95">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/249?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/249?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #95" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #95</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/250" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F250%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #96" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/250" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=32c09ec7d5696be51d6ae95bee559d7e11d1dde6e4216af177bc6ee3f30719c4&i=96">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/250?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/250?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #96" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #96</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/251" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F251%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #97" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/251" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=d9fb3d82b3de02c63e41c3861ec90fb309b567ed07024f8b3975d024f9390bec&i=97">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/251?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/251?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #97" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #97</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/254" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F254%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #98" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/254" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=5cfa682b43c27167746e52cc7821c718e25e14c9a4efa8c9a482bb78c3a31ff8&i=98">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/254?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/254?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #98" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #98</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/255" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F255%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #99" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/255" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=9a05e14192eb92ef7e949733ac5c87c9ee5c2730bd9ab9e2b81a0b7cd0270ba3&i=99">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/255?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/255?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #99" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #99</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/256" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F256%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #100" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/256" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=2384f11b3e44b8730a8c4b7f35092ab5310851609787ca349c7215d2011b66ec&i=100">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/256?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/256?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #100" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #100</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/257" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F257%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #101" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/257" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=90a723e6da4a3f80118f8d35517800b5509121aeacd7695fbb78a850daeb9da2&i=101">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/257?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/257?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #101" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #101</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/258" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F258%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #102" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/258" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=aae96294c203ad26184dc53e6869290c8d91820657012686aeb971aaaf6f96e1&i=102">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/258?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/258?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #102" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #102</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/262" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F262%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #103" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/262" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=0e4dde69ed893a4b9347554d19c838c706e9134a8f7947bffc76e60639549db8&i=103">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/262?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/262?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #103" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #103</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/263" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F263%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #104" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/263" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=e8feec0e21aebdb0337504d275bbefea8b51eddf0f4164bc25fb49a163222852&i=104">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/263?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/263?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #104" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #104</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/264" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F264%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #105" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/264" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=5d4a449fd6cca573e7d88847def3b4c1c437a7d28507bab1d3191fe6d999f677&i=105">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/264?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/264?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #105" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #105</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/265" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F265%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #106" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/265" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=0a548c3a187b2d14d2aa9d3379b956870cf95fa51e75b67a029194d2e90b485d&i=106">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/265?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/265?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #106" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #106</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/266" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F266%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #107" class="artwork-image">
-                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #107</div>
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/266" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=15da35bb3c817ba0d4904e748a1ebdb9d58c384f6844f043f45191d6e2232a98&i=107">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/266?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/266?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿��̓̀̎ #107" class="artwork-image">
+                <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿��̓̀̎ #107</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/267" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F267%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #108" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/267" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=5972e8920b75c93e3ece8c77e5fdee9d7bb1f2e7c652826a406d328be0ca72e0&i=108">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/267?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/267?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #108" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #108</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/278" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F278%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #109" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/278" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=482aa133d5d207b491e59706406928ab8b7d544d6c649026ee6cee4592577838&i=109">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/278?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/278?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #109" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #109</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/279" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F279%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #110" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/279" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=448eed69f2d543bf0a2e9f826b89d485d973c000d5cbd2050dbd9c244540054a&i=110">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/279?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/279?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #110" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #110</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/280" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F280%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #111" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/280" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=14f27b507f6136744f4baa6cc2e985647a6a64079fd42768840ec1cd950ecc7d&i=111">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/280?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/280?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #111" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #111</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/281" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F281%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #112" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/281" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=55fbd23b34df65829e0c0b3f6eacc735aa3a636742c9832da2e8e9d8e9066200&i=112">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/281?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/281?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #112" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #112</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/283" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F283%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #113" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/283" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=6e9806b9ad8a9041be3ec919af59bde1657b2969891d906826acd179639cf23d&i=113">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/283?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/283?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #113" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #113</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/287" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F287%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #114" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/287" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=16a82aeba2e3406726d9301bff4d399537e0bf0a09102c79be518ae2e98c4a2a&i=114">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/287?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/287?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #114" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #114</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/289" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F289%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #115" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/289" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=d83a78d1b043a43135dd822f8e327745fdf28a864ca5980a7de85325c01b1b01&i=115">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/289?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/289?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #115" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #115</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/290" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F290%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #116" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/290" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=2a20c1b896f1cba2c2afedd44e2c87f78a0159b4e32771a8d2c81173287c581e&i=116">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/290?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/290?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #116" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #116</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/291" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F291%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #117" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/291" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=295f0c34ba3a14afe4a5e2ae0b8a3abf2aff59f1b8fea03a541cfa72a3a3c40f&i=117">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/291?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/291?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #117" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #117</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/292" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F292%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #118" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/292" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=924e0e813ca130edf850532f160a7ff46f7e7d6574d2c006c360572af3536365&i=118">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/292?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/292?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #118" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #118</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/293" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F293%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #119" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/293" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=0c43fa0f13ade23c42c72c5179507213dbf7cec06564988ea61ab1eceb848642&i=119">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/293?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/293?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #119" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #119</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/294" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F294%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #120" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/294" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=0a4e0ace90acf75893ebf25f3a1f8d74a9c5c7306f816b13424254560ed47d1c&i=120">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/294?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/294?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #120" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #120</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/295" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F295%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #121" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/295" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=0d60ef78fc15d54e178a281879b3ea4e21b1785169834fd796db0c94596b1cd1&i=121">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/295?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/295?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #121" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #121</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/301" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F301%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #122" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/301" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=8d8a2fc914d60c785fbc0ede8645a82533e2d408e6c70d040cf5eba1017b660c&i=122">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/301?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/301?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #122" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #122</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/306" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F306%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #123" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/306" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=9ab09eb3afdb75e9283be5db5db5d9c501a155c370a136b6b755459b68c6ee59&i=123">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/306?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/306?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #123" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #123</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/307" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F307%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #124" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/307" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=d4d915e3b2e0bd96fdb6f5047f237e8f069556b25205f3fa4feb3b3e20a57e71&i=124">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/307?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/307?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #124" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #124</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/308" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F308%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #125" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/308" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=c5cfa5e9bd019d7586ed1fd236e594b7c648cf87e11379f75fe68779352c8595&i=125">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/308?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/308?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #125" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #125</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/320" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F320%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #126" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/320" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=7e673d2b7e5331480548f786ece0a7a3376ee6086b89d14d5ce90a940ca7e545&i=126">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/320?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/320?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #126" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #126</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/321" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F321%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #127" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/321" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=85cc198140c25c18fd0c588c01b27a621b74f6fc183373d7d22ed56850733520&i=127">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/321?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/321?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #127" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #127</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/322" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F322%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #128" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/322" class="artwork-card" target="_blank" data-generator="https://bafybeidoit5baj4ck5vjyixoghxhhhsv2ab365gcffsnqqltqovwfxea7y.ipfs.dweb.link/?s=e756e13830863d094e48ef9bfebee754f7fca5779cdc71225877873ad54c8483&i=128">
+                <img src="https://media.bootloader.art/generic-web/v1/thumbnail/322?v=1" data-thumbnail="https://media.bootloader.art/generic-web/v1/thumbnail/322?v=1" crossorigin="anonymous" alt="Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #128" class="artwork-image">
                 <div class="artwork-title">Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #128</div>
             </a>
 
     </div>
     
     <canvas id="webgl"></canvas>
+
+    <!-- Shared generative art preview iframe - only activated on hover for cards with data-generator -->
+    <iframe id="art-preview"
+        sandbox="allow-scripts"
+        style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
+        src="about:blank"
+        title="Generative art preview">
+    </iframe>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -1007,7 +1019,7 @@
                         
                         if (title) {
                             const titleRect = title.getBoundingClientRect();
-                            tCtx.font = '700 1rem "Courier Prime"';
+                            tCtx.font = '100 1rem "Roboto Condensed"';
                             tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
                             tCtx.textAlign = 'left';
                             tCtx.textBaseline = 'top';
@@ -1040,7 +1052,7 @@
                 let fontSize = '24px';
                 if (el.tagName === 'H1') fontSize = '2.5rem';
                 
-                tCtx.font = `700 ${fontSize} "Courier Prime"`;
+                tCtx.font = `300 ${fontSize} "Roboto Condensed"`;
                 tCtx.fillStyle = textColor;
                 tCtx.textAlign = 'center';
                 tCtx.textBaseline = 'middle';
@@ -1058,6 +1070,50 @@
                 }
             });
 
+            // --- Per-artwork torus ring loaders drawn on canvas (glitch shader affects them) ---
+            if (!window._imgTracked) {
+                window._imgTracked = true;
+                document.querySelectorAll('.artwork-image').forEach(img => {
+                    img._loadStart = performance.now();
+                    img._loaded = img.complete && img.naturalWidth > 0;
+                    if (!img._loaded) {
+                        img.addEventListener('load',  () => { img._loaded = true; });
+                        img.addEventListener('error', () => { img._loaded = true; });
+                    }
+                });
+            }
+            document.querySelectorAll('.artwork-image').forEach(img => {
+                if (img._loaded) return;
+                const rect = img.getBoundingClientRect();
+                if (rect.width === 0) return;
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const outer = rect.width * 0.12;
+                const inner = outer * 0.65;
+                const elapsed = performance.now() - (img._loadStart || performance.now());
+                // Ease to ~90% over 4s; never reaches 100% until load event fires
+                const p = 0.9 * (1 - Math.exp(-3 * elapsed / 4000));
+                // Background track (dim hollow ring)
+                tCtx.globalAlpha = 0.22;
+                tCtx.beginPath();
+                tCtx.arc(cx, cy, outer, 0, Math.PI * 2);
+                tCtx.arc(cx, cy, inner, 0, Math.PI * 2, true);
+                tCtx.fillStyle = '#FFFFFF';
+                tCtx.fill('evenodd');
+                // Progress fill clockwise from 12 o'clock
+                if (p > 0.005) {
+                    tCtx.globalAlpha = 0.92;
+                    const a0 = -Math.PI / 2;
+                    const a1 = a0 + Math.PI * 2 * p;
+                    tCtx.beginPath();
+                    tCtx.arc(cx, cy, outer, a0, a1);
+                    tCtx.arc(cx, cy, inner, a1, a0, true);
+                    tCtx.closePath();
+                    tCtx.fillStyle = '#FFFFFF';
+                    tCtx.fill();
+                }
+                tCtx.globalAlpha = 1;
+            });
             textTexture.needsUpdate = true;
         }
 
@@ -1158,6 +1214,74 @@
             isPhotosensitiveMode = !isPhotosensitiveMode;
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
+
+        // --- IMAGE HOVER ANIMATION ---
+        // On mouseenter: swap to artifact (GIF/original) if available
+        // On mouseleave: restore display image
+        document.querySelectorAll('.artwork-card').forEach(card => {
+            const img = card.querySelector('.artwork-image');
+            if (!img) return;
+            const displaySrc = img.src;
+            const artifactSrc = img.dataset.artifact;
+
+            card.addEventListener('mouseenter', () => {
+                if (artifactSrc) {
+                    const probe = new Image();
+                    probe.crossOrigin = 'anonymous';
+                    probe.onload = () => { img.src = probe.src; };
+                    probe.onerror = () => {}; // stay on display image
+                    probe.src = artifactSrc;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                img.src = displaySrc;
+            });
+        });
+
+        // --- IMAGE ERROR FALLBACK ---
+        // If display_uri fails to load, try thumbnail, then hide gracefully
+        document.querySelectorAll('.artwork-image').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                // Already broken on load
+                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
+                else img.style.visibility = 'hidden';
+            }
+            img.addEventListener('error', function() {
+                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
+                    this.src = this.dataset.thumbnail;
+                } else {
+                    this.style.visibility = 'hidden';
+                }
+            });
+        });
+
+        // --- GENERATIVE ART PREVIEW IFRAME ---
+        // Cards with data-generator (e.g. Ctrl-C) show a live iframe on hover
+        const artPreview = document.getElementById('art-preview');
+        if (artPreview) {
+            let previewTimeout = null;
+
+            document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    clearTimeout(previewTimeout);
+                    const img = card.querySelector('.artwork-image');
+                    if (!img) return;
+                    const rect = img.getBoundingClientRect();
+                    artPreview.style.left   = rect.left   + 'px';
+                    artPreview.style.top    = rect.top    + 'px';
+                    artPreview.style.width  = rect.width  + 'px';
+                    artPreview.style.height = rect.height + 'px';
+                    artPreview.src = card.dataset.generator;
+                    artPreview.style.display = 'block';
+                });
+                card.addEventListener('mouseleave', () => {
+                    previewTimeout = setTimeout(() => {
+                        artPreview.style.display = 'none';
+                        artPreview.src = 'about:blank';
+                    }, 80);
+                });
+            });
+        }
 
         window.onload = init;
     </script>

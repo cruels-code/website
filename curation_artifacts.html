@@ -7,13 +7,13 @@
     <title>artifacts of Nature̷̛͓̩̦͔͗̾ - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
             color: #FFFFFF;
             font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 300;
+            font-weight: 100;
             margin: 0;
             padding: 60px 60px 100px 60px;
         }
@@ -35,7 +35,7 @@
             background: transparent;
             border: none;
             color: transparent;
-            font-family: 'Courier Prime', monospace;
+            font-family: 'Roboto Condensed', sans-serif;
             font-size: 24px;
             cursor: pointer;
             padding: 20px;
@@ -79,17 +79,17 @@
             aspect-ratio: 1;
             object-fit: cover;
             border: 1px solid #222;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+            filter: grayscale(100%) brightness(0.45);
+            transition: filter 0.4s ease, opacity 0.3s ease;
         }
         .artwork-card:hover .artwork-image {
-            opacity: 1;
+            filter: none;
         }
         .artwork-title {
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 100;
             line-height: 1.4;
-            color: #aaa;
+            color: transparent;
             transition: color 0.3s ease;
         }
         .artwork-card:hover .artwork-title {
@@ -102,7 +102,7 @@
             color: transparent;
             text-decoration: none;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 100;
             z-index: 20;
             padding: 20px;
             pointer-events: auto;
@@ -137,6 +137,10 @@
                 font-size: 20px;
             }
         }
+        /* Generative art preview iframe */
+        #art-preview {
+            image-rendering: pixelated;
+        }
     </style>
 </head>
 <body>
@@ -145,45 +149,53 @@
     <h1>artifacts of Nature̷̛͓̩̦͔͗̾</h1>
     <div class="artworks-grid">
             <a href="https://objkt.com/tokens/KT1W34fj4GNfmaYPsy7abbn1K9dhsAByf7S2/17" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmcWWiocrQwY4nTYfDDsuDKwy4owCkWRRFqdUWfSu1zGtT&output=webp&q=85" crossorigin="anonymous" alt="betta̴̡̡̤͖̘͕̭͑̈́͛͌̚͝" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmcWWiocrQwY4nTYfDDsuDKwy4owCkWRRFqdUWfSu1zGtT&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmW77Gc7zuJVYRDk9Dz4iDSpiHpzd4bGpa87bBSd17Pyqu&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmTBm4mbpgz1Mi9PbNzgohVo1RorUaKzmUunVPfVUiXTRN&output=webp&q=75" crossorigin="anonymous" alt="betta̴̡̡̤͖̘͕̭͑̈́͛͌̚͝" class="artwork-image">
                 <div class="artwork-title">betta̴̡̡̤͖̘͕̭͑̈́͛͌̚͝</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/28529" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeignazjwwdhlbm4seukxejz27d3dndr264lieme6mnq3jjht56ma2m&output=webp&q=85" crossorigin="anonymous" alt="hummingbirḑ̴̘̤͎̮̅͝" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeignazjwwdhlbm4seukxejz27d3dndr264lieme6mnq3jjht56ma2m&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifcjepsxgrk36oytj5urtdippvwfgai66iv4gemp55dthfvgsjplu&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeigkbdyh7fdcrlourfmoaka4ofgcmihrr7gsvm7u6wy3f63fthplrm&output=webp&q=75" crossorigin="anonymous" alt="hummingbirḑ̴̘̤͎̮̅͝" class="artwork-image">
                 <div class="artwork-title">hummingbirḑ̴̘̤͎̮̅͝</div>
             </a>
             <a href="https://objkt.com/tokens/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/29192" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifafnlokmo326idb7ivo2wicehtnmboipxwjon75zxpulja4jp3am&output=webp&q=85" crossorigin="anonymous" alt="red panda̴̧̞̗̫͒̉͒͛" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeifafnlokmo326idb7ivo2wicehtnmboipxwjon75zxpulja4jp3am&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeih52xkltn57ydgnxd53bq264zhpg3b5selkpf7pdeiskur2yhe5fm&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2Fbafybeiesryotugoyv3qcwr4nebrufg5dnqlbdj67cncbd53lr4msw4wjca&output=webp&q=75" crossorigin="anonymous" alt="red panda̴̧̞̗̫͒̉͒͛" class="artwork-image">
                 <div class="artwork-title">red panda̴̧̞̗̫͒̉͒͛</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/844761" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmTiEXsVYPnweDemfCwoLS5QYeAEMgQoZRPzKnxtjnfETB&output=webp&q=85" crossorigin="anonymous" alt="glitched bouquet̸͎̖̦̎̽" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmTiEXsVYPnweDemfCwoLS5QYeAEMgQoZRPzKnxtjnfETB&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmaqEpy79D9ES7pKYUXyXhne6bSnMBSt5MuD9Fk1xbUE52&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmaqEpy79D9ES7pKYUXyXhne6bSnMBSt5MuD9Fk1xbUE52&output=webp&q=75" crossorigin="anonymous" alt="glitched bouquet̸͎̖̦̎̽" class="artwork-image">
                 <div class="artwork-title">glitched bouquet̸͎̖̦̎̽</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/844918" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmXmmNjvMJ7qQFVd8R2qZi1pzBPVd1R2ZuXaRgurGzDdhr&output=webp&q=85" crossorigin="anonymous" alt="lilẏ̵͍̦̜̓̋̒͐" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmXmmNjvMJ7qQFVd8R2qZi1pzBPVd1R2ZuXaRgurGzDdhr&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmdKiCQ2BEctzqJBHiW4Smb8wmh3okVVTfA8EbWYDzF5pS&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmdKiCQ2BEctzqJBHiW4Smb8wmh3okVVTfA8EbWYDzF5pS&output=webp&q=75" crossorigin="anonymous" alt="lilẏ̵͍̦̜̓̋̒͐" class="artwork-image">
                 <div class="artwork-title">lilẏ̵͍̦̜̓̋̒͐</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/845642" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmXu34He6BbVi9imhUCDtKAoagwPAr4hkTdThFrUpap4gG&output=webp&q=85" crossorigin="anonymous" alt="k̶͉̟͖̥̐̍̾o̵̗̙̕i̷̧̞̥͇͒͗" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmXu34He6BbVi9imhUCDtKAoagwPAr4hkTdThFrUpap4gG&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmXu34He6BbVi9imhUCDtKAoagwPAr4hkTdThFrUpap4gG&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmXu34He6BbVi9imhUCDtKAoagwPAr4hkTdThFrUpap4gG&output=webp&q=75" crossorigin="anonymous" alt="k̶͉̟͖̥̐̍̾o̵̗̙̕i̷̧̞̥͇͒͗" class="artwork-image">
                 <div class="artwork-title">k̶͉̟͖̥̐̍̾o̵̗̙̕i̷̧̞̥͇͒͗</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/846283" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmQeSNPPWeoGbqBBgoPsMKkE6Z1QN5nexFJzVYehz35N2A&output=webp&q=85" crossorigin="anonymous" alt="Blossoms̵͓̣̤̾̀̾͂" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmQeSNPPWeoGbqBBgoPsMKkE6Z1QN5nexFJzVYehz35N2A&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmQeSNPPWeoGbqBBgoPsMKkE6Z1QN5nexFJzVYehz35N2A&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmQeSNPPWeoGbqBBgoPsMKkE6Z1QN5nexFJzVYehz35N2A&output=webp&q=75" crossorigin="anonymous" alt="Blossoms̵͓̣̤̾̀̾͂" class="artwork-image">
                 <div class="artwork-title">Blossoms̵͓̣̤̾̀̾͂</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/850164" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmVCnzWbgJH57SVq8E2buQCKVj4rjk1xSeA22CSMapftBf&output=webp&q=85" crossorigin="anonymous" alt="Flowers̴̲̯̫͔̝͎̋͐̈̊͆̃̇ͅ for a friend" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmVCnzWbgJH57SVq8E2buQCKVj4rjk1xSeA22CSMapftBf&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmVCnzWbgJH57SVq8E2buQCKVj4rjk1xSeA22CSMapftBf&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmVCnzWbgJH57SVq8E2buQCKVj4rjk1xSeA22CSMapftBf&output=webp&q=75" crossorigin="anonymous" alt="Flowers̴̲̯̫͔̝͎̋͐̈̊͆̃̇ͅ for a friend" class="artwork-image">
                 <div class="artwork-title">Flowers̴̲̯̫͔̝͎̋͐̈̊͆̃̇ͅ for a friend</div>
             </a>
             <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/858917" class="artwork-card" target="_blank">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYTV9wLsbDvuYt8zGHo7Kf4BnBszuYJUaTNGmhrNADqhs&output=webp&q=85" crossorigin="anonymous" alt="wild flowers̷̭͚͆̅̉̈́̍̅́" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYTV9wLsbDvuYt8zGHo7Kf4BnBszuYJUaTNGmhrNADqhs&output=webp&q=85" data-artifact="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYTV9wLsbDvuYt8zGHo7Kf4BnBszuYJUaTNGmhrNADqhs&q=85" data-thumbnail="https://wsrv.nl/?url=https%3A%2F%2Fnftstorage.link%2Fipfs%2FQmYTV9wLsbDvuYt8zGHo7Kf4BnBszuYJUaTNGmhrNADqhs&output=webp&q=75" crossorigin="anonymous" alt="wild flowers̷̭͚͆̅̉̈́̍̅́" class="artwork-image">
                 <div class="artwork-title">wild flowers̷̭͚͆̅̉̈́̍̅́</div>
             </a>
 
     </div>
     
     <canvas id="webgl"></canvas>
+
+    <!-- Shared generative art preview iframe - only activated on hover for cards with data-generator -->
+    <iframe id="art-preview"
+        sandbox="allow-scripts"
+        style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
+        src="about:blank"
+        title="Generative art preview">
+    </iframe>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -531,7 +543,7 @@
                         
                         if (title) {
                             const titleRect = title.getBoundingClientRect();
-                            tCtx.font = '700 1rem "Courier Prime"';
+                            tCtx.font = '100 1rem "Roboto Condensed"';
                             tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
                             tCtx.textAlign = 'left';
                             tCtx.textBaseline = 'top';
@@ -564,7 +576,7 @@
                 let fontSize = '24px';
                 if (el.tagName === 'H1') fontSize = '2.5rem';
                 
-                tCtx.font = `700 ${fontSize} "Courier Prime"`;
+                tCtx.font = `300 ${fontSize} "Roboto Condensed"`;
                 tCtx.fillStyle = textColor;
                 tCtx.textAlign = 'center';
                 tCtx.textBaseline = 'middle';
@@ -582,6 +594,50 @@
                 }
             });
 
+            // --- Per-artwork torus ring loaders drawn on canvas (glitch shader affects them) ---
+            if (!window._imgTracked) {
+                window._imgTracked = true;
+                document.querySelectorAll('.artwork-image').forEach(img => {
+                    img._loadStart = performance.now();
+                    img._loaded = img.complete && img.naturalWidth > 0;
+                    if (!img._loaded) {
+                        img.addEventListener('load',  () => { img._loaded = true; });
+                        img.addEventListener('error', () => { img._loaded = true; });
+                    }
+                });
+            }
+            document.querySelectorAll('.artwork-image').forEach(img => {
+                if (img._loaded) return;
+                const rect = img.getBoundingClientRect();
+                if (rect.width === 0) return;
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const outer = rect.width * 0.12;
+                const inner = outer * 0.65;
+                const elapsed = performance.now() - (img._loadStart || performance.now());
+                // Ease to ~90% over 4s; never reaches 100% until load event fires
+                const p = 0.9 * (1 - Math.exp(-3 * elapsed / 4000));
+                // Background track (dim hollow ring)
+                tCtx.globalAlpha = 0.22;
+                tCtx.beginPath();
+                tCtx.arc(cx, cy, outer, 0, Math.PI * 2);
+                tCtx.arc(cx, cy, inner, 0, Math.PI * 2, true);
+                tCtx.fillStyle = '#FFFFFF';
+                tCtx.fill('evenodd');
+                // Progress fill clockwise from 12 o'clock
+                if (p > 0.005) {
+                    tCtx.globalAlpha = 0.92;
+                    const a0 = -Math.PI / 2;
+                    const a1 = a0 + Math.PI * 2 * p;
+                    tCtx.beginPath();
+                    tCtx.arc(cx, cy, outer, a0, a1);
+                    tCtx.arc(cx, cy, inner, a1, a0, true);
+                    tCtx.closePath();
+                    tCtx.fillStyle = '#FFFFFF';
+                    tCtx.fill();
+                }
+                tCtx.globalAlpha = 1;
+            });
             textTexture.needsUpdate = true;
         }
 
@@ -682,6 +738,74 @@
             isPhotosensitiveMode = !isPhotosensitiveMode;
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
+
+        // --- IMAGE HOVER ANIMATION ---
+        // On mouseenter: swap to artifact (GIF/original) if available
+        // On mouseleave: restore display image
+        document.querySelectorAll('.artwork-card').forEach(card => {
+            const img = card.querySelector('.artwork-image');
+            if (!img) return;
+            const displaySrc = img.src;
+            const artifactSrc = img.dataset.artifact;
+
+            card.addEventListener('mouseenter', () => {
+                if (artifactSrc) {
+                    const probe = new Image();
+                    probe.crossOrigin = 'anonymous';
+                    probe.onload = () => { img.src = probe.src; };
+                    probe.onerror = () => {}; // stay on display image
+                    probe.src = artifactSrc;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                img.src = displaySrc;
+            });
+        });
+
+        // --- IMAGE ERROR FALLBACK ---
+        // If display_uri fails to load, try thumbnail, then hide gracefully
+        document.querySelectorAll('.artwork-image').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                // Already broken on load
+                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
+                else img.style.visibility = 'hidden';
+            }
+            img.addEventListener('error', function() {
+                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
+                    this.src = this.dataset.thumbnail;
+                } else {
+                    this.style.visibility = 'hidden';
+                }
+            });
+        });
+
+        // --- GENERATIVE ART PREVIEW IFRAME ---
+        // Cards with data-generator (e.g. Ctrl-C) show a live iframe on hover
+        const artPreview = document.getElementById('art-preview');
+        if (artPreview) {
+            let previewTimeout = null;
+
+            document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    clearTimeout(previewTimeout);
+                    const img = card.querySelector('.artwork-image');
+                    if (!img) return;
+                    const rect = img.getBoundingClientRect();
+                    artPreview.style.left   = rect.left   + 'px';
+                    artPreview.style.top    = rect.top    + 'px';
+                    artPreview.style.width  = rect.width  + 'px';
+                    artPreview.style.height = rect.height + 'px';
+                    artPreview.src = card.dataset.generator;
+                    artPreview.style.display = 'block';
+                });
+                card.addEventListener('mouseleave', () => {
+                    previewTimeout = setTimeout(() => {
+                        artPreview.style.display = 'none';
+                        artPreview.src = 'about:blank';
+                    }, 80);
+                });
+            });
+        }
 
         window.onload = init;
     </script>
