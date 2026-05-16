@@ -11,9 +11,26 @@ const fragmentShaderSrc = fragMatch[1];
 const vertMatch = galleryHtml.match(/<script id="vertexShader" type="x-shader\/x-vertex">([\s\S]*?)<\/script>/);
 const vertexShaderSrc = vertMatch[1];
 
-const resolveIpfs = (uri) => {
-    if (!uri) return '';
-    return uri.replace('ipfs://', 'https://assets.objkt.media/file/assets-003/');
+const resolveImage = (token) => {
+    // Pick best URI: display > thumbnail > artifact
+    const rawUri = token.display_uri || token.thumbnail_uri || token.artifact_uri;
+    if (!rawUri) return '';
+
+    let url;
+    if (rawUri.startsWith('ipfs://')) {
+        // Strip any query params (generative artwork index params) – just use the CID
+        const cid = rawUri.replace('ipfs://', '').split('?')[0];
+        // nftstorage.link is a reliable CORS-enabled IPFS gateway
+        url = 'https://nftstorage.link/ipfs/' + cid;
+    } else {
+        // Already an HTTP URL (e.g. media.bootloader.art)
+        url = rawUri;
+    }
+
+    // Route everything through wsrv.nl which:
+    //  1) Adds proper CORS headers so canvas can draw without tainting
+    //  2) Acts as a CDN-bypass for hotlink-protected origins like assets.objkt.media
+    return 'https://wsrv.nl/?url=' + encodeURIComponent(url) + '&output=webp&q=85';
 };
 
 const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
@@ -97,7 +114,7 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             aspect-ratio: 1;
             object-fit: cover;
             border: 1px solid #222;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.3s ease;
         }
         .artwork-card:hover .artwork-image {
@@ -107,7 +124,7 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             font-size: 1rem;
             font-weight: bold;
             line-height: 1.4;
-            color: transparent;
+            color: #aaa;
             transition: color 0.3s ease;
         }
         .artwork-card:hover .artwork-title {
@@ -442,21 +459,9 @@ curations.forEach(curation => {
 
     let itemsHtml = '';
     curation.tokens.forEach(({ token }) => {
-        let link = 'https://objkt.com/tokens/' + token.fa_contract + '/' + token.token_id;
-        
-        let imgUrl = resolveIpfs(token.display_uri || token.thumbnail_uri || token.artifact_uri);
-        if (imgUrl.includes('assets-003') && token.display_uri) {
-           // Instead of hitting assets.objkt.media (which blocks hotlinking), use an IPFS gateway
-           imgUrl = 'https://nftstorage.link/ipfs/' + token.display_uri.replace('ipfs://', '');
-        }
-        
-        // Bootloader API is missing CORS headers on some routes, proxy through wsrv.nl
-        if (imgUrl.includes('bootloader.art')) {
-            const strippedUrl = imgUrl.replace('https://', '').replace('http://', '');
-            imgUrl = 'https://wsrv.nl/?url=' + encodeURIComponent(strippedUrl);
-        }
+        const link = 'https://objkt.com/tokens/' + token.fa_contract + '/' + token.token_id;
+        const imgUrl = resolveImage(token);
 
-        // Add crossorigin="anonymous" so canvas can draw it without tainting
         itemsHtml += '            <a href="' + link + '" class="artwork-card" target="_blank">\n';
         itemsHtml += '                <img src="' + imgUrl + '" crossorigin="anonymous" alt="' + token.name.replace(/"/g, '&quot;') + '" class="artwork-image">\n';
         itemsHtml += '                <div class="artwork-title">' + token.name + '</div>\n';
