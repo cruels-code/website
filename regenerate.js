@@ -11,53 +11,19 @@ const fragmentShaderSrc = fragMatch[1];
 const vertMatch = galleryHtml.match(/<script id="vertexShader" type="x-shader\/x-vertex">([\s\S]*?)<\/script>/);
 const vertexShaderSrc = vertMatch[1];
 
-const resolveIpfs = (rawUri) => {
-    if (!rawUri) return '';
-    if (rawUri.startsWith('data:')) return rawUri;
-    if (rawUri.startsWith('ipfs://')) {
-        const cid = rawUri.replace('ipfs://', '').split('?')[0];
-        // nftstorage.link is confirmed working (returns 302 to content)
-        return 'https://nftstorage.link/ipfs/' + cid;
-    }
-    // Already an HTTP URL - return directly (no proxy needed)
-    return rawUri;
-};
 
 const resolveImage = (token) => {
-    // Pick best URI: display > thumbnail > artifact
-    const rawUri = token.display_uri || token.thumbnail_uri || token.artifact_uri;
-    if (!rawUri) return '';
-    const url = resolveIpfs(rawUri);
-    // Only route IPFS through wsrv.nl (for CORS + WebP). Direct HTTP URLs serve fine without proxy.
-    if (rawUri.startsWith('ipfs://')) {
-        return 'https://wsrv.nl/?url=' + encodeURIComponent(url) + '&output=webp&q=85';
+    // We proxy everything through wsrv.nl to add CORS headers (critical for WebGL texImage2D).
+    
+    // For Bootloader tokens, use their HTTP thumbnail directly.
+    if (token.thumbnail_uri && token.thumbnail_uri.includes('bootloader.art')) {
+        return 'https://wsrv.nl/?url=' + encodeURIComponent(token.thumbnail_uri) + '&output=webp&q=85';
     }
-    return url;
-};
-
-// Resolves artifact URI to a proxy URL that preserves animation (no format conversion)
-const resolveArtifact = (token) => {
-    const rawUri = token.artifact_uri;
-    if (!rawUri) return '';
-    if (rawUri.startsWith('data:')) return '';
-    if (rawUri.includes('?')) return ''; // generative art (HTML), not an image
-    const url = resolveIpfs(rawUri);
-    if (rawUri.startsWith('ipfs://')) {
-        // No output= so GIFs stay animated
-        return 'https://wsrv.nl/?url=' + encodeURIComponent(url) + '&q=85';
-    }
-    return url;
-};
-
-// Resolves thumbnail URI as fallback
-const resolveThumbnail = (token) => {
-    const rawUri = token.thumbnail_uri;
-    if (!rawUri || rawUri.startsWith('data:')) return '';
-    const url = resolveIpfs(rawUri);
-    if (rawUri.startsWith('ipfs://')) {
-        return 'https://wsrv.nl/?url=' + encodeURIComponent(url) + '&output=webp&q=75';
-    }
-    return url;
+    
+    // For all other tokens (mostly IPFS), use the Objkt thumbnail CDN, which is very reliable, 
+    // and proxy it through wsrv.nl to bypass Objkt's hotlink blocking (403 Forbidden).
+    const objktCdnUrl = `https://assets.objkt.media/file/assets-003/${token.fa_contract}/${token.token_id}/thumb400`;
+    return 'https://wsrv.nl/?url=' + encodeURIComponent(objktCdnUrl) + '&output=webp&q=85';
 };
 
 // Resolves generative art iframe URL from artifact_uri ipfs://CID?s=SEED
@@ -629,8 +595,6 @@ curations.forEach(curation => {
             + (resolveGenerator(token) ? ' data-generator="' + resolveGenerator(token) + '"' : '')
             + '>\n';
         itemsHtml += '                <img src="' + imgUrl + '"'
-            + (resolveArtifact(token) ? ' data-artifact="' + resolveArtifact(token) + '"' : '')
-            + (resolveThumbnail(token) ? ' data-thumbnail="' + resolveThumbnail(token) + '"' : '')
             + ' crossorigin="anonymous" alt="' + token.name.replace(/"/g, '&quot;') + '" class="artwork-image">\n';
         itemsHtml += '                <div class="artwork-title">' + token.name + '</div>\n';
         itemsHtml += '            </a>\n';

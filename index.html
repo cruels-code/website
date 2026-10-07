@@ -191,26 +191,18 @@
             p2 *= norm.z;
             p3 *= norm.w;
             vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
-            m = m * m;
-            return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+            m = m * m;            return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
         }
 
-        vec2 getRegionCenter(vec4 region) { return vec2(region.x + region.z / 2.0, region.y + region.w / 2.0); }
-
-        // --- EFFECTS DEFINITIONS ---
-
-        vec4 effect_ChannelSwap(vec4 color, float seed) { float speed = mix(0.5, 2.0, seed); float time_seed = mod(time * speed, 3.0); if (time_seed < 1.0) return vec4(color.g, color.b, color.r, color.a); if (time_seed < 2.0) return vec4(color.b, color.r, color.g, color.a); return vec4(color.g, color.r, color.b, color.a); }
         vec4 effect_Posterize(vec4 color, float seed) { float speed = mix(2.0, 5.0, seed); float numColors = floor(mix(5.0, 20.0, seed)) + sin(time * speed) * 4.0; return floor(color * numColors) / numColors; }
         vec4 effect_PixelSort(vec2 uv, float seed) { float t = mix(0.1, 0.4, seed); float d = floor(mix(10.0, 50.0, u_intensity * seed)); vec2 dir = vec2(1.0/1024.0, 0.0); vec2 f_uv = uv; for (float i = 1.0; i < 30.0; i++) { if(i>=d) break; vec2 s_uv = uv + dir * i; if(s_uv.x>1.0) break; if(luma(texture2D(tDiffuse, s_uv).rgb)<t) break; f_uv = s_uv; } return texture2D(tDiffuse, f_uv); }
         vec4 effect_Thermal(vec4 color, float seed) { float brightness = luma(color.rgb); vec3 t = vec3(1.0, 0.0, 0.0); if (brightness > 0.8) t = vec3(1.0, 1.0, 1.0); else if (brightness > 0.5) t = vec3(1.0, 1.0, 0.0); else if (brightness > 0.2) t = vec3(0.0, 0.0, 1.0); else t = vec3(0.0, 0.0, 0.0); return mix(color, vec4(t, color.a), 0.85); }
-        vec4 effect_WaveDistort(vec2 uv, float seed) { vec2 distorted_uv = uv; float freq = mix(5.0, 30.0, seed); float amp = mix(0.01, 0.05, seed) * u_intensity; distorted_uv.x += sin(distorted_uv.y * freq + time * 1.5) * amp; return texture2D(tDiffuse, distorted_uv); }
         vec4 effect_RGBShift(vec2 uv, float seed) { float s = mix(0.005, 0.03, seed) * u_intensity; return vec4(texture2D(tDiffuse, vec2(uv.x+s, uv.y)).r, texture2D(tDiffuse, uv).g, texture2D(tDiffuse, vec2(uv.x-s, uv.y)).b, 1.0); }
         vec4 effect_Pixelate(vec2 uv, float seed) { float b = floor(mix(50.0, 150.0, seed) * (1.0 - u_intensity * 0.5)); if(b<2.0) return texture2D(tDiffuse, uv); return texture2D(tDiffuse, floor(uv*b)/b); }
         vec4 effect_Noise(vec4 c, vec2 uv, float s) { float n = (rand(uv+time)-0.5) * mix(0.2, 0.7, s) * u_intensity; return c + n; }
         vec4 effect_Tear(vec2 uv, float s) { if(rand(vec2(floor(uv.y*50.0), time)) < mix(0.05, 0.5, s)*u_intensity) uv.x += (rand(vec2(uv.y, time))-0.5)*0.1; return texture2D(tDiffuse, uv); }
         vec4 effect_Shear(vec2 uv, vec4 region, float seed) { if (u_safe_mode) return texture2D(tDiffuse, uv); float speed = mix(1.0, 3.0, seed); vec2 sheared_uv = uv; float shear_factor = (mix(-0.5, 0.5, seed)) * u_intensity * sin(time * speed); float progress = (uv.y - region.y) / region.w; sheared_uv.x += progress * shear_factor; return texture2D(tDiffuse, sheared_uv); }
         vec4 effect_SlitScan(vec2 uv, float seed) { float p=fract(time*0.2+seed); if(abs(uv.y-p)<0.1*u_intensity) return texture2D(tDiffuse, vec2(uv.x+sin(time)*0.1,uv.y)); return texture2D(tDiffuse, uv); }
-        vec4 effect_Strobe(vec4 c, float s) { if (u_safe_mode) return c; return mix(c, vec4(1.0), step(0.5, sin(time * mix(5.0, 20.0, s))) * u_intensity); }
         vec4 effect_ChromaticAberration(vec2 uv, float s) { float a=mix(0.001,0.02,s)*u_intensity*(1.0+sin(time*2.0)*0.8); return vec4(texture2D(tDiffuse, vec2(uv.x+a,uv.y+a)).r, texture2D(tDiffuse, uv).g, texture2D(tDiffuse, vec2(uv.x-a,uv.y-a)).b, 1.0); }
         vec4 effect_PixelStretch(vec2 uv, float seed) { vec4 color = texture2D(tDiffuse, uv); float brightness = luma(color.rgb); float threshold = mix(0.2, 0.8, seed); float stretch = smoothstep(threshold, 1.0, brightness) * (sin(time * mix(5.0, 20.0, seed) + uv.y * 10.0) + 1.0) * 2.0 * u_intensity; vec2 stretched_uv = vec2(uv.x + stretch, uv.y); return texture2D(tDiffuse, stretched_uv); }
         vec4 effect_Dither(vec4 color, vec2 uv, float seed) { mat4 bayerMatrix = mat4(0.0, 8.0, 2.0, 10.0, 12.0, 4.0, 14.0, 6.0, 3.0, 11.0, 1.0, 9.0, 15.0, 7.0, 13.0, 5.0) / 16.0; float brightness = luma(color.rgb); vec2 coord = floor(mod(gl_FragCoord.xy, 4.0)); float threshold = bayerMatrix[int(coord.x)][int(coord.y)]; vec3 ditheredColor = vec3(step(threshold, brightness)); return mix(color, vec4(ditheredColor, color.a), u_intensity * mix(0.5, 1.0, seed)); }
@@ -224,25 +216,18 @@
         vec4 effect_PerlinNoise(vec2 uv, float seed) { float scale = mix(5.0, 15.0, seed); float noise = snoise(vec3(uv * scale, time * 0.2)); vec2 distortedUv = uv + vec2(noise, noise) * 0.05 * u_intensity; return texture2D(tDiffuse, distortedUv); }
         vec4 effect_LumaMesh(vec2 uv, float seed) { float speed = mix(0.5, 2.0, seed); float gridSize = mix(10.0, 40.0, seed) * (1.0 + u_intensity * 2.0) * (1.0 + sin(time * speed) * 0.1); vec2 step = vec2(1.0 / 1024.0, 1.0 / 1024.0); vec4 color = texture2D(tDiffuse, uv); float currentLuma = luma(color.rgb); float rightLuma = luma(texture2D(tDiffuse, uv + vec2(step.x, 0.0)).rgb); float bottomLuma = luma(texture2D(tDiffuse, uv + vec2(0.0, step.y)).rgb); float diffX = abs(currentLuma - rightLuma); float diffY = abs(currentLuma - bottomLuma); vec2 gridUV = fract(uv * gridSize); float lineThickness = 0.1; float lineX = smoothstep(lineThickness, 0.0, abs(gridUV.x - 0.5) * 2.0); float lineY = smoothstep(lineThickness, 0.0, abs(gridUV.y - 0.5) * 2.0); float threshold = mix(0.02, 0.25, 1.0 - seed); float mesh = 0.0; if (diffX > threshold) mesh = max(mesh, lineY); if (diffY > threshold) mesh = max(mesh, lineX); float vividness = pow(mesh, 0.5) * 2.0; return mix(color, vec4(0.0, 1.0, 0.2, 1.0), clamp(vividness, 0.0, 1.0) * u_intensity); }
         vec4 effect_VHS(vec2 uv, vec4 color, float seed) { float shift = mix(0.01, 0.05, seed) * u_intensity; float r = texture2D(tDiffuse, vec2(uv.x + shift, uv.y)).r; float b = texture2D(tDiffuse, vec2(uv.x - shift, uv.y)).b; vec3 shiftedColor = vec3(r, color.g, b); float speed = mix(1.0, 4.0, seed); float distortion = sin(uv.y * 300.0 + time * speed) * 0.02 * u_intensity; if (rand(vec2(floor(uv.y * 25.0), time * 0.5)) < 0.15 * u_intensity) distortion *= 15.0; vec2 distortedUv = uv + vec2(distortion, 0.0); vec4 finalColor = texture2D(tDiffuse, distortedUv); finalColor.rgb = mix(finalColor.rgb, shiftedColor, 0.6); finalColor.rgb -= sin(uv.y * 1024.0 * 0.9) * mix(0.1, 0.25, seed); finalColor.rgb += (rand(uv + time) - 0.5) * mix(0.15, 0.5, seed) * u_intensity; return clamp(finalColor, 0.0, 1.0); }
-        vec4 effect_FindEdges(vec2 uv, float seed) { float threshold = mix(0.1, 0.5, seed); vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); float l = luma(texture2D(tDiffuse, uv - pixelStep).rgb); float r = luma(texture2D(tDiffuse, uv + pixelStep).rgb); float u = luma(texture2D(tDiffuse, uv - vec2(0.0, pixelStep.y)).rgb); float d = luma(texture2D(tDiffuse, uv + vec2(0.0, pixelStep.y)).rgb); float edge = pow(pow(r - l, 2.0) + pow(u - d, 2.0), 0.5); return vec4(vec3(step(threshold, edge)), 1.0); }
+        vec4 effect_FindEdges(vec2 uv, float seed) { float threshold = mix(0.1, 0.5, seed); vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); float l = luma(texture2D(tDiffuse, uv - pixelStep).rgb); float r = luma(texture2D(tDiffuse, uv + pixelStep).rgb); float u = luma(texture2D(tDiffuse, uv - vec2(0.0, pixelStep.y)).rgb); float d = luma(texture2D(tDiffuse, uv + pixelStep).rgb); float edge = pow(pow(r - l, 2.0) + pow(u - d, 2.0), 0.5); return vec4(vec3(step(threshold, edge)), 1.0); }
         vec4 effect_MovingLines(vec4 color, vec2 uv, float seed) { float density = mix(0.1, 1.5, fract(seed * 10.0)); float speed = mix(0.1, 2.0, fract(seed * 100.0)); float phaseStart = time * speed; vec3 source_color = texture2D(tDiffuse, uv).rgb; float brightness = luma(source_color); float phase = brightness * density + phaseStart; float line_thickness = 0.05 * u_intensity; float line = 1.0 - smoothstep(0.0, line_thickness, fract(phase)); float fade = abs(sin(time * PI * 0.5)); line *= fade; return mix(color, vec4(1.0), line); }
         vec4 effect_PencilSketch(vec2 uv, float seed) { vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); vec4 originalColor = texture2D(tDiffuse, uv); float luma_base = luma(originalColor.rgb); float blur_strength = mix(1.0, 4.0, seed); float luma_inverted_blurred = 0.0; luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(-1.0, -1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(0.0, -1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(1.0, -1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(-1.0, 0.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(0.0, 0.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(1.0, 0.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(-1.0, 1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(0.0, 1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(1.0, 1.0) * blur_strength).rgb)); luma_inverted_blurred /= 9.0; float sketch = luma_base / (1.0 - luma_inverted_blurred + 0.001); float noise = rand(uv) * 0.1; vec3 sketch_color = vec3(clamp(sketch - noise, 0.0, 1.0)); return mix(originalColor, vec4(sketch_color, 1.0), u_intensity); }
         vec4 effect_Glow(vec2 uv, float seed) { vec4 originalColor = texture2D(tDiffuse, uv); vec3 finalColor = vec3(0.0); float radius = mix(2.0, 8.0, seed); float brightness_threshold = mix(0.6, 0.95, 1.0 - seed); float glow_intensity = mix(0.5, 1.5, seed) * u_intensity; vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); for (float x = -3.0; x <= 3.0; x++) { for (float y = -3.0; y <= 3.0; y++) { vec2 offset = vec2(x, y) * pixelStep; vec3 sampleColor = texture2D(tDiffuse, uv + offset).rgb; if (luma(sampleColor) > brightness_threshold) finalColor += sampleColor; } } finalColor /= 49.0; return vec4(originalColor.rgb + finalColor * glow_intensity, 1.0); }
         vec4 effect_MeltingLines(vec2 uv, float seed) { float melt_speed = mix(0.1, 0.5, seed); float melt_amount = texture2D(tDiffuse, vec2(uv.x, uv.y - fract(time * melt_speed))).r * 0.2 * u_intensity; vec2 melted_uv = uv - vec2(0.0, melt_amount); return texture2D(tDiffuse, melted_uv); }
         vec4 effect_BlockDisplacement(vec2 uv, float seed) { float grid_size = floor(mix(10.0, 30.0, seed)); vec2 block_uv = floor(uv * grid_size) / grid_size; vec2 displacement = vec2(rand(block_uv) - 0.5, rand(block_uv + 0.1) - 0.5) * 0.05 * u_intensity; return texture2D(tDiffuse, uv + displacement); }
 
-        // --- MAIN PIPELINE ---
         void main() {
             vec2 uv = vUv;
             
-            // Feature 4: VERTICAL HOLD FAILURE (Automatic)
             if (u_apply_crt && !u_safe_mode) {
                 uv.y = fract(uv.y + u_v_offset);
-            }
-
-            // CRT Curvature (Removed)
-            if (u_apply_crt) {
-                // Curvature logic removed
             }
 
             vec4 region = vec4(0.0, 0.0, 1.0, 1.0); 
@@ -252,7 +237,6 @@
             bool inRegion = (uv.x >= u_glitch_region.x && uv.x <= u_glitch_region.x + u_glitch_region.z &&
                              uv.y >= u_glitch_region.y && uv.y <= u_glitch_region.y + u_glitch_region.w);
 
-            // Break word into individual letters/chunks for glitching
             float chunk = floor((uv.x - u_glitch_region.x) / u_glitch_region.z * 12.0);
             float letter_active = step(0.4, rand(vec2(chunk, floor(time * 5.0 + u_effect_seed))));
 
@@ -265,7 +249,6 @@
                 u_active_effect == 31 || u_active_effect == 32
             );
 
-            // Effect Switcher
             if (isFullScreen || (inRegion && letter_active > 0.0)) {
                 if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
                 else if(u_active_effect == 3) effect_color = effect_PixelSort(uv, u_effect_seed);
@@ -276,7 +259,6 @@
                 else if(u_active_effect == 9) effect_color = effect_Tear(uv, u_effect_seed);
                 else if(u_active_effect == 11) effect_color = effect_Shear(uv, region, u_effect_seed);
                 else if(u_active_effect == 13) effect_color = effect_SlitScan(uv, u_effect_seed);
-                // effect 14 (strobe) removed
                 else if(u_active_effect == 15) effect_color = effect_ChromaticAberration(uv, u_effect_seed);
                 else if(u_active_effect == 16) effect_color = effect_PixelStretch(uv, u_effect_seed);
                 else if(u_active_effect == 17) effect_color = effect_Dither(final_color, uv, u_effect_seed);
@@ -302,35 +284,18 @@
                 gl_FragColor = effect_color;
                 return;
             }
-
-            // --- FINAL CRT COMPOSITION ---
             
-            // Map the heavily glitched colors down to pure grayscale/monochrome luminosity
             float lumaVal = dot(effect_color.rgb, vec3(0.299, 0.587, 0.114));
-            
-            // Scanlines
             float scanline = mod(gl_FragCoord.y, 2.0) < 1.0 ? 0.7 : 1.0;
             lumaVal *= scanline;
 
-            // Feature 7: SCREEN REFLECTIONS (Removed)
-            // lumaVal += reflection * 0.05;
-
-            // Apply Phosphor Color (Grayscale)
             vec3 phosphorColor = u_phos_color * lumaVal * 1.5;
             
-            // Flicker
             float flicker = 1.0;
             if (!u_safe_mode) {
                 flicker = 0.98 + 0.02 * sin(time * 20.0);
             }
             phosphorColor *= flicker;
-
-            // Vignette (Removed)
-            // vec2 centeredUv = uv - 0.5;
-            // centeredUv.y /= aspect;
-            // float dist = dot(centeredUv, centeredUv);
-            // float vignette = 1.0 - dist * 1.2;
-            // phosphorColor *= vignette;
 
             gl_FragColor = vec4(phosphorColor, 1.0);
         }
@@ -338,12 +303,12 @@
 
     <script>
         const canvas = document.getElementById('webgl');
-        
-        // Single Text Canvas for Centered Zalgo
         const textCanvas = document.createElement('canvas');
         textCanvas.width = window.innerWidth;
         textCanvas.height = window.innerHeight; 
         const tCtx = textCanvas.getContext('2d');
+
+        let isPhotosensitiveMode = false;
 
         let renderer, scene, camera, plane;
         let textTexture, shaderMaterial;
@@ -357,16 +322,21 @@
         let effectSeeds = [0.5, 0.5, 0.5];
         let targetWordRect = { x: 0, y: 0, w: 1, h: 1 };
 
+        let cachedNavLinks = [];
+        let cachedPhotosensitiveToggle = null;
+
         function init() {
             if (typeof THREE === 'undefined') {
                 setTimeout(init, 100);
                 return;
             }
 
+            cachedNavLinks = Array.from(document.querySelectorAll('#nav-links a'));
+            cachedPhotosensitiveToggle = document.getElementById('photosensitive-toggle');
+
             scene = new THREE.Scene();
             const aspect = window.innerWidth / window.innerHeight;
             
-            // Map the canvas exactly to normalized device coordinates to preserve 1:1 pixel aspect ratio
             camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
             
             renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false });
@@ -387,10 +357,9 @@
                     aspect: { value: aspect },
                     u_active_effect: { value: 0 },
                     u_effect_seed: { value: 0.5 },
-                    u_intensity: { value: 0.8 }, // Slightly higher intensity for single string
+                    u_intensity: { value: 0.8 },
                     u_apply_crt: { value: false },
                     u_safe_mode: { value: false },
-                    // Set phosphor to pure neutral grayscale for Monochrome effect
                     u_phos_color: { value: new THREE.Vector3(0.9, 0.9, 0.9) }, 
                     u_v_offset: { value: 0.0 },
                     u_glitch_region: { value: new THREE.Vector4(0.0, 0.0, 1.0, 1.0) }
@@ -406,11 +375,9 @@
         }
 
         function updateTextLogic(timeSeconds) {
-            // Apply motion blur/trails by not fully clearing the canvas
             tCtx.fillStyle = isPhotosensitiveMode ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.15)'; 
             tCtx.fillRect(0, 0, textCanvas.width, textCanvas.height);
 
-            // Occasional severe jitter on the entire text string
             let offsetX = 0;
             if (!isPhotosensitiveMode && Math.random() > 0.9) {
                 offsetX = (Math.random() - 0.5) * 5; 
@@ -419,11 +386,10 @@
             tCtx.textAlign = 'center';
             tCtx.textBaseline = 'middle';
 
-            const links = document.querySelectorAll('#nav-links a');
-            const toggleBtn = document.getElementById('photosensitive-toggle');
-            
-            const elementsToDraw = Array.from(links);
-            elementsToDraw.push(toggleBtn);
+            const elementsToDraw = [...cachedNavLinks];
+            if (cachedPhotosensitiveToggle) {
+                elementsToDraw.push(cachedPhotosensitiveToggle);
+            }
 
             elementsToDraw.forEach(el => {
                 const rect = el.getBoundingClientRect();
@@ -442,7 +408,6 @@
 
                 tCtx.fillText(el.textContent, centerX, centerY);
 
-                // Double draw occasionally for a canvas-level ghosting/split effect
                 if (!isPhotosensitiveMode && Math.random() > 0.85) {
                     tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
                     tCtx.fillText(el.textContent, centerX - (offsetX * 2), centerY);
@@ -452,8 +417,6 @@
             textTexture.needsUpdate = true;
         }
 
-        let isPhotosensitiveMode = false;
-
         function animate(t) {
             const timeSeconds = t * 0.001;
             
@@ -461,17 +424,12 @@
             
             shaderMaterial.uniforms.time.value = timeSeconds;
 
-            // Roll effects automatically
             effectTimer++;
             if (effectTimer > EFFECT_SWITCH_INTERVAL) {
                 effectTimer = 0;
 
-                // Pick a new word to glitch
-                const links = document.querySelectorAll('#nav-links a');
-                const toggleBtn = document.getElementById('photosensitive-toggle');
-                
-                const possibleTargets = Array.from(links);
-                if (toggleBtn) possibleTargets.push(toggleBtn);
+                const possibleTargets = [...cachedNavLinks];
+                if (cachedPhotosensitiveToggle) possibleTargets.push(cachedPhotosensitiveToggle);
                 
                 if (possibleTargets.length > 0) {
                     const target = possibleTargets[Math.floor(Math.random() * possibleTargets.length)];
@@ -491,7 +449,6 @@
 
                 if (Math.random() > 0.2) {
                     let nextEffect = Math.floor(Math.random() * TOTAL_EFFECTS) + 1;
-                    // Exclude radial effects and disabled ones
                     while ([1, 5, 10, 12, 22, 31, 34].includes(nextEffect)) {
                         nextEffect = Math.floor(Math.random() * TOTAL_EFFECTS) + 1; 
                     }
@@ -505,10 +462,8 @@
                 effectSeeds.length = 3;
             }
 
-            // --- MULTI-PASS RENDERING ---
             shaderMaterial.uniforms.u_glitch_region.value.set(targetWordRect.x, targetWordRect.y, targetWordRect.w, targetWordRect.h);
             
-            // Pass 1: Glitch Layer 1
             shaderMaterial.uniforms.tDiffuse.value = textTexture;
             shaderMaterial.uniforms.u_active_effect.value = activeEffects[0];
             shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[0];
@@ -516,7 +471,6 @@
             renderer.setRenderTarget(rtA);
             renderer.render(scene, camera);
 
-            // Pass 2: Glitch Layer 2
             shaderMaterial.uniforms.tDiffuse.value = rtA.texture;
             shaderMaterial.uniforms.u_active_effect.value = activeEffects[1];
             shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[1];
@@ -524,7 +478,6 @@
             renderer.setRenderTarget(rtB);
             renderer.render(scene, camera);
 
-            // Pass 3 (Final): Glitch Layer 3 + CRT Curves & Monochrome mapping
             shaderMaterial.uniforms.tDiffuse.value = rtB.texture;
             shaderMaterial.uniforms.u_active_effect.value = activeEffects[2];
             shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[2];
@@ -535,7 +488,7 @@
             requestAnimationFrame(animate);
         }
 
-        window.onresize = () => {
+        window.addEventListener('resize', () => {
             if (renderer && camera && shaderMaterial) {
                 const width = window.innerWidth;
                 const height = window.innerHeight;
@@ -544,14 +497,13 @@
                 rtA.setSize(width, height);
                 rtB.setSize(width, height);
                 
-                // Update internal canvas to maintain 1:1 pixel aspect ratio
                 textCanvas.width = width;
                 textCanvas.height = height;
                 
                 camera.updateProjectionMatrix();
                 shaderMaterial.uniforms.aspect.value = aspect;
             }
-        };
+        });
 
         document.getElementById('photosensitive-toggle').addEventListener('click', (e) => {
             isPhotosensitiveMode = !isPhotosensitiveMode;

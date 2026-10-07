@@ -149,19 +149,19 @@
     <h1>cyber_derps</h1>
     <div class="artworks-grid">
             <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4707" class="artwork-card" target="_blank">
-                <img src="https://media.bootloader.art/thumbnail/4707?v=1" data-thumbnail="https://media.bootloader.art/thumbnail/4707?v=1" crossorigin="anonymous" alt="cyber_derps #1" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4707%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #1" class="artwork-image">
                 <div class="artwork-title">cyber_derps #1</div>
             </a>
             <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4714" class="artwork-card" target="_blank">
-                <img src="https://media.bootloader.art/thumbnail/4714?v=1" data-thumbnail="https://media.bootloader.art/thumbnail/4714?v=1" crossorigin="anonymous" alt="cyber_derps #2" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4714%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #2" class="artwork-image">
                 <div class="artwork-title">cyber_derps #2</div>
             </a>
             <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4715" class="artwork-card" target="_blank">
-                <img src="https://media.bootloader.art/thumbnail/4715?v=1" data-thumbnail="https://media.bootloader.art/thumbnail/4715?v=1" crossorigin="anonymous" alt="cyber_derps #3" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4715%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #3" class="artwork-image">
                 <div class="artwork-title">cyber_derps #3</div>
             </a>
             <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4724" class="artwork-card" target="_blank">
-                <img src="https://media.bootloader.art/thumbnail/4724?v=1" data-thumbnail="https://media.bootloader.art/thumbnail/4724?v=1" crossorigin="anonymous" alt="cyber_derps #4" class="artwork-image">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4724%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #4" class="artwork-image">
                 <div class="artwork-title">cyber_derps #4</div>
             </a>
 
@@ -282,8 +282,6 @@
             return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
         }
 
-        vec2 getRegionCenter(vec4 region) { return vec2(region.x + region.z / 2.0, region.y + region.w / 2.0); }
-
         // --- EFFECTS DEFINITIONS ---
 
         vec4 effect_ChannelSwap(vec4 color, float seed) { float speed = mix(0.5, 2.0, seed); float time_seed = mod(time * speed, 3.0); if (time_seed < 1.0) return vec4(color.g, color.b, color.r, color.a); if (time_seed < 2.0) return vec4(color.b, color.r, color.g, color.a); return vec4(color.g, color.r, color.b, color.a); }
@@ -322,14 +320,8 @@
         void main() {
             vec2 uv = vUv;
             
-            // Feature 4: VERTICAL HOLD FAILURE (Automatic)
             if (u_apply_crt && !u_safe_mode) {
                 uv.y = fract(uv.y + u_v_offset);
-            }
-
-            // CRT Curvature (Removed)
-            if (u_apply_crt) {
-                // Curvature logic removed
             }
 
             vec4 region = vec4(0.0, 0.0, 1.0, 1.0); 
@@ -339,7 +331,6 @@
             bool inRegion = (uv.x >= u_glitch_region.x && uv.x <= u_glitch_region.x + u_glitch_region.z &&
                              uv.y >= u_glitch_region.y && uv.y <= u_glitch_region.y + u_glitch_region.w);
 
-            // Break word into individual letters/chunks for glitching
             float chunk = floor((uv.x - u_glitch_region.x) / u_glitch_region.z * 12.0);
             float letter_active = step(0.4, rand(vec2(chunk, floor(time * 5.0 + u_effect_seed))));
 
@@ -352,7 +343,6 @@
                 u_active_effect == 31 || u_active_effect == 32
             );
 
-            // Effect Switcher
             if (isFullScreen || (inRegion && letter_active > 0.0)) {
                 if(u_active_effect == 1) effect_color = effect_ChannelSwap(final_color, u_effect_seed);
                 else if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
@@ -367,7 +357,6 @@
                 else if(u_active_effect == 11) effect_color = effect_Shear(uv, region, u_effect_seed);
                 else if(u_active_effect == 12) effect_color = effect_SlitScan(uv, u_effect_seed);
                 else if(u_active_effect == 13) effect_color = effect_SlitScan(uv, u_effect_seed);
-                // effect 14 (strobe) removed
                 else if(u_active_effect == 15) effect_color = effect_ChromaticAberration(uv, u_effect_seed);
                 else if(u_active_effect == 16) effect_color = effect_PixelStretch(uv, u_effect_seed);
                 else if(u_active_effect == 17) effect_color = effect_Dither(final_color, uv, u_effect_seed);
@@ -397,34 +386,17 @@
                 return;
             }
 
-            // --- FINAL CRT COMPOSITION ---
-            
-            // Map the heavily glitched colors down to pure grayscale/monochrome luminosity
             float lumaVal = dot(effect_color.rgb, vec3(0.299, 0.587, 0.114));
-            
-            // Scanlines
             float scanline = mod(gl_FragCoord.y, 2.0) < 1.0 ? 0.7 : 1.0;
             lumaVal *= scanline;
 
-            // Feature 7: SCREEN REFLECTIONS (Removed)
-            // lumaVal += reflection * 0.05;
-
-            // Apply Phosphor Color (Grayscale)
             vec3 phosphorColor = u_phos_color * lumaVal * 1.5;
             
-            // Flicker
             float flicker = 1.0;
             if (!u_safe_mode) {
                 flicker = 0.98 + 0.02 * sin(time * 20.0);
             }
             phosphorColor *= flicker;
-
-            // Vignette (Removed)
-            // vec2 centeredUv = uv - 0.5;
-            // centeredUv.y /= aspect;
-            // float dist = dot(centeredUv, centeredUv);
-            // float vignette = 1.0 - dist * 1.2;
-            // phosphorColor *= vignette;
 
             gl_FragColor = vec4(phosphorColor, 1.0);
         }
