@@ -14,22 +14,53 @@
             font-family: 'Roboto Condensed', sans-serif;
             font-weight: 100;
             margin: 0;
-            padding: 60px;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
             line-height: 1.6;
+            user-select: text;
         }
+
+        canvas#webgl {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .content-container {
+            position: relative;
+            z-index: 10;
+            padding: 60px;
+            max-width: 900px;
+            pointer-events: auto;
+        }
+
         h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             padding-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
         }
+
+        h2 {
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        }
+
         p {
             max-width: 800px;
-            font-size: 1.1rem;
-            color: #ccc;
+            font-size: 1.15rem;
+            color: #eee;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
         }
+
         .back-link {
             position: fixed;
             bottom: 20px;
@@ -39,10 +70,27 @@
             font-size: 24px;
             font-weight: 100;
             padding: 20px;
+            z-index: 20;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        #photosensitive-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 20;
+            background: transparent;
+            border: none;
+            color: #FFFFFF;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
         }
 
         @media (max-width: 768px) {
-            body {
+            .content-container {
                 padding: 24px;
                 padding-bottom: 90px;
             }
@@ -55,7 +103,7 @@
                 margin-top: 20px;
             }
             p {
-                font-size: 1.15rem;
+                font-size: 1.25rem;
                 line-height: 1.6;
             }
             .back-link {
@@ -64,55 +112,1214 @@
                 padding: 14px 18px;
                 font-size: 24px;
             }
+            #photosensitive-toggle {
+                top: 12px;
+                right: 12px;
+                padding: 14px;
+                font-size: 24px;
+            }
         }
     </style>
+    <!-- Import p5.js and Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+    <button id="photosensitive-toggle" title="Toggle Photosensitive Mode">⚡</button>
     <a href="index.html" class="back-link">Back</a>
-    <h1>Events</h1>
+
+    <div class="content-container">
+        <h1>Events</h1>
         <p>Physical exhibitions, digital festivals, and public screen takeovers across North America, Europe, and Asia: <a href="https://www.instagram.com/p/CkB8alrrNnA/" target="_blank" style="color: #fff;">[1]</a>, <a href="https://www.instagram.com/sutanz/" target="_blank" style="color: #fff;">[2]</a></p>
 
-    <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">October 2018: Official Music Video Directive & Album Feature</h2>
-        <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Event / Medium:</strong> Billboard Magazine Album Premiere & The Global Yuri's Night Celebration</p>
-        <p style="margin-top: 0;"><strong>Details:</strong> The <a href="https://www.youtube.com/watch?v=DosYqVoOcrQ" target="_blank" style="color: #fff; text-decoration: underline;">Official Music Video for "Flight Proven"</a> for the electronic duo Test Shot Starfish (the creators of the official soundtrack for SpaceX rocket launches). The video was screened live at Yuri's Night for space industry professionals and aerospace engineers.</p>
+        <div style="margin-bottom: 30px;">
+            <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">October 2018: Official Music Video Directive & Album Feature</h2>
+            <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Event / Medium:</strong> Billboard Magazine Album Premiere & The Global Yuri's Night Celebration</p>
+            <p style="margin-top: 0;"><strong>Details:</strong> The <a href="https://www.youtube.com/watch?v=DosYqVoOcrQ" target="_blank" style="color: #fff; text-decoration: underline;">Official Music Video for "Flight Proven"</a> for the electronic duo Test Shot Starfish (the creators of the official soundtrack for SpaceX rocket launches). The video was screened live at Yuri's Night for space industry professionals and aerospace engineers.</p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">October 2023: XCOLLABZ Cyberpunk 2023</h2>
+            <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> TSX Entertainment Billboard, Times Square, New York City, United States</p>
+            <p style="margin-top: 0;"><strong>Details:</strong> Organised by the digital art collective XCollabz, Cruel's glitch aesthetic was broadcast live onto the massive, high-definition <a href="https://www.instagram.com/p/CkB8alrrNnA/" target="_blank" style="color: #fff; text-decoration: underline;">TSX Times Square Screen</a> in the heart of Manhattan. <a href="https://www.instagram.com/p/CkB8alrrNnA/" target="_blank" style="color: #fff;">[1]</a></p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">February 2024: Threads of Connection</h2>
+            <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> NFTgoat Gallery, Toronto, Canada</p>
+            <p style="margin-top: 0;"><strong>Details:</strong> Curated by the arts organisation Crown & Palette, this physical-meets-digital gallery exhibition featured Cruel alongside a global roster of 55 digital artists showcasing narrative digital art and contemporary crypto-art.</p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">28–30 May 2024: Art of Tezos: In Motion & Art Beat</h2>
+            <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> Non Fungible Conference (NFC Summit), Pavilhão Carlos Lopes, Lisbon, Portugal</p>
+            <p style="margin-top: 0;"><strong>Details:</strong> Co-curated by XCollabz and Objkt, Cruel's moving-image glitch artworks were streamed on the <a href="https://x.com/tezos/status/1796543250385313871?lang=tr" target="_blank" style="color: #fff; text-decoration: underline;">NFC Summit Main Stage</a> and featured during dedicated immersive art sessions. <a href="https://x.com/tezos/status/1796543250385313871?lang=tr" target="_blank" style="color: #fff;">[1]</a></p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">25 September – 4 October 2024: PHŌS_ Nuestro Fuego (NXT Festival)</h2>
+            <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> Centro Andaluz de Arte Contemporáneo (CAAC), Monasterio de la Cartuja, Seville, Spain</p>
+            <p style="margin-top: 0;"><strong>Details:</strong> Presented by El Faro and supported by the Tezos Foundation, this museum-grade new media exhibition explored light, code, and digital rituals. Cruel was showcased alongside prominent digital figures such as Agoria and Kim Asendorf. <a href="https://www.instagram.com/sutanz/" target="_blank" style="color: #fff;">[1]</a></p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">September 2024: Artcrush Public Screen Takeover</h2>
+            <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> Digital Out-Of-Home (DOOH) Billboards, Jakarta, Indonesia</p>
+            <p style="margin-top: 0;"><strong>Details:</strong> Facilitated by <a href="https://www.artcrush.com/" target="_blank" style="color: #fff; text-decoration: underline;">Artcrush Gallery</a>, Cruel’s chromatic-shifted compositions replaced standard commercial advertisements on massive urban LED screens across high-traffic transit corridors. <a href="https://www.artcrush.com/" target="_blank" style="color: #fff;">[1]</a>, <a href="https://artcrush.agency/" target="_blank" style="color: #fff;">[2]</a></p>
+        </div>
     </div>
 
-    <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">October 2023: XCOLLABZ Cyberpunk 2023</h2>
-        <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> TSX Entertainment Billboard, Times Square, New York City, United States</p>
-        <p style="margin-top: 0;"><strong>Details:</strong> Organised by the digital art collective XCollabz, Cruel's glitch aesthetic was broadcast live onto the massive, high-definition <a href="https://www.instagram.com/p/CkB8alrrNnA/" target="_blank" style="color: #fff; text-decoration: underline;">TSX Times Square Screen</a> in the heart of Manhattan. <a href="https://www.instagram.com/p/CkB8alrrNnA/" target="_blank" style="color: #fff;">[1]</a></p>
-    </div>
+    <canvas id="webgl"></canvas>
 
-    <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">February 2024: Threads of Connection</h2>
-        <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> NFTgoat Gallery, Toronto, Canada</p>
-        <p style="margin-top: 0;"><strong>Details:</strong> Curated by the arts organisation Crown & Palette, this physical-meets-digital gallery exhibition featured Cruel alongside a global roster of 55 digital artists showcasing narrative digital art and contemporary crypto-art.</p>
-    </div>
+    <!-- Three.js Shaders -->
+    <script id="vertexShader" type="x-shader/x-vertex">
 
-    <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">28–30 May 2024: Art of Tezos: In Motion & Art Beat</h2>
-        <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> Non Fungible Conference (NFC Summit), Pavilhão Carlos Lopes, Lisbon, Portugal</p>
-        <p style="margin-top: 0;"><strong>Details:</strong> Co-curated by XCollabz and Objkt, Cruel's moving-image glitch artworks were streamed on the <a href="https://x.com/tezos/status/1796543250385313871?lang=tr" target="_blank" style="color: #fff; text-decoration: underline;">NFC Summit Main Stage</a> and featured during dedicated immersive art sessions. <a href="https://x.com/tezos/status/1796543250385313871?lang=tr" target="_blank" style="color: #fff;">[1]</a></p>
-    </div>
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    
+    </script>
 
-    <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">25 September – 4 October 2024: PHŌS_ Nuestro Fuego (NXT Festival)</h2>
-        <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> Centro Andaluz de Arte Contemporáneo (CAAC), Monasterio de la Cartuja, Seville, Spain</p>
-        <p style="margin-top: 0;"><strong>Details:</strong> Presented by El Faro and supported by the Tezos Foundation, this museum-grade new media exhibition explored light, code, and digital rituals. Cruel was showcased alongside prominent digital figures such as Agoria and Kim Asendorf. <a href="https://www.instagram.com/sutanz/" target="_blank" style="color: #fff;">[1]</a></p>
-    </div>
+    <script id="fragmentShader" type="x-shader/x-fragment">
 
-    <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">September 2024: Artcrush Public Screen Takeover</h2>
-        <p style="margin-top: 0; margin-bottom: 5px; color: #aaa;"><strong>Location:</strong> Digital Out-Of-Home (DOOH) Billboards, Jakarta, Indonesia</p>
-        <p style="margin-top: 0;"><strong>Details:</strong> Facilitated by <a href="https://www.artcrush.com/" target="_blank" style="color: #fff; text-decoration: underline;">Artcrush Gallery</a>, Cruel’s chromatic-shifted compositions replaced standard commercial advertisements on massive urban LED screens across high-traffic transit corridors. <a href="https://www.artcrush.com/" target="_blank" style="color: #fff;">[1]</a>, <a href="https://artcrush.agency/" target="_blank" style="color: #fff;">[2]</a></p>
-    </div>
-<script>
+        precision highp float;
+
+        uniform sampler2D tDiffuse;
+        uniform float time;
+        uniform float aspect;
+        
+        uniform int u_active_effect;
+        uniform float u_effect_seed;
+        uniform float u_intensity;
+        
+        uniform vec3 u_phos_color;
+        uniform float u_v_offset;
+        uniform bool u_apply_crt;
+        uniform bool u_safe_mode;
+        uniform vec4 u_glitch_region;
+
+        varying vec2 vUv;
+
+        #define PI 3.14159265359
+
+        // --- UTILS ---
+        float rand(vec2 co){ return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453); }
+        float luma(vec3 c) { return dot(c, vec3(0.299, 0.587, 0.114)); }
+        
+        vec3 rgb2hsv(vec3 c) {
+            vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+            vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
+            vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
+            float d = q.x - min(q.w, q.y);
+            float e = 1.0e-10;
+            return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+        }
+
+        vec3 hsv2rgb(vec3 c) {
+            vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+            vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+            return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+        }
+
+        mat2 rotate2d(float angle) {
+            return mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+        }
+
+        // Simplex Noise
+        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+        vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+        float snoise(vec3 v) {
+            const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+            const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+            vec3 i  = floor(v + dot(v, C.yyy));
+            vec3 x0 = v - i + dot(i, C.xxx);
+            vec3 g = step(x0.yzx, x0.xyz);
+            vec3 l = 1.0 - g;
+            vec3 i1 = min(g.xyz, l.zxy);
+            vec3 i2 = max(g.xyz, l.zxy);
+            vec3 x1 = x0 - i1 + C.xxx;
+            vec3 x2 = x0 - i2 + C.yyy;
+            vec3 x3 = x0 - D.yyy;
+            i = mod289(i);
+            vec4 p = permute(permute(permute(i.z + vec4(0.0, i1.z, i2.z, 1.0)) + i.y + vec4(0.0, i1.y, i2.y, 1.0)) + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+            float n_ = 0.142857142857;
+            vec3 ns = n_ * D.wyz - D.xzx;
+            vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+            vec4 x_ = floor(j * ns.z);
+            vec4 y_ = floor(j - 7.0 * x_);
+            vec4 x = x_ * ns.x + ns.yyyy;
+            vec4 y = y_ * ns.x + ns.yyyy;
+            vec4 h = 1.0 - abs(x) - abs(y);
+            vec4 b0 = vec4(x.xy, y.xy);
+            vec4 b1 = vec4(x.zw, y.zw);
+            vec4 s0 = floor(b0)*2.0 + 1.0;
+            vec4 s1 = floor(b1)*2.0 + 1.0;
+            vec4 sh = -step(h, vec4(0.0));
+            vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+            vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+            vec3 p0 = vec3(a0.xy,h.x);
+            vec3 p1 = vec3(a0.zw,h.y);
+            vec3 p2 = vec3(a1.xy,h.z);
+            vec3 p3 = vec3(a1.zw,h.w);
+            vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+            p0 *= norm.x;
+            p1 *= norm.y;
+            p2 *= norm.z;
+            p3 *= norm.w;
+            vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+            m = m * m;            return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+        }
+
+        vec4 effect_Posterize(vec4 color, float seed) { float speed = mix(2.0, 5.0, seed); float numColors = floor(mix(5.0, 20.0, seed)) + sin(time * speed) * 4.0; return floor(color * numColors) / numColors; }
+        vec4 effect_PixelSort(vec2 uv, float seed) { float t = mix(0.1, 0.4, seed); float d = floor(mix(10.0, 50.0, u_intensity * seed)); vec2 dir = vec2(1.0/1024.0, 0.0); vec2 f_uv = uv; for (float i = 1.0; i < 30.0; i++) { if(i>=d) break; vec2 s_uv = uv + dir * i; if(s_uv.x>1.0) break; if(luma(texture2D(tDiffuse, s_uv).rgb)<t) break; f_uv = s_uv; } return texture2D(tDiffuse, f_uv); }
+        vec4 effect_Thermal(vec4 color, float seed) { float brightness = luma(color.rgb); vec3 t = vec3(1.0, 0.0, 0.0); if (brightness > 0.8) t = vec3(1.0, 1.0, 1.0); else if (brightness > 0.5) t = vec3(1.0, 1.0, 0.0); else if (brightness > 0.2) t = vec3(0.0, 0.0, 1.0); else t = vec3(0.0, 0.0, 0.0); return mix(color, vec4(t, color.a), 0.85); }
+        vec4 effect_RGBShift(vec2 uv, float seed) { float s = mix(0.005, 0.03, seed) * u_intensity; return vec4(texture2D(tDiffuse, vec2(uv.x+s, uv.y)).r, texture2D(tDiffuse, uv).g, texture2D(tDiffuse, vec2(uv.x-s, uv.y)).b, 1.0); }
+        vec4 effect_Pixelate(vec2 uv, float seed) { float b = floor(mix(50.0, 150.0, seed) * (1.0 - u_intensity * 0.5)); if(b<2.0) return texture2D(tDiffuse, uv); return texture2D(tDiffuse, floor(uv*b)/b); }
+        vec4 effect_Noise(vec4 c, vec2 uv, float s) { float n = (rand(uv+time)-0.5) * mix(0.2, 0.7, s) * u_intensity; return c + n; }
+        vec4 effect_Tear(vec2 uv, float s) { if(rand(vec2(floor(uv.y*50.0), time)) < mix(0.05, 0.5, s)*u_intensity) uv.x += (rand(vec2(uv.y, time))-0.5)*0.1; return texture2D(tDiffuse, uv); }
+        vec4 effect_Shear(vec2 uv, vec4 region, float seed) { if (u_safe_mode) return texture2D(tDiffuse, uv); float speed = mix(1.0, 3.0, seed); vec2 sheared_uv = uv; float shear_factor = (mix(-0.5, 0.5, seed)) * u_intensity * sin(time * speed); float progress = (uv.y - region.y) / region.w; sheared_uv.x += progress * shear_factor; return texture2D(tDiffuse, sheared_uv); }
+        vec4 effect_SlitScan(vec2 uv, float seed) { float p=fract(time*0.2+seed); if(abs(uv.y-p)<0.1*u_intensity) return texture2D(tDiffuse, vec2(uv.x+sin(time)*0.1,uv.y)); return texture2D(tDiffuse, uv); }
+        vec4 effect_ChromaticAberration(vec2 uv, float s) { float a=mix(0.001,0.02,s)*u_intensity*(1.0+sin(time*2.0)*0.8); return vec4(texture2D(tDiffuse, vec2(uv.x+a,uv.y+a)).r, texture2D(tDiffuse, uv).g, texture2D(tDiffuse, vec2(uv.x-a,uv.y-a)).b, 1.0); }
+        vec4 effect_PixelStretch(vec2 uv, float seed) { vec4 color = texture2D(tDiffuse, uv); float brightness = luma(color.rgb); float threshold = mix(0.2, 0.8, seed); float stretch = smoothstep(threshold, 1.0, brightness) * (sin(time * mix(5.0, 20.0, seed) + uv.y * 10.0) + 1.0) * 2.0 * u_intensity; vec2 stretched_uv = vec2(uv.x + stretch, uv.y); return texture2D(tDiffuse, stretched_uv); }
+        vec4 effect_Dither(vec4 color, vec2 uv, float seed) { mat4 bayerMatrix = mat4(0.0, 8.0, 2.0, 10.0, 12.0, 4.0, 14.0, 6.0, 3.0, 11.0, 1.0, 9.0, 15.0, 7.0, 13.0, 5.0) / 16.0; float brightness = luma(color.rgb); vec2 coord = floor(mod(gl_FragCoord.xy, 4.0)); float threshold = bayerMatrix[int(coord.x)][int(coord.y)]; vec3 ditheredColor = vec3(step(threshold, brightness)); return mix(color, vec4(ditheredColor, color.a), u_intensity * mix(0.5, 1.0, seed)); }
+        vec4 effect_SlitScanVertical(vec2 uv, float seed) { float scan_pos = fract(time + seed); float scan_width = 0.05 * u_intensity; if (abs(uv.x - scan_pos) < scan_width) return texture2D(tDiffuse, vec2(scan_pos, uv.y)); return texture2D(tDiffuse, uv); }
+        vec4 effect_ScanlinesEffect(vec4 color, vec2 uv, float seed) { float frequency = mix(400.0, 1000.0, seed); float intensity = mix(0.05, 0.2, seed) * u_intensity; float scanline = sin((uv.y + time * 0.1) * frequency) * intensity; return color - scanline; }
+        vec4 effect_Jitter(vec2 uv, float seed) { float bands = floor(mix(20.0, 60.0, seed)); float band_index = floor(uv.y * bands); float strength = mix(0.005, 0.05, seed) * u_intensity; float offset = (rand(vec2(band_index, floor(time * 10.0))) - 0.5) * strength; return texture2D(tDiffuse, uv + vec2(offset, 0.0)); }
+        vec4 effect_HueCycle(vec4 color, float seed) { vec3 hsv = rgb2hsv(color.rgb); float speed = mix(0.1, 0.5, seed); hsv.x = fract(hsv.x + time * speed); vec3 rgb = hsv2rgb(hsv); return vec4(rgb, color.a); }
+        vec4 effect_LCD(vec2 uv, float seed) { float scale = mix(150.0, 300.0, fract(seed * 1.234)); vec2 pixel_uv = uv * scale; vec2 pixel_frac = fract(pixel_uv); float pixel_width = 1.0 / scale; vec2 red_uv_offset = vec2(pixel_width * 0.333, 0.0); vec2 blue_uv_offset = vec2(-pixel_width * 0.333, 0.0); float r = texture2D(tDiffuse, uv - red_uv_offset).r; float g = texture2D(tDiffuse, uv).g; float b = texture2D(tDiffuse, uv - blue_uv_offset).b; vec3 color = vec3(r, g, b); float grid_intensity = mix(0.3, 0.8, fract(seed * 2.345)); if (pixel_frac.x < 0.1 || pixel_frac.y < 0.1) color *= grid_intensity; return vec4(color, 1.0); }
+        vec4 effect_8Bit(vec4 color, float seed) { float speed = mix(2.0, 5.0, seed); float numColors = floor(mix(2.0, 8.0, seed) + sin(time * speed) * 2.0); return floor(color * numColors) / numColors; }
+        vec4 effect_ASCII(vec2 uv, float seed) { float scale = mix(80.0, 150.0, seed); vec2 charUV = floor(uv * scale) / scale; vec4 color = texture2D(tDiffuse, charUV); float brightness = luma(color.rgb); float charLevel = floor(brightness * 4.0) / 4.0; return vec4(vec3(charLevel), 1.0); }
+        vec4 effect_PerlinNoise(vec2 uv, float seed) { float scale = mix(5.0, 15.0, seed); float noise = snoise(vec3(uv * scale, time * 0.2)); vec2 distortedUv = uv + vec2(noise, noise) * 0.05 * u_intensity; return texture2D(tDiffuse, distortedUv); }
+        vec4 effect_LumaMesh(vec2 uv, float seed) { float speed = mix(0.5, 2.0, seed); float gridSize = mix(10.0, 40.0, seed) * (1.0 + u_intensity * 2.0) * (1.0 + sin(time * speed) * 0.1); vec2 step = vec2(1.0 / 1024.0, 1.0 / 1024.0); vec4 color = texture2D(tDiffuse, uv); float currentLuma = luma(color.rgb); float rightLuma = luma(texture2D(tDiffuse, uv + vec2(step.x, 0.0)).rgb); float bottomLuma = luma(texture2D(tDiffuse, uv + vec2(0.0, step.y)).rgb); float diffX = abs(currentLuma - rightLuma); float diffY = abs(currentLuma - bottomLuma); vec2 gridUV = fract(uv * gridSize); float lineThickness = 0.1; float lineX = smoothstep(lineThickness, 0.0, abs(gridUV.x - 0.5) * 2.0); float lineY = smoothstep(lineThickness, 0.0, abs(gridUV.y - 0.5) * 2.0); float threshold = mix(0.02, 0.25, 1.0 - seed); float mesh = 0.0; if (diffX > threshold) mesh = max(mesh, lineY); if (diffY > threshold) mesh = max(mesh, lineX); float vividness = pow(mesh, 0.5) * 2.0; return mix(color, vec4(0.0, 1.0, 0.2, 1.0), clamp(vividness, 0.0, 1.0) * u_intensity); }
+        vec4 effect_VHS(vec2 uv, vec4 color, float seed) { float shift = mix(0.01, 0.05, seed) * u_intensity; float r = texture2D(tDiffuse, vec2(uv.x + shift, uv.y)).r; float b = texture2D(tDiffuse, vec2(uv.x - shift, uv.y)).b; vec3 shiftedColor = vec3(r, color.g, b); float speed = mix(1.0, 4.0, seed); float distortion = sin(uv.y * 300.0 + time * speed) * 0.02 * u_intensity; if (rand(vec2(floor(uv.y * 25.0), time * 0.5)) < 0.15 * u_intensity) distortion *= 15.0; vec2 distortedUv = uv + vec2(distortion, 0.0); vec4 finalColor = texture2D(tDiffuse, distortedUv); finalColor.rgb = mix(finalColor.rgb, shiftedColor, 0.6); finalColor.rgb -= sin(uv.y * 1024.0 * 0.9) * mix(0.1, 0.25, seed); finalColor.rgb += (rand(uv + time) - 0.5) * mix(0.15, 0.5, seed) * u_intensity; return clamp(finalColor, 0.0, 1.0); }
+        vec4 effect_FindEdges(vec2 uv, float seed) { float threshold = mix(0.1, 0.5, seed); vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); float l = luma(texture2D(tDiffuse, uv - pixelStep).rgb); float r = luma(texture2D(tDiffuse, uv + pixelStep).rgb); float u = luma(texture2D(tDiffuse, uv - vec2(0.0, pixelStep.y)).rgb); float d = luma(texture2D(tDiffuse, uv + pixelStep).rgb); float edge = pow(pow(r - l, 2.0) + pow(u - d, 2.0), 0.5); return vec4(vec3(step(threshold, edge)), 1.0); }
+        vec4 effect_MovingLines(vec4 color, vec2 uv, float seed) { float density = mix(0.1, 1.5, fract(seed * 10.0)); float speed = mix(0.1, 2.0, fract(seed * 100.0)); float phaseStart = time * speed; vec3 source_color = texture2D(tDiffuse, uv).rgb; float brightness = luma(source_color); float phase = brightness * density + phaseStart; float line_thickness = 0.05 * u_intensity; float line = 1.0 - smoothstep(0.0, line_thickness, fract(phase)); float fade = abs(sin(time * PI * 0.5)); line *= fade; return mix(color, vec4(1.0), line); }
+        vec4 effect_PencilSketch(vec2 uv, float seed) { vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); vec4 originalColor = texture2D(tDiffuse, uv); float luma_base = luma(originalColor.rgb); float blur_strength = mix(1.0, 4.0, seed); float luma_inverted_blurred = 0.0; luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(-1.0, -1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(0.0, -1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(1.0, -1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(-1.0, 0.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(0.0, 0.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(1.0, 0.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(-1.0, 1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(0.0, 1.0) * blur_strength).rgb)); luma_inverted_blurred += (1.0 - luma(texture2D(tDiffuse, uv + pixelStep * vec2(1.0, 1.0) * blur_strength).rgb)); luma_inverted_blurred /= 9.0; float sketch = luma_base / (1.0 - luma_inverted_blurred + 0.001); float noise = rand(uv) * 0.1; vec3 sketch_color = vec3(clamp(sketch - noise, 0.0, 1.0)); return mix(originalColor, vec4(sketch_color, 1.0), u_intensity); }
+        vec4 effect_Glow(vec2 uv, float seed) { vec4 originalColor = texture2D(tDiffuse, uv); vec3 finalColor = vec3(0.0); float radius = mix(2.0, 8.0, seed); float brightness_threshold = mix(0.6, 0.95, 1.0 - seed); float glow_intensity = mix(0.5, 1.5, seed) * u_intensity; vec2 pixelStep = vec2(1.0/1024.0, 1.0/1024.0); for (float x = -3.0; x <= 3.0; x++) { for (float y = -3.0; y <= 3.0; y++) { vec2 offset = vec2(x, y) * pixelStep; vec3 sampleColor = texture2D(tDiffuse, uv + offset).rgb; if (luma(sampleColor) > brightness_threshold) finalColor += sampleColor; } } finalColor /= 49.0; return vec4(originalColor.rgb + finalColor * glow_intensity, 1.0); }
+        vec4 effect_MeltingLines(vec2 uv, float seed) { float melt_speed = mix(0.1, 0.5, seed); float melt_amount = texture2D(tDiffuse, vec2(uv.x, uv.y - fract(time * melt_speed))).r * 0.2 * u_intensity; vec2 melted_uv = uv - vec2(0.0, melt_amount); return texture2D(tDiffuse, melted_uv); }
+        vec4 effect_BlockDisplacement(vec2 uv, float seed) { float grid_size = floor(mix(10.0, 30.0, seed)); vec2 block_uv = floor(uv * grid_size) / grid_size; vec2 displacement = vec2(rand(block_uv) - 0.5, rand(block_uv + 0.1) - 0.5) * 0.05 * u_intensity; return texture2D(tDiffuse, uv + displacement); }
+
+        void main() {
+            vec2 uv = vUv;
+            
+            if (u_apply_crt && !u_safe_mode) {
+                uv.y = fract(uv.y + u_v_offset);
+            }
+
+            vec4 region = vec4(0.0, 0.0, 1.0, 1.0); 
+            vec4 final_color = texture2D(tDiffuse, uv);
+            vec4 effect_color = final_color;
+
+            bool inRegion = (uv.x >= u_glitch_region.x && uv.x <= u_glitch_region.x + u_glitch_region.z &&
+                             uv.y >= u_glitch_region.y && uv.y <= u_glitch_region.y + u_glitch_region.w);
+
+            float chunk = floor((uv.x - u_glitch_region.x) / u_glitch_region.z * 12.0);
+            float letter_active = step(0.4, rand(vec2(chunk, floor(time * 5.0 + u_effect_seed))));
+
+            bool isFullScreen = (
+                u_active_effect == 2 || u_active_effect == 4 || u_active_effect == 7 || 
+                u_active_effect == 8 || u_active_effect == 17 || 
+                u_active_effect == 19 || u_active_effect == 21 || u_active_effect == 22 || 
+                u_active_effect == 23 || u_active_effect == 24 || u_active_effect == 25 || 
+                u_active_effect == 27 || u_active_effect == 28 || u_active_effect == 29 ||
+                u_active_effect == 31 || u_active_effect == 32
+            );
+
+            if (isFullScreen || (inRegion && letter_active > 0.0)) {
+                if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
+                else if(u_active_effect == 3) effect_color = effect_PixelSort(uv, u_effect_seed);
+                else if(u_active_effect == 4) effect_color = effect_Thermal(final_color, u_effect_seed);
+                else if(u_active_effect == 6) effect_color = effect_RGBShift(uv, u_effect_seed);
+                else if(u_active_effect == 7) effect_color = effect_Pixelate(uv, u_effect_seed);
+                else if(u_active_effect == 8) effect_color = effect_Noise(final_color, uv, u_effect_seed);
+                else if(u_active_effect == 9) effect_color = effect_Tear(uv, u_effect_seed);
+                else if(u_active_effect == 11) effect_color = effect_Shear(uv, region, u_effect_seed);
+                else if(u_active_effect == 13) effect_color = effect_SlitScan(uv, u_effect_seed);
+                else if(u_active_effect == 15) effect_color = effect_ChromaticAberration(uv, u_effect_seed);
+                else if(u_active_effect == 16) effect_color = effect_PixelStretch(uv, u_effect_seed);
+                else if(u_active_effect == 17) effect_color = effect_Dither(final_color, uv, u_effect_seed);
+                else if(u_active_effect == 18) effect_color = effect_SlitScanVertical(uv, u_effect_seed);
+                else if(u_active_effect == 19) effect_color = effect_ScanlinesEffect(final_color, uv, u_effect_seed);
+                else if(u_active_effect == 20) effect_color = effect_Jitter(uv, u_effect_seed);
+                else if(u_active_effect == 21) effect_color = effect_HueCycle(final_color, u_effect_seed);
+                else if(u_active_effect == 23) effect_color = effect_LCD(uv, u_effect_seed);
+                else if(u_active_effect == 24) effect_color = effect_8Bit(final_color, u_effect_seed);
+                else if(u_active_effect == 25) effect_color = effect_ASCII(uv, u_effect_seed);
+                else if(u_active_effect == 26) effect_color = effect_PerlinNoise(uv, u_effect_seed);
+                else if(u_active_effect == 27) effect_color = effect_LumaMesh(uv, u_effect_seed);
+                else if(u_active_effect == 28) effect_color = effect_VHS(uv, final_color, u_effect_seed);
+                else if(u_active_effect == 29) effect_color = effect_FindEdges(uv, u_effect_seed);
+                else if(u_active_effect == 30) effect_color = effect_MovingLines(final_color, uv, u_effect_seed);
+                else if(u_active_effect == 32) effect_color = effect_PencilSketch(uv, u_effect_seed);
+                else if(u_active_effect == 33) effect_color = effect_Glow(uv, u_effect_seed);
+                else if(u_active_effect == 35) effect_color = effect_MeltingLines(uv, u_effect_seed);
+                else if(u_active_effect == 36) effect_color = effect_BlockDisplacement(uv, u_effect_seed);
+            }
+
+            if (!u_apply_crt) {
+                gl_FragColor = effect_color;
+                return;
+            }
+            
+            float lumaVal = dot(effect_color.rgb, vec3(0.299, 0.587, 0.114));
+            float scanline = mod(gl_FragCoord.y, 2.0) < 1.0 ? 0.7 : 1.0;
+            lumaVal *= scanline;
+
+            vec3 phosphorColor = u_phos_color * lumaVal * 1.5;
+            
+            float flicker = 1.0;
+            if (!u_safe_mode) {
+                flicker = 0.98 + 0.02 * sin(time * 20.0);
+            }
+            phosphorColor *= flicker;
+
+            gl_FragColor = vec4(phosphorColor, 1.0);
+        }
+    
+    </script>
+
+    <!-- Generative Artwork (Pixel Mosher) with double-click/modals removed -->
+    <script>
+    window.isDefaultMode = true;
+    window.seedGallery = [];
+    window.currentSeedIndex = 0;
+    window.lastRotationTime = 0;
+    window.ROTATION_INTERVAL = 30 * 60 * 1000;
+
+    let initialSeed = "";
+    let prng;
+
+    class Sfc32 {
+      constructor(a, b, c, d) {
+        this.a = a; this.b = b; this.c = c; this.d = d;
+        this.seedState = { a, b, c, d };
+      }
+      next() {
+        this.a >>>= 0; this.b >>>= 0; this.c >>>= 0; this.d >>>= 0;
+        let t = (this.a + this.b) | 0;
+        this.a = this.b ^ (this.b >>> 9);
+        this.b = (this.c + (this.c << 3)) | 0;
+        this.c = (this.c << 21) | (this.c >>> 11);
+        this.d = (this.d + 1) | 0;
+        t = (t + this.d) | 0;
+        this.c = (this.c + t) | 0;
+        return (t >>> 0) / 4294967296;
+      }
+      reset() {
+        this.a = this.seedState.a;
+        this.b = this.seedState.b;
+        this.c = this.seedState.c;
+        this.d = this.seedState.d;
+      }
+    }
+
+    function cyrb128(str) {
+      let h1 = 1779033703, h2 = 3144134277, h3 = 1013904242, h4 = 2773480762;
+      for (let i = 0, k; i < str.length; i++) {
+        k = str.charCodeAt(i);
+        h1 = h2 ^ Math.imul(h1 ^ k, 597399067);
+        h2 = h3 ^ Math.imul(h2 ^ k, 2869860233);
+        h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
+        h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
+      }
+      h1 = Math.imul(h3 ^ (h1 >>> 18), 597399067);
+      h2 = Math.imul(h4 ^ (h2 >>> 22), 2869860233);
+      h3 = Math.imul(h1 ^ (h3 >>> 17), 951274213);
+      h4 = Math.imul(h2 ^ (h4 >>> 19), 2716044179);
+      return [(h1 ^ h2 ^ h3 ^ h4) >>> 0, (h2 ^ h1) >>> 0, (h3 ^ h1) >>> 0, (h4 ^ h1) >>> 0];
+    }
+
+    function setBootloaderSeed(hashStr) {
+      initialSeed = hashStr;
+      const seedArr = cyrb128(hashStr);
+      prng = new Sfc32(seedArr[0], seedArr[1], seedArr[2], seedArr[3]);
+      window.$bootloader = {
+        hash: hashStr,
+        rnd: function () { return prng.next(); },
+        iteration: 1,
+        isCapture: false,
+        capture: function () {},
+        setFeatures: function (f) {}
+      };
+      window.$bootloader.rnd.reset = function () { prng.reset(); };
+    }
+
+    function randomHex() {
+      if (window.crypto && window.crypto.getRandomValues) {
+        const array = new Uint8Array(32);
+        window.crypto.getRandomValues(array);
+        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+      }
+      return Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+    }
+
+    setBootloaderSeed(randomHex());
+
+    let resetAnimation = false;
+
+    function eaRandom() {
+      return prng ? prng.next() : Math.random();
+    }
+
+    function hslToRgb(h, s, l, hdrMultiplier = 1.0) {
+      let r, g, b;
+      if (s === 0) {
+        r = g = b = l;
+      } else {
+        const hue2rgb = (p, q, t) => {
+          if (t < 0) t += 1;
+          if (t > 1) t -= 1;
+          if (t < 1 / 6) return p + (q - p) * 6 * t;
+          if (t < 1 / 2) return q;
+          if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+          return p;
+        };
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        const p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1 / 3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1 / 3);
+      }
+      return [r * hdrMultiplier, g * hdrMultiplier, b * hdrMultiplier];
+    }
+
+    let CONFIG = {};
+
+    function generateRandomConfig() {
+      let p_palette = eaRandom();
+      let p_speed = eaRandom();
+      let p_depth = eaRandom();
+      let p_sharpen = eaRandom();
+      let hdr = 1.2 + eaRandom() * 0.8;
+      let baseHue = eaRandom();
+      let compHue = (baseHue + 0.5) % 1.0;
+
+      let palette;
+      if (window.isDefaultMode) {
+        p_palette = 0.0;
+        palette = [
+          [0.0, 0.0, 0.0],
+          [1.0, 1.0, 1.0],
+          [0.0, 0.0, 0.0],
+          [1.0, 1.0, 1.0],
+        ];
+      } else {
+        palette = [
+          hslToRgb(baseHue, 0.8 + eaRandom() * 0.2, 0.2 + eaRandom() * 0.1, 1.0),
+          hslToRgb(baseHue, 0.7 + eaRandom() * 0.3, 0.6 + eaRandom() * 0.2, hdr),
+          hslToRgb(compHue, 0.8 + eaRandom() * 0.2, 0.2 + eaRandom() * 0.1, 1.0),
+          hslToRgb(compHue, 0.7 + eaRandom() * 0.3, 0.6 + eaRandom() * 0.2, hdr),
+        ];
+      }
+
+      let allEffects = Array.from({ length: 50 }, (_, i) => i);
+      for (let i = allEffects.length - 1; i > 0; i--) {
+        const j = Math.floor(eaRandom() * (i + 1));
+        [allEffects[i], allEffects[j]] = [allEffects[j], allEffects[i]];
+      }
+      let activeEffects = window.isDefaultMode ? allEffects : allEffects.slice(0, 7);
+
+      let embossChance = eaRandom();
+      let mirrorChance = eaRandom();
+      let mirrorType = eaRandom();
+
+      CONFIG = {
+        paletteSeed: p_palette,
+        palette: palette,
+        activeEffects: activeEffects,
+        simulation: {
+          numZones: 7,
+          splitDepth: Math.floor(1 + p_depth * 4),
+          effectChangeMin: Math.floor(30 + p_speed * 60),
+          effectChangeMax: Math.floor(120 + p_speed * 240),
+        },
+        movement: {
+          zoneSpeedMax: 2.0 + p_speed * 6.0,
+          easing: 0.05,
+          stutterChance: 0.05,
+          stutterMagnitude: 30.0,
+        },
+        effects: {
+          turbulenceMag: 2.0 + p_speed * 8.0,
+          sharpenIntensity: p_sharpen < 0.05 ? 1.5 : 0.0,
+          embossIntensity: embossChance < 0.05 ? 1.0 : 0.0,
+          mirror: mirrorChance < 0.05 ? (mirrorType < 0.5 ? 1 : 2) : 0,
+        },
+        shaderSeed: eaRandom() * 1000.0,
+      };
+    }
+
+    const vertShader = `#version 300 es
+            in vec3 aPosition;
+            in vec2 aTexCoord;
+            out vec2 vTexCoord;
+            void main() {
+                vTexCoord = aTexCoord;
+                gl_Position = vec4(aPosition, 1.0);
+            }`;
+
+    const InitialPixelShader = `#version 300 es
+            precision mediump float;
+            uniform vec2 u_gridSize;
+            uniform float u_paletteSeed;
+            uniform vec3 u_color0;
+            uniform vec3 u_color1;
+            uniform vec3 u_color2;
+            uniform vec3 u_color3;
+            in vec2 vTexCoord;
+            out vec4 fragColor;
+            
+            void main() {
+                vec2 uv = vTexCoord;
+                vec3 color = vec3(0.0);
+                int layoutIndex = int(floor(u_paletteSeed * 7.0));
+                if (layoutIndex > 6) layoutIndex = 6;
+                
+                if (layoutIndex == 0) {
+                    color = uv.x < 0.5 ? u_color0 : u_color1;
+                } else if (layoutIndex == 1) {
+                    if (fract(u_paletteSeed * 13.0) < 0.5) {
+                        color = mix(u_color0, u_color3, uv.x);
+                    } else {
+                        color = mix(u_color0, u_color3, uv.y);
+                    }
+                } else if (layoutIndex == 2) {
+                    if(uv.x < 0.5 && uv.y < 0.5) color = u_color0;
+                    else if(uv.x >= 0.5 && uv.y < 0.5) color = u_color1;
+                    else if(uv.x < 0.5 && uv.y >= 0.5) color = u_color2;
+                    else color = u_color3;
+                } else if (layoutIndex == 3) {
+                    float d = distance(uv, vec2(0.5));
+                    color = mix(u_color0, u_color1, smoothstep(0.0, 0.8, d));
+                } else if (layoutIndex == 4) {
+                    float w0 = max(0.0, 1.0 - distance(uv, vec2(0.0, 1.0)) * 1.5);
+                    float w1 = max(0.0, 1.0 - distance(uv, vec2(1.0, 1.0)) * 1.5);
+                    float w2 = max(0.0, 1.0 - distance(uv, vec2(0.0, 0.0)) * 1.5);
+                    float w3 = max(0.0, 1.0 - distance(uv, vec2(1.0, 0.0)) * 1.5);
+                    float sum = w0 + w1 + w2 + w3;
+                    if (sum > 0.0) {
+                        color = (u_color0 * w0 + u_color1 * w1 + u_color2 * w2 + u_color3 * w3) / sum;
+                    } else {
+                        color = u_color0;
+                    }
+                } else if (layoutIndex == 5) {
+                    float d = abs(uv.x - 0.5) + abs(uv.y - 0.5);
+                    if (d < 0.15) color = u_color0;
+                    else if (d < 0.3) color = u_color1;
+                    else if (d < 0.45) color = u_color2;
+                    else color = u_color3;
+                } else {
+                    vec2 grid = floor(uv * 8.0);
+                    float checker = mod(grid.x, 2.0) + mod(grid.y, 2.0) * 2.0;
+                    if (checker == 0.0) color = u_color0;
+                    else if (checker == 1.0) color = u_color1;
+                    else if (checker == 2.0) color = u_color2;
+                    else color = u_color3;
+                }
+                fragColor = vec4(color, 1.0);
+            }`;
+
+    const PixelDisplacementShader = `#version 300 es
+            precision mediump float;
+            precision mediump int;
+            in vec2 vTexCoord;
+            uniform mediump float u_frameCount;
+            uniform mediump float u_seed;
+            uniform mediump vec2 u_gridSize;
+            uniform mediump vec4 u_rect0, u_rect1, u_rect2, u_rect3, u_rect4, u_rect5, u_rect6;
+            uniform mediump int u_effect0, u_effect1, u_effect2, u_effect3, u_effect4, u_effect5, u_effect6;
+            uniform bool u_inverted0, u_inverted1, u_inverted2, u_inverted3, u_inverted4, u_inverted5, u_inverted6;
+            uniform sampler2D u_previousPrimaryColor;
+            uniform float u_turbulence;
+            out vec4 fragColor;
+            
+            float random(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233)) + u_seed) * 43758.5453123); }
+            float noise(vec2 st) {
+                vec2 i = floor(st); vec2 f = fract(st); vec2 u = f*f*(3.0-2.0*f);
+                return mix(mix(random(i), random(i + vec2(1.0, 0.0)), u.x),
+                           mix(random(i + vec2(0.0, 1.0)), random(i + vec2(1.0, 1.0)), u.x), u.y);
+            }
+            bool insideBox(vec2 point, vec2 bottomLeft, vec2 topRight) { 
+                return all(greaterThanEqual(point, bottomLeft)) && all(lessThan(point, topRight)); 
+            }
+            
+            void main() {
+                vec2 res = u_gridSize;
+                float time = u_frameCount * 0.006;
+                vec2 texel = 1.0 / res;
+                vec2 offset = vec2(0.0);
+                vec2 fragCoord = vTexCoord * res;
+                
+                mediump vec4 rects[7];
+                rects[0] = u_rect0; rects[1] = u_rect1; rects[2] = u_rect2; rects[3] = u_rect3; rects[4] = u_rect4; rects[5] = u_rect5; rects[6] = u_rect6;
+                
+                mediump int effects[7];
+                effects[0] = u_effect0; effects[1] = u_effect1; effects[2] = u_effect2; effects[3] = u_effect3; effects[4] = u_effect4; effects[5] = u_effect5; effects[6] = u_effect6;
+                
+                bool inversions[7];
+                inversions[0] = u_inverted0; inversions[1] = u_inverted1; inversions[2] = u_inverted2; inversions[3] = u_inverted3; inversions[4] = u_inverted4; inversions[5] = u_inverted5; inversions[6] = u_inverted6;
+                
+                int zoneIndex = -1;
+                for(int i = 0; i < 7; i++) {
+                    vec2 bl = rects[i].xy / res;
+                    vec2 tr = (rects[i].xy + rects[i].zw) / res;
+                    if (insideBox(vTexCoord, bl, tr)) { zoneIndex = i; break; }
+                }
+                
+                if (zoneIndex != -1) {
+                    int eff = effects[zoneIndex];
+                    vec2 center = rects[zoneIndex].xy + rects[zoneIndex].zw * 0.5;
+                    float radius = length(rects[zoneIndex].zw * 0.5);
+                    vec2 rel = (fragCoord - rects[zoneIndex].xy) / rects[zoneIndex].zw;
+                    
+                    if (eff == 0) offset.y = -1.2 * texel.y;
+                    else if (eff == 1) { if (mod(u_frameCount, 30.0) < 5.0) offset.x = floor(random(vec2(floor(time)))*30.0-15.0) * texel.x; }
+                    else if (eff == 2) { vec2 toC = fragCoord - center; if(radius>0.0) offset = normalize(toC) * texel * 4.0; }
+                    else if (eff == 3) { vec2 nCoord = vTexCoord * 10.0 + time; offset = vec2(noise(nCoord)-0.5, noise(nCoord+15.0)-0.5)*texel*u_turbulence; }
+                    else if (eff == 4) offset.x = (rel.y - 0.5) * 15.0 * texel.x;
+                    else if (eff == 5) { vec2 d = fragCoord-center; offset = vec2(-d.y, d.x)*texel*0.1; }
+                    else if (eff == 6) { if (mod(floor(fragCoord.y), 3.0) == 0.0) offset.x = 4.0 * texel.x; }
+                    else if (eff == 7) offset = vec2(random(vTexCoord+time)-0.5, random(vTexCoord-time)-0.5)*4.0*texel;
+                    else if (eff == 8) { vec3 mc = texture(u_previousPrimaryColor, vTexCoord).rgb; offset.x = (mc.r - 0.5) * 8.0 * texel.x; offset.y = (mc.g - 0.5) * 8.0 * texel.y; }
+                    else if (eff == 9) { vec2 toC = center - fragCoord; vec2 perp = vec2(-toC.y, toC.x); if(length(toC)>0.0) offset = normalize(toC * 0.4 + perp) * texel * 2.0; }
+                    else if (eff == 10) offset.y = sin(fragCoord.x * 0.1 + time * 5.0) * 4.0 * texel.y;
+                    else if (eff == 11) { vec2 fromC = fragCoord - center; float dist = length(fromC); float angle = 0.2 * (radius - dist) / radius; mat2 R = mat2(cos(angle), -sin(angle), sin(angle), cos(angle)); if(dist < radius) offset = (R * fromC - fromC) * 5.0 * texel; }
+                    else if (eff == 12) { float angle = noise(vTexCoord * 12.0 + time) * 6.28; offset = vec2(cos(angle), sin(angle)) * 3.0 * texel; }
+                    else if (eff == 13) { vec2 fromC = (fragCoord - center) / rects[zoneIndex].zw; float r2 = dot(fromC, fromC); vec2 newP = center + fromC * (1.0 + 1.5 * r2) * rects[zoneIndex].zw; offset = (newP - fragCoord) * 0.2 * texel; }
+                    else if (eff == 14) { vec2 fromC = fragCoord - center; offset = (fromC * 0.02) * texel; }
+                    else if (eff == 15) { float size = 4.0; vec2 p = floor(fragCoord / size) * size; offset = (p - fragCoord) * texel; }
+                    else if (eff == 16) { offset.x = sin(fragCoord.y * 0.1 + time * 2.0) * 4.0 * texel.x; }
+                    else if (eff == 17) { offset = vec2(random(vTexCoord * time) - 0.5) * 2.0 * texel; }
+                    else if (eff == 18) { offset.x = 2.0 * texel.x; }
+                    else if (eff == 19) { vec2 d = fragCoord - center; float angle = length(d) * 0.05 + time; offset = vec2(cos(angle), sin(angle)) * 2.0 * texel; }
+                    else if (eff == 20) { vec2 d = fragCoord - center; float dist = length(d); if (dist < radius) { float percent = dist / radius; offset = d * (pow(percent, 2.0) - 1.0) * 0.5 * texel; } }
+                    else if (eff == 21) { vec2 d = fragCoord - center; float dist = length(d); if (dist < radius) { float percent = dist / radius; offset = -d * (pow(percent, 2.0) - 1.0) * 0.5 * texel; } }
+                    else if (eff == 22) { offset.x = (fragCoord.x - center.x) * 0.1 * texel.x; }
+                    else if (eff == 23) { offset.y = (fragCoord.y - center.y) * 0.1 * texel.y; }
+                    else if (eff == 24) { offset.y = sin(fragCoord.x * 0.05 + time * 3.0) * 5.0 * texel.y; }
+                    else if (eff == 25) { float d = length(fragCoord - center); offset = normalize(fragCoord - center) * sin(d * 0.1 - time * 5.0) * 3.0 * texel; }
+                    else if (eff == 26) { vec2 p = (fragCoord - center) / radius; float r = length(p); if (r < 1.0) { vec2 uv = p * pow(r, 1.5); offset = (uv * radius + center - fragCoord) * texel; } }
+                    else if (eff == 27) { vec2 p = fragCoord - center; float a = atan(p.y, p.x); float r = length(p); a = mod(a, 3.14159 / 3.0); offset = (vec2(cos(a), sin(a)) * r + center - fragCoord) * texel; }
+                    else if (eff == 28) { if (fragCoord.x > center.x) offset.x = (center.x - fragCoord.x) * 2.0 * texel.x; }
+                    else if (eff == 29) { offset = vec2(sin(time), cos(time)) * 10.0 * texel; }
+                    else if (eff == 30) { offset = vec2(sin(time * 50.0), cos(time * 40.0)) * 2.0 * texel; }
+                    else if (eff == 31) { vec2 b = floor(fragCoord / 20.0) * 20.0; offset = vec2(random(b + time) - 0.5) * 10.0 * texel; }
+                    else if (eff == 32) { offset.x = abs(mod(fragCoord.y * 0.1 + time * 5.0, 10.0) - 5.0) * texel.x; }
+                    else if (eff == 33) { vec2 d = fragCoord - center; float r = length(d); float a = atan(d.y, d.x) + r * 0.05 + time; offset = (vec2(cos(a), sin(a)) * r - d) * texel; }
+                    else if (eff == 34) { offset.y = -noise(vec2(fragCoord.x * 0.1, time)) * 5.0 * texel.y; }
+                    else if (eff == 35) { if (mod(floor(fragCoord.x), 3.0) == 0.0) offset.y = 4.0 * texel.y; }
+                    else if (eff == 36) { float n = random(vTexCoord + vec2(time * 0.1)); offset = vec2(step(0.5, n) * 2.0 - 1.0) * texel * 4.0; }
+                    else if (eff == 37) { vec4 r = texture(u_previousPrimaryColor, vTexCoord + vec2(texel.x, 0.0)); vec4 c = texture(u_previousPrimaryColor, vTexCoord); if (r.r > c.r) offset.x = texel.x; }
+                    else if (eff == 38) { vec4 r = texture(u_previousPrimaryColor, vTexCoord + vec2(texel.x, 0.0)); vec4 c = texture(u_previousPrimaryColor, vTexCoord); if (r.r < c.r) offset.x = -texel.x; }
+                    else if (eff == 39) { vec2 p = fract(vTexCoord * 10.0); float d = length(p - vec2(0.5)); offset = vec2(d) * texel * 10.0; }
+                    else if (eff == 40) { vec2 uv = vTexCoord * 2.0 - vec2(1.0); offset = uv * dot(uv, uv) * 0.05; }
+                    else if (eff == 41) { float tear = step(0.95, random(vec2(vTexCoord.y, time * 0.01))); offset.x = tear * 0.1; }
+                    else if (eff == 42) { float dir = step(0.5, mod(fragCoord.x + fragCoord.y, 10.0) / 10.0); offset = vec2(dir, 1.0-dir) * texel * 2.0; }
+                    else if (eff == 43) { vec2 d = vTexCoord - vec2(0.5); float l = length(d); offset = normalize(d) * sin(l * 20.0 - time * 0.1) * texel * 5.0; }
+                    else if (eff == 44) { offset = vec2(sin(vTexCoord.x * 50.0 + time * 0.1), cos(vTexCoord.y * 50.0 + time * 0.1)) * texel; }
+                    else if (eff == 45) { vec2 d = vTexCoord - vec2(0.5); offset = d * length(d) * 0.1; }
+                    else if (eff == 46) { vec2 d = vTexCoord - vec2(0.5); float zoom = 1.0 + 0.5 * sin(time * 2.0); offset = d * (1.0/zoom - 1.0) * texel * 10.0; }
+                    else if (eff == 48) { float rnd = random(floor(fragCoord / 25.0) + time); if (rnd < 0.15) { vec2 swellCenter = floor(fragCoord / 25.0) * 25.0 + 12.5; offset = (swellCenter - fragCoord) * texel; } }
+                    else if (eff == 49) { 
+                        float blockSize = 15.0; vec2 blockId = floor(fragCoord / blockSize); float rnd = random(blockId + floor(time * 2.0)); 
+                        if(rnd < 0.25) { vec2 blockCenter = blockId * blockSize + (blockSize * 0.5); offset = (blockCenter - fragCoord) * texel; }
+                        else { vec2 toEdge = normalize(fragCoord - (u_gridSize * 0.5)); float wriggle = sin(time * 20.0 + length(fragCoord) * 0.1); vec2 perp = vec2(-toEdge.y, toEdge.x); vec2 moveDir = toEdge * 4.0 + perp * wriggle * 3.0; offset = -moveDir * texel; }
+                    }
+                    
+                    if (inversions[zoneIndex]) offset *= -1.0;
+                }
+                
+                vec2 offPix = floor(offset * res + 0.5);
+                offPix = clamp(offPix, -1.0, 1.0);
+                fragColor = vec4((offPix.x + 1.0) * 0.5, (offPix.y + 1.0) * 0.5, 0.0, 1.0);
+            }`;
+
+    const PixelUpdateShader = `#version 300 es
+            precision mediump float;
+            precision mediump int;
+            in vec2 vTexCoord;
+            uniform sampler2D u_shiftMap;
+            uniform sampler2D u_previousPrimaryColor;
+            uniform mediump vec2 u_gridSize;
+            uniform mediump float u_seed;
+            uniform mediump float u_frameCount;
+            uniform mediump vec4 u_rect0, u_rect1, u_rect2, u_rect3, u_rect4, u_rect5, u_rect6;
+            uniform mediump int u_effect0, u_effect1, u_effect2, u_effect3, u_effect4, u_effect5, u_effect6;
+            uniform bool u_inverted0, u_inverted1, u_inverted2, u_inverted3, u_inverted4, u_inverted5, u_inverted6;
+            out vec4 fragColor;
+            
+            float random(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233)) + u_seed) * 43758.5453123); }
+            bool insideBoxPixel(vec2 point, vec4 rect) { return all(greaterThanEqual(point, rect.xy)) && all(lessThan(point, rect.xy + rect.zw)); }
+            
+            vec2 getShift(ivec2 coord) {
+                vec4 shiftColor = texture(u_shiftMap, (vec2(coord) + 0.5) / u_gridSize);
+                return floor(shiftColor.xy * 2.0 - 1.0 + 0.5);
+            }
+            
+            void main() {
+                vec2 res = u_gridSize;
+                vec2 fragCoord = vTexCoord * res;
+                ivec2 p = ivec2(fragCoord);
+                
+                mediump vec4 rects[7];
+                rects[0] = u_rect0; rects[1] = u_rect1; rects[2] = u_rect2; rects[3] = u_rect3; rects[4] = u_rect4; rects[5] = u_rect5; rects[6] = u_rect6;
+                
+                mediump int effects[7];
+                effects[0] = u_effect0; effects[1] = u_effect1; effects[2] = u_effect2; effects[3] = u_effect3; effects[4] = u_effect4; effects[5] = u_effect5; effects[6] = u_effect6;
+                
+                bool inversions[7];
+                inversions[0] = u_inverted0; inversions[1] = u_inverted1; inversions[2] = u_inverted2; inversions[3] = u_inverted3; inversions[4] = u_inverted4; inversions[5] = u_inverted5; inversions[6] = u_inverted6;
+                
+                ivec2 sourceCoord = p + ivec2(getShift(p));
+                int zoneIndex = -1;
+                
+                for(int i = 0; i < 7; i++) {
+                    if (insideBoxPixel(fragCoord, rects[i])) { zoneIndex = i; break; }
+                }
+                
+                if (zoneIndex != -1 && effects[zoneIndex] == 14) {
+                    vec2 center = rects[zoneIndex].xy + rects[zoneIndex].zw * 0.5;
+                    vec2 fromC = fragCoord - center;
+                    float scale = inversions[zoneIndex] ? 1.01 : 0.99;
+                    vec2 newCoord = center + fromC * scale;
+                    vec2 rel = newCoord - rects[zoneIndex].xy;
+                    rel = mod(rel, rects[zoneIndex].zw);
+                    sourceCoord = ivec2(rects[zoneIndex].xy + rel);
+                }
+                
+                vec2 sourceUV = (vec2(sourceCoord) + 0.5) / res;
+                vec4 pc = texture(u_previousPrimaryColor, sourceUV);
+                
+                if (zoneIndex != -1) {
+                    int eff = effects[zoneIndex];
+                    if (eff == 47) { pc.rgb = 1.0 - pc.rgb; }
+                }
+                fragColor = pc;
+            }`;
+
+    const PostProcessShader = `#version 300 es
+            precision mediump float;
+            precision mediump int;
+            in vec2 vTexCoord;
+            uniform sampler2D u_primaryColorIn;
+            uniform vec2 u_gridSize;
+            uniform float u_sharpenIntensity;
+            uniform float u_embossIntensity;
+            uniform int u_mirror;
+            out vec4 fragColor;
+            
+            void main() {
+                vec2 uv = vTexCoord;
+                if (u_mirror == 1) {
+                    uv.x = uv.x > 0.5 ? 1.0 - uv.x : uv.x;
+                } else if (u_mirror == 2) {
+                    uv.y = uv.y > 0.5 ? 1.0 - uv.y : uv.y;
+                }
+                
+                vec2 texel = 1.0 / u_gridSize;
+                vec4 center = texture(u_primaryColorIn, uv);
+                
+                if (u_sharpenIntensity > 0.0) {
+                    vec4 top    = texture(u_primaryColorIn, uv + vec2(0.0, -texel.y));
+                    vec4 bottom = texture(u_primaryColorIn, uv + vec2(0.0, texel.y));
+                    vec4 left   = texture(u_primaryColorIn, uv + vec2(-texel.x, 0.0));
+                    vec4 right  = texture(u_primaryColorIn, uv + vec2(texel.x, 0.0));
+                    vec4 sharpened = center * 5.0 - top - bottom - left - right;
+                    center = clamp(mix(center, sharpened, u_sharpenIntensity), 0.0, 1.0);
+                }
+                
+                if (u_embossIntensity > 0.0) {
+                    vec4 topLeft = texture(u_primaryColorIn, uv + vec2(-texel.x, -texel.y));
+                    vec4 bottomRight = texture(u_primaryColorIn, uv + vec2(texel.x, texel.y));
+                    vec3 diff = (topLeft.rgb - bottomRight.rgb) * 2.0;
+                    center.rgb = clamp(center.rgb + diff * u_embossIntensity, 0.0, 1.0);
+                }
+                
+                fragColor = center;
+            }`;
+
+    class RectangleManager {
+      constructor(gridCols, gridRows, splitDepth, spacing, maxRectangleCount) {
+        this.gridCols = gridCols;
+        this.gridRows = gridRows;
+        this.maxRectangleCount = maxRectangleCount;
+        this.splitDepth = splitDepth;
+        this.rectangles = [];
+      }
+
+      initializeRectangles() {
+        this.rectangles = [];
+        const container = { x: 0.0, y: 0.0, width: 1.0, height: 1.0 };
+        this.splitSpace(container, 0);
+
+        while (this.rectangles.length < this.maxRectangleCount) {
+          this.rectangles.push({
+            x: 0, y: 0, width: 0, height: 0,
+            vx: 0, vy: 0, targetVx: 0, targetVy: 0,
+          });
+        }
+      }
+
+      splitSpace(container, depth) {
+        if (depth >= this.splitDepth || this.rectangles.length >= this.maxRectangleCount) {
+          const vx = ((eaRandom() - 0.5) * CONFIG.movement.zoneSpeedMax) / this.gridCols;
+          const vy = ((eaRandom() - 0.5) * CONFIG.movement.zoneSpeedMax) / this.gridRows;
+          this.rectangles.push({ ...container, vx, vy, targetVx: vx, targetVy: vy });
+          return;
+        }
+
+        const horiz = eaRandom() > 0.5;
+        if (horiz) {
+          const spRatio = 0.1 + eaRandom() * 0.8;
+          const sp = container.height * spRatio;
+          this.splitSpace({ x: container.x, y: container.y, width: container.width, height: sp }, depth + 1);
+          this.splitSpace({ x: container.x, y: container.y + sp, width: container.width, height: container.height - sp }, depth + 1);
+        } else {
+          const spRatio = 0.1 + eaRandom() * 0.8;
+          const sp = container.width * spRatio;
+          this.splitSpace({ x: container.x, y: container.y, width: sp, height: container.height }, depth + 1);
+          this.splitSpace({ x: container.x + sp, y: container.y, width: container.width - sp, height: container.height }, depth + 1);
+        }
+      }
+
+      update() {
+        this.rectangles.forEach((rect) => {
+          if (rect.width === 0) return;
+
+          if (eaRandom() < CONFIG.movement.stutterChance) {
+            rect.x += ((eaRandom() - 0.5) * CONFIG.movement.stutterMagnitude) / this.gridCols;
+            rect.y += ((eaRandom() - 0.5) * CONFIG.movement.stutterMagnitude) / this.gridRows;
+            rect.targetVx = ((eaRandom() - 0.5) * CONFIG.movement.zoneSpeedMax * 2.0) / this.gridCols;
+            rect.targetVy = ((eaRandom() - 0.5) * CONFIG.movement.zoneSpeedMax * 2.0) / this.gridRows;
+          }
+
+          rect.vx += (rect.targetVx - rect.vx) * CONFIG.movement.easing;
+          rect.vy += (rect.targetVy - rect.vy) * CONFIG.movement.easing;
+          rect.x += rect.vx;
+          rect.y += rect.vy;
+
+          if (rect.x <= 0.0 || rect.x + rect.width >= 1.0) {
+            rect.vx *= -1.0;
+            rect.targetVx *= -1.0;
+          }
+          if (rect.y <= 0.0 || rect.y + rect.height >= 1.0) {
+            rect.vy *= -1.0;
+            rect.targetVy *= -1.0;
+          }
+
+          rect.x = Math.max(0.0, Math.min(rect.x, 1.0 - rect.width));
+          rect.y = Math.max(0.0, Math.min(rect.y, 1.0 - rect.height));
+        });
+      }
+    }
+
+    let shdInit, shdShift, shdPush, shdPost;
+    let prevFbo, nextFbo, shiftFbo;
+    let rectManager;
+    let layer1Effects = [];
+    let myFrameCount = 0;
+    let p5CanvasElement = null;
+
+    function setup() {
+      setAttributes("antialias", false);
+      setAttributes("preserveDrawingBuffer", true);
+      const p5Instance = createCanvas(windowWidth, windowHeight, WEBGL);
+      pixelDensity(1);
+
+      p5CanvasElement = p5Instance.elt;
+      p5CanvasElement.id = 'p5-canvas';
+      p5CanvasElement.style.position = 'fixed';
+      p5CanvasElement.style.top = '0';
+      p5CanvasElement.style.left = '0';
+      p5CanvasElement.style.width = '100vw';
+      p5CanvasElement.style.height = '100vh';
+      p5CanvasElement.style.zIndex = '-9999';
+      p5CanvasElement.style.opacity = '0';
+      p5CanvasElement.style.pointerEvents = 'none';
+
+      try {
+        shdInit = createShader(vertShader, InitialPixelShader);
+        shdShift = createShader(vertShader, PixelDisplacementShader);
+        shdPush = createShader(vertShader, PixelUpdateShader);
+        shdPost = createShader(vertShader, PostProcessShader);
+      } catch (e) {
+        console.error("Shader failed to compile: " + e.message);
+        return;
+      }
+
+      prevFbo = createFramebuffer();
+      nextFbo = createFramebuffer();
+      shiftFbo = createFramebuffer();
+
+      initArtwork();
+    }
+
+    function initArtwork() {
+      if (window.$bootloader && window.$bootloader.hash) {
+        setBootloaderSeed(window.$bootloader.hash);
+      } else {
+        setBootloaderSeed(initialSeed || randomHex());
+      }
+
+      generateRandomConfig();
+
+      rectManager = new RectangleManager(
+        width,
+        height,
+        CONFIG.simulation.splitDepth,
+        0,
+        CONFIG.simulation.numZones,
+      );
+      rectManager.initializeRectangles();
+      assignRandomEffects();
+
+      prevFbo.begin();
+      clear();
+      shader(shdInit);
+      shdInit.setUniform("u_gridSize", [width, height]);
+      shdInit.setUniform("u_paletteSeed", CONFIG.paletteSeed);
+      shdInit.setUniform("u_color0", CONFIG.palette[0]);
+      shdInit.setUniform("u_color1", CONFIG.palette[1]);
+      shdInit.setUniform("u_color2", CONFIG.palette[2]);
+      shdInit.setUniform("u_color3", CONFIG.palette[3]);
+      fullScreenQuad();
+      prevFbo.end();
+
+      nextFbo.begin();
+      clear();
+      shader(shdInit);
+      shdInit.setUniform("u_gridSize", [width, height]);
+      shdInit.setUniform("u_paletteSeed", CONFIG.paletteSeed);
+      shdInit.setUniform("u_color0", CONFIG.palette[0]);
+      shdInit.setUniform("u_color1", CONFIG.palette[1]);
+      shdInit.setUniform("u_color2", CONFIG.palette[2]);
+      shdInit.setUniform("u_color3", CONFIG.palette[3]);
+      fullScreenQuad();
+      nextFbo.end();
+
+      myFrameCount = 0;
+    }
+
+    function fullScreenQuad() {
+      beginShape(TRIANGLES);
+      vertex(-1, -1, 0, 0, 0);
+      vertex(1, -1, 0, 1, 0);
+      vertex(-1, 1, 0, 0, 1);
+      vertex(1, -1, 0, 1, 0);
+      vertex(1, 1, 0, 1, 1);
+      vertex(-1, 1, 0, 0, 1);
+      endShape();
+    }
+
+    function draw() {
+      if (resetAnimation) {
+        initArtwork();
+        resetAnimation = false;
+        myFrameCount = 0;
+      }
+      myFrameCount++;
+
+      if (window.seedGallery && window.seedGallery.length > 1) {
+        if (millis() - window.lastRotationTime > window.ROTATION_INTERVAL) {
+          window.currentSeedIndex = (window.currentSeedIndex + 1) % window.seedGallery.length;
+          setBootloaderSeed(window.seedGallery[window.currentSeedIndex]);
+          resetAnimation = true;
+          window.lastRotationTime = millis();
+        }
+      }
+
+      if (!shdPush) return;
+
+      const currentTime = myFrameCount;
+
+      layer1Effects.forEach((effect) => {
+        if (currentTime - effect.lastResetTime > effect.nextResetInterval) {
+          let poolSize = window.isDefaultMode ? 50 : 7;
+          effect.id = CONFIG.activeEffects[Math.floor(eaRandom() * poolSize)];
+          effect.inverted = eaRandom() < 0.5;
+          effect.lastResetTime = currentTime;
+          effect.nextResetInterval =
+            CONFIG.simulation.effectChangeMin +
+            eaRandom() *
+            (CONFIG.simulation.effectChangeMax -
+              CONFIG.simulation.effectChangeMin);
+        }
+      });
+
+      rectManager.update();
+
+      shiftFbo.begin();
+      clear();
+      shader(shdShift);
+      shdShift.setUniform("u_frameCount", myFrameCount);
+      shdShift.setUniform("u_gridSize", [width, height]);
+      shdShift.setUniform("u_seed", CONFIG.shaderSeed);
+      shdShift.setUniform("u_turbulence", CONFIG.effects.turbulenceMag);
+      shdShift.setUniform("u_previousPrimaryColor", prevFbo);
+      for (let i = 0; i < CONFIG.simulation.numZones; i++) {
+        let r = rectManager.rectangles[i];
+        if (r)
+          shdShift.setUniform(`u_rect${i}`, [r.x * width, r.y * height, r.width * width, r.height * height]);
+        let eff = layer1Effects[i];
+        if (eff) {
+          shdShift.setUniform(`u_effect${i}`, eff.id);
+          shdShift.setUniform(`u_inverted${i}`, eff.inverted);
+        }
+      }
+      fullScreenQuad();
+      shiftFbo.end();
+
+      nextFbo.begin();
+      clear();
+      shader(shdPush);
+      shdPush.setUniform("u_frameCount", myFrameCount);
+      shdPush.setUniform("u_gridSize", [width, height]);
+      shdPush.setUniform("u_seed", CONFIG.shaderSeed);
+      shdPush.setUniform("u_shiftMap", shiftFbo);
+      shdPush.setUniform("u_previousPrimaryColor", prevFbo);
+      for (let i = 0; i < CONFIG.simulation.numZones; i++) {
+        let r = rectManager.rectangles[i];
+        if (r)
+          shdPush.setUniform(`u_rect${i}`, [r.x * width, r.y * height, r.width * width, r.height * height]);
+        let eff = layer1Effects[i];
+        if (eff) {
+          shdPush.setUniform(`u_effect${i}`, eff.id);
+          shdPush.setUniform(`u_inverted${i}`, eff.inverted);
+        }
+      }
+      fullScreenQuad();
+      nextFbo.end();
+
+      let temp = prevFbo;
+      prevFbo = nextFbo;
+      nextFbo = temp;
+
+      clear();
+      shader(shdPost);
+      shdPost.setUniform("u_primaryColorIn", nextFbo);
+      shdPost.setUniform("u_gridSize", [width, height]);
+      shdPost.setUniform("u_sharpenIntensity", CONFIG.effects.sharpenIntensity);
+      shdPost.setUniform("u_embossIntensity", CONFIG.effects.embossIntensity);
+      shdPost.setUniform("u_mirror", CONFIG.effects.mirror);
+      fullScreenQuad();
+    }
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+      if (prevFbo) prevFbo.resize(width, height);
+      if (nextFbo) nextFbo.resize(width, height);
+      if (shiftFbo) shiftFbo.resize(width, height);
+      initArtwork();
+    }
+
+    function assignRandomEffects() {
+      layer1Effects = [];
+      const now = myFrameCount || 0;
+      let poolSize = window.isDefaultMode ? 50 : 7;
+      for (let i = 0; i < CONFIG.simulation.numZones; i++) {
+        layer1Effects.push({
+          id: CONFIG.activeEffects[Math.floor(eaRandom() * poolSize)],
+          inverted: eaRandom() < 0.5,
+          lastResetTime: now,
+          nextResetInterval:
+            CONFIG.simulation.effectChangeMin +
+            eaRandom() *
+            (CONFIG.simulation.effectChangeMax -
+              CONFIG.simulation.effectChangeMin),
+        });
+      }
+    }
+    </script>
+
+    <!-- Three.js Post-Processing Shaders Pipeline applying effects directly onto the artwork at 50% opacity -->
+    <script>
+        const canvas = document.getElementById('webgl');
+        const textCanvas = document.createElement('canvas');
+        textCanvas.width = window.innerWidth;
+        textCanvas.height = window.innerHeight; 
+        const tCtx = textCanvas.getContext('2d');
+
+        let isPhotosensitiveMode = false;
+
+        let renderer, scene, camera, plane;
+        let textTexture, shaderMaterial;
+        let rtA, rtB; 
+        
+        let effectTimer = 0;
+        const EFFECT_SWITCH_INTERVAL = 150; 
+        const TOTAL_EFFECTS = 36;
+        
+        let activeEffects = [0, 0, 0];
+        let effectSeeds = [0.5, 0.5, 0.5];
+        let targetWordRect = { x: 0, y: 0, w: 1, h: 1 };
+
+        function initThree() {
+            if (typeof THREE === 'undefined') {
+                setTimeout(initThree, 100);
+                return;
+            }
+
+            scene = new THREE.Scene();
+            const aspect = window.innerWidth / window.innerHeight;
+            
+            camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+            
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true });
+            renderer.setPixelRatio(window.devicePixelRatio); 
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            rtA = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+            rtB = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+
+            textTexture = new THREE.CanvasTexture(textCanvas);
+            textTexture.minFilter = THREE.LinearFilter;
+            textTexture.magFilter = THREE.LinearFilter;
+
+            shaderMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    tDiffuse: { value: textTexture },
+                    time: { value: 0 },
+                    aspect: { value: aspect },
+                    u_active_effect: { value: 0 },
+                    u_effect_seed: { value: 0.5 },
+                    u_intensity: { value: 0.8 },
+                    u_apply_crt: { value: false },
+                    u_safe_mode: { value: false },
+                    u_phos_color: { value: new THREE.Vector3(0.9, 0.9, 0.9) }, 
+                    u_v_offset: { value: 0.0 },
+                    u_glitch_region: { value: new THREE.Vector4(0.0, 0.0, 1.0, 1.0) }
+                },
+                vertexShader: document.getElementById('vertexShader').textContent,
+                fragmentShader: document.getElementById('fragmentShader').textContent
+            });
+
+            plane = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), shaderMaterial);
+            scene.add(plane);
+
+            requestAnimationFrame(animateThree);
+        }
+
+        function updateArtworkTexture(timeSeconds) {
+            tCtx.fillStyle = 'rgba(0, 0, 0, 1)';
+            tCtx.fillRect(0, 0, textCanvas.width, textCanvas.height);
+
+            // Draw p5 artwork canvas at 50% opacity
+            const p5Canv = document.getElementById('p5-canvas');
+            if (p5Canv) {
+                tCtx.globalAlpha = 0.5;
+                tCtx.drawImage(p5Canv, 0, 0, textCanvas.width, textCanvas.height);
+                tCtx.globalAlpha = 1.0;
+            }
+
+            textTexture.needsUpdate = true;
+        }
+
+        function animateThree(t) {
+            const timeSeconds = t * 0.001;
+            
+            updateArtworkTexture(timeSeconds);
+            
+            shaderMaterial.uniforms.time.value = timeSeconds;
+
+            effectTimer++;
+            if (effectTimer > EFFECT_SWITCH_INTERVAL) {
+                effectTimer = 0;
+
+                const possibleTargets = Array.from(document.querySelectorAll('h1, h2, p, .back-link'));
+                const visibleTargets = possibleTargets.filter(el => {
+                    const r = el.getBoundingClientRect();
+                    return r.bottom > 0 && r.top < window.innerHeight;
+                });
+                
+                if (visibleTargets.length > 0) {
+                    const target = visibleTargets[Math.floor(Math.random() * visibleTargets.length)];
+                    const rect = target.getBoundingClientRect();
+                    
+                    const paddingX = 40; 
+                    const paddingY = 20; 
+                    
+                    const nx = (rect.left - paddingX) / window.innerWidth;
+                    const nw = (rect.width + paddingX * 2) / window.innerWidth;
+                    
+                    const ny = 1.0 - ((rect.top + rect.height + paddingY) / window.innerHeight);
+                    const nh = (rect.height + paddingY * 2) / window.innerHeight;
+                    
+                    targetWordRect = { x: Math.max(0, nx), y: Math.max(0, ny), w: Math.min(1, nw), h: Math.min(1, nh) };
+                } else {
+                    targetWordRect = { x: 0, y: 0, w: 1, h: 1 };
+                }
+
+                if (Math.random() > 0.2) {
+                    let nextEffect = Math.floor(Math.random() * TOTAL_EFFECTS) + 1;
+                    activeEffects.unshift(nextEffect);
+                    effectSeeds.unshift(Math.random());
+                } else {
+                    activeEffects.unshift(0); 
+                    effectSeeds.unshift(Math.random());
+                }
+                activeEffects.length = 3; 
+                effectSeeds.length = 3;
+            }
+
+            shaderMaterial.uniforms.u_glitch_region.value.set(targetWordRect.x, targetWordRect.y, targetWordRect.w, targetWordRect.h);
+            
+            shaderMaterial.uniforms.tDiffuse.value = textTexture;
+            shaderMaterial.uniforms.u_active_effect.value = activeEffects[0];
+            shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[0];
+            shaderMaterial.uniforms.u_apply_crt.value = false;
+            renderer.setRenderTarget(rtA);
+            renderer.render(scene, camera);
+
+            shaderMaterial.uniforms.tDiffuse.value = rtA.texture;
+            shaderMaterial.uniforms.u_active_effect.value = activeEffects[1];
+            shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[1];
+            shaderMaterial.uniforms.u_apply_crt.value = false;
+            renderer.setRenderTarget(rtB);
+            renderer.render(scene, camera);
+
+            shaderMaterial.uniforms.tDiffuse.value = rtB.texture;
+            shaderMaterial.uniforms.u_active_effect.value = activeEffects[2];
+            shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[2];
+            shaderMaterial.uniforms.u_apply_crt.value = true;
+            renderer.setRenderTarget(null);
+            renderer.render(scene, camera);
+
+            requestAnimationFrame(animateThree);
+        }
+
+        window.addEventListener('resize', () => {
+            if (renderer && camera && shaderMaterial) {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                const aspect = width / height;
+                renderer.setSize(width, height);
+                rtA.setSize(width, height);
+                rtB.setSize(width, height);
+                
+                textCanvas.width = width;
+                textCanvas.height = height;
+                
+                camera.updateProjectionMatrix();
+                shaderMaterial.uniforms.aspect.value = aspect;
+            }
+        });
+
+        document.getElementById('photosensitive-toggle').addEventListener('click', (e) => {
+            isPhotosensitiveMode = !isPhotosensitiveMode;
+            shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
+        });
+
         // Allow mouse back/forward buttons to navigate
         window.addEventListener('mouseup', (e) => {
             if (e.button === 3) window.history.back();
             if (e.button === 4) window.history.forward();
         });
+
+        window.addEventListener('load', initThree);
     </script>
 </body>
 </html>
