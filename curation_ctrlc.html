@@ -91,6 +91,8 @@
             line-height: 1.4;
             color: transparent;
             transition: color 0.3s ease;
+            word-wrap: break-word;
+            word-break: break-word;
         }
         .artwork-card:hover .artwork-title {
             color: #FFFFFF;
@@ -995,11 +997,36 @@
                             tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
                             tCtx.textAlign = 'left';
                             tCtx.textBaseline = 'top';
-                            tCtx.fillText(title.textContent, titleRect.left + offsetX, titleRect.top);
                             
+                            const words = title.textContent.split(' ');
+                            let line = '';
+                            let yPos = titleRect.top;
+                            const lineHeight = 22; // ~1.4 * 16px
+                            const maxWidth = rect.width;
+
+                            for (let n = 0; n < words.length; n++) {
+                                // If a single word is insanely long, it will still render on one line, 
+                                // but standard long titles will wrap properly.
+                                const testLine = line + words[n] + ' ';
+                                const metrics = tCtx.measureText(testLine);
+                                const testWidth = metrics.width;
+                                if (testWidth > maxWidth && n > 0) {
+                                    tCtx.fillText(line, titleRect.left + offsetX, yPos);
+                                    if (!isPhotosensitiveMode && Math.random() > 0.85) {
+                                        tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                                        tCtx.fillText(line, titleRect.left - (offsetX * 2), yPos);
+                                        tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
+                                    }
+                                    line = words[n] + ' ';
+                                    yPos += lineHeight;
+                                } else {
+                                    line = testLine;
+                                }
+                            }
+                            tCtx.fillText(line, titleRect.left + offsetX, yPos);
                             if (!isPhotosensitiveMode && Math.random() > 0.85) {
                                 tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-                                tCtx.fillText(title.textContent, titleRect.left - (offsetX * 2), titleRect.top);
+                                tCtx.fillText(line, titleRect.left - (offsetX * 2), yPos);
                             }
                         }
                     }
