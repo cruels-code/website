@@ -224,8 +224,6 @@
             return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
         }
 
-        vec2 getRegionCenter(vec4 region) { return vec2(region.x + region.z / 2.0, region.y + region.w / 2.0); }
-
         // --- EFFECTS DEFINITIONS ---
 
         vec4 effect_ChannelSwap(vec4 color, float seed) { float speed = mix(0.5, 2.0, seed); float time_seed = mod(time * speed, 3.0); if (time_seed < 1.0) return vec4(color.g, color.b, color.r, color.a); if (time_seed < 2.0) return vec4(color.b, color.r, color.g, color.a); return vec4(color.g, color.r, color.b, color.a); }
@@ -264,14 +262,8 @@
         void main() {
             vec2 uv = vUv;
             
-            // Feature 4: VERTICAL HOLD FAILURE (Automatic)
             if (u_apply_crt && !u_safe_mode) {
                 uv.y = fract(uv.y + u_v_offset);
-            }
-
-            // CRT Curvature (Removed)
-            if (u_apply_crt) {
-                // Curvature logic removed
             }
 
             vec4 region = vec4(0.0, 0.0, 1.0, 1.0); 
@@ -281,7 +273,6 @@
             bool inRegion = (uv.x >= u_glitch_region.x && uv.x <= u_glitch_region.x + u_glitch_region.z &&
                              uv.y >= u_glitch_region.y && uv.y <= u_glitch_region.y + u_glitch_region.w);
 
-            // Break word into individual letters/chunks for glitching
             float chunk = floor((uv.x - u_glitch_region.x) / u_glitch_region.z * 12.0);
             float letter_active = step(0.4, rand(vec2(chunk, floor(time * 5.0 + u_effect_seed))));
 
@@ -294,7 +285,6 @@
                 u_active_effect == 31 || u_active_effect == 32
             );
 
-            // Effect Switcher
             if (isFullScreen || (inRegion && letter_active > 0.0)) {
                 if(u_active_effect == 1) effect_color = effect_ChannelSwap(final_color, u_effect_seed);
                 else if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
@@ -309,7 +299,6 @@
                 else if(u_active_effect == 11) effect_color = effect_Shear(uv, region, u_effect_seed);
                 else if(u_active_effect == 12) effect_color = effect_SlitScan(uv, u_effect_seed);
                 else if(u_active_effect == 13) effect_color = effect_SlitScan(uv, u_effect_seed);
-                // effect 14 (strobe) removed
                 else if(u_active_effect == 15) effect_color = effect_ChromaticAberration(uv, u_effect_seed);
                 else if(u_active_effect == 16) effect_color = effect_PixelStretch(uv, u_effect_seed);
                 else if(u_active_effect == 17) effect_color = effect_Dither(final_color, uv, u_effect_seed);
@@ -339,34 +328,17 @@
                 return;
             }
 
-            // --- FINAL CRT COMPOSITION ---
-            
-            // Map the heavily glitched colors down to pure grayscale/monochrome luminosity
             float lumaVal = dot(effect_color.rgb, vec3(0.299, 0.587, 0.114));
-            
-            // Scanlines
             float scanline = mod(gl_FragCoord.y, 2.0) < 1.0 ? 0.7 : 1.0;
             lumaVal *= scanline;
 
-            // Feature 7: SCREEN REFLECTIONS (Removed)
-            // lumaVal += reflection * 0.05;
-
-            // Apply Phosphor Color (Grayscale)
             vec3 phosphorColor = u_phos_color * lumaVal * 1.5;
             
-            // Flicker
             float flicker = 1.0;
             if (!u_safe_mode) {
                 flicker = 0.98 + 0.02 * sin(time * 20.0);
             }
             phosphorColor *= flicker;
-
-            // Vignette (Removed)
-            // vec2 centeredUv = uv - 0.5;
-            // centeredUv.y /= aspect;
-            // float dist = dot(centeredUv, centeredUv);
-            // float vignette = 1.0 - dist * 1.2;
-            // phosphorColor *= vignette;
 
             gl_FragColor = vec4(phosphorColor, 1.0);
         }
@@ -395,15 +367,23 @@
         let targetWordRect = { x: 0, y: 0, w: 1, h: 1 };
 
         function init() {
+        let cachedNavLinks = [];
+        let cachedPhotosensitiveToggle = null;
+        let cachedBackLink = null;
+
+        function init() {
             if (typeof THREE === 'undefined') {
                 setTimeout(init, 100);
                 return;
             }
 
+            cachedNavLinks = Array.from(document.querySelectorAll('#nav-links a'));
+            cachedPhotosensitiveToggle = document.getElementById('photosensitive-toggle');
+            cachedBackLink = document.querySelector('.back-link');
+
             scene = new THREE.Scene();
             const aspect = window.innerWidth / window.innerHeight;
             
-            // Map the canvas exactly to normalized device coordinates to preserve 1:1 pixel aspect ratio
             camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
             
             renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false });
@@ -424,10 +404,9 @@
                     aspect: { value: aspect },
                     u_active_effect: { value: 0 },
                     u_effect_seed: { value: 0.5 },
-                    u_intensity: { value: 0.8 }, // Slightly higher intensity for single string
+                    u_intensity: { value: 0.8 },
                     u_apply_crt: { value: false },
                     u_safe_mode: { value: false },
-                    // Set phosphor to pure neutral grayscale for Monochrome effect
                     u_phos_color: { value: new THREE.Vector3(0.9, 0.9, 0.9) }, 
                     u_v_offset: { value: 0.0 },
                     u_glitch_region: { value: new THREE.Vector4(0.0, 0.0, 1.0, 1.0) }
@@ -443,23 +422,17 @@
         }
 
         function updateTextLogic(timeSeconds) {
-            // Apply motion blur/trails by not fully clearing the canvas
             tCtx.fillStyle = isPhotosensitiveMode ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.15)'; 
             tCtx.fillRect(0, 0, textCanvas.width, textCanvas.height);
 
-            // Occasional severe jitter on the entire text string
             let offsetX = 0;
             if (!isPhotosensitiveMode && Math.random() > 0.9) {
                 offsetX = (Math.random() - 0.5) * 5; 
             }
 
-            const links = document.querySelectorAll('#nav-links a');
-            const toggleBtn = document.getElementById('photosensitive-toggle');
-            const backLink = document.querySelector('.back-link');
-            
-            const elementsToDraw = Array.from(links);
-            elementsToDraw.push(toggleBtn);
-            elementsToDraw.push(backLink);
+            const elementsToDraw = [...cachedNavLinks];
+            if (cachedPhotosensitiveToggle) elementsToDraw.push(cachedPhotosensitiveToggle);
+            if (cachedBackLink) elementsToDraw.push(cachedBackLink);
 
             elementsToDraw.forEach(el => {
                 const rect = el.getBoundingClientRect();
@@ -479,7 +452,6 @@
                 const centerY = rect.top + (rect.height / 2);
                 tCtx.fillText(el.textContent, centerX, centerY);
 
-                // Double draw occasionally for a canvas-level ghosting/split effect
                 if (!isPhotosensitiveMode && Math.random() > 0.85) {
                     tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
                     tCtx.fillText(el.textContent, centerX - offsetX * 3, centerY);
@@ -496,19 +468,13 @@
             
             shaderMaterial.uniforms.time.value = timeSeconds;
 
-            // Roll effects automatically
             effectTimer++;
             if (effectTimer > EFFECT_SWITCH_INTERVAL) {
                 effectTimer = 0;
 
-                // Pick a new word to glitch
-                const links = document.querySelectorAll('#nav-links a');
-                const toggleBtn = document.getElementById('photosensitive-toggle');
-                const backLink = document.querySelector('.back-link');
-                
-                const possibleTargets = Array.from(links);
-                if (toggleBtn) possibleTargets.push(toggleBtn);
-                if (backLink) possibleTargets.push(backLink);
+                const possibleTargets = [...cachedNavLinks];
+                if (cachedPhotosensitiveToggle) possibleTargets.push(cachedPhotosensitiveToggle);
+                if (cachedBackLink) possibleTargets.push(cachedBackLink);
                 
                 if (possibleTargets.length > 0) {
                     const target = possibleTargets[Math.floor(Math.random() * possibleTargets.length)];
@@ -538,10 +504,8 @@
                 effectSeeds.length = 3;
             }
 
-            // --- MULTI-PASS RENDERING ---
             shaderMaterial.uniforms.u_glitch_region.value.set(targetWordRect.x, targetWordRect.y, targetWordRect.w, targetWordRect.h);
             
-            // Pass 1: Glitch Layer 1
             shaderMaterial.uniforms.tDiffuse.value = textTexture;
             shaderMaterial.uniforms.u_active_effect.value = activeEffects[0];
             shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[0];
@@ -549,7 +513,6 @@
             renderer.setRenderTarget(rtA);
             renderer.render(scene, camera);
 
-            // Pass 2: Glitch Layer 2
             shaderMaterial.uniforms.tDiffuse.value = rtA.texture;
             shaderMaterial.uniforms.u_active_effect.value = activeEffects[1];
             shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[1];
@@ -557,7 +520,6 @@
             renderer.setRenderTarget(rtB);
             renderer.render(scene, camera);
 
-            // Pass 3 (Final): Glitch Layer 3 + CRT Curves & Monochrome mapping
             shaderMaterial.uniforms.tDiffuse.value = rtB.texture;
             shaderMaterial.uniforms.u_active_effect.value = activeEffects[2];
             shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[2];
@@ -568,7 +530,7 @@
             requestAnimationFrame(animate);
         }
 
-        window.onresize = () => {
+        window.addEventListener('resize', () => {
             if (renderer && camera && shaderMaterial) {
                 const width = window.innerWidth;
                 const height = window.innerHeight;
@@ -577,14 +539,13 @@
                 rtA.setSize(width, height);
                 rtB.setSize(width, height);
                 
-                // Update internal canvas to maintain 1:1 pixel aspect ratio
                 textCanvas.width = width;
                 textCanvas.height = height;
                 
                 camera.updateProjectionMatrix();
                 shaderMaterial.uniforms.aspect.value = aspect;
             }
-        };
+        });
 
         document.getElementById('photosensitive-toggle').addEventListener('click', (e) => {
             isPhotosensitiveMode = !isPhotosensitiveMode;
@@ -592,6 +553,13 @@
         });
 
         window.onload = init;
+    </script>
+<script>
+        // Allow mouse back/forward buttons to navigate
+        window.addEventListener('mouseup', (e) => {
+            if (e.button === 3) window.history.back();
+            if (e.button === 4) window.history.forward();
+        });
     </script>
 </body>
 </html>
