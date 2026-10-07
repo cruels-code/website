@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery - Other mind</title>
+    <meta name="referrer" content="no-referrer">
+    <title>scenes̷̜̐̏͐ - Curation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
-            margin: 0;
-            overflow: hidden;
             color: #FFFFFF;
             font-family: 'Roboto Condensed', sans-serif;
             font-weight: 100;
-            user-select: none;
+            margin: 0;
+            padding: 60px 60px 100px 60px;
         }
         canvas#webgl {
             position: fixed;
@@ -25,41 +25,7 @@
             height: 100vh;
             display: block;
             z-index: 1;
-        }
-        #nav-links {
-            position: fixed;
-            top: 12%;
-            left: 5%;
-            width: 90%;
-            height: 76%;
-            z-index: 10;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 20px;
-            align-items: center;
-            justify-items: center;
-        }
-        #nav-links a {
-            color: transparent;
-            text-decoration: none;
-            font-size: 20px;
-            font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 100;
-            cursor: pointer;
-            text-align: center;
-            white-space: nowrap;
-        }
-        .back-link {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            color: transparent;
-            text-decoration: none;
-            font-size: 24px;
-            font-weight: 100;
-            z-index: 20;
-            padding: 20px;
+            pointer-events: none;
         }
         #photosensitive-toggle {
             position: fixed;
@@ -73,32 +39,99 @@
             font-size: 24px;
             cursor: pointer;
             padding: 20px;
+            pointer-events: auto;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            color: transparent;
+            position: relative;
+            z-index: 10;
+        }
+        .artworks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 10;
+        }
+        .artwork-card {
+            border: 1px solid #333;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: border-color 0.3s ease;
+            text-decoration: none;
+            color: transparent;
+            pointer-events: auto;
+        }
+        .artwork-card:hover {
+            border-color: #FFFFFF;
+            background-color: rgba(17, 17, 17, 0.8);
+        }
+        .artwork-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border: 1px solid #222;
+            filter: grayscale(100%) brightness(0.45);
+            transition: filter 0.4s ease, opacity 0.3s ease;
+        }
+        .artwork-card:hover .artwork-image {
+            filter: none;
+        }
+        .artwork-title {
+            font-size: 1rem;
+            font-weight: 100;
+            line-height: 1.4;
+            color: transparent;
+            transition: color 0.3s ease;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+        .artwork-card:hover .artwork-title {
+            color: #FFFFFF;
+        }
+        .back-link {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: transparent;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 100;
+            z-index: 20;
+            padding: 20px;
+            pointer-events: auto;
         }
 
-        @media (max-width: 768px) {
-            #nav-links {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                top: 8%;
-                left: 8%;
-                width: 84%;
-                height: 84%;
-                gap: 26px;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-                justify-items: start;
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 18px;
+                padding-bottom: 90px;
             }
-            #nav-links a {
-                white-space: normal;
-                line-height: 1.25;
-                text-align: left;
-                font-size: 28px;
-                padding: 6px 0;
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 24px;
+                letter-spacing: 2px;
+            }
+            .artworks-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+            .artwork-title {
+                font-size: 1.25rem;
+                line-height: 1.4;
             }
             .back-link {
                 bottom: 12px;
                 left: 12px;
-                padding: 14px;
+                padding: 14px 18px;
                 font-size: 24px;
             }
             #photosensitive-toggle {
@@ -108,38 +141,112 @@
                 font-size: 24px;
             }
         }
+        /* Generative art preview iframe */
+        #art-preview {
+            image-rendering: pixelated;
+        }
     </style>
 </head>
 <body>
-    <div id="nav-links">
-        <a href="artifacts.html">artifacts of Nature̷̛͓̩̦͔͗̾</a>
-        <a href="code.html">code̵̻̩̩͋</a>
-        <a href="concerned.html">concerned with̷̢̙́̆̍͆̏̕͘͝...</a>
-        <a href="clouds.html">corrupted clouds̷̢̨̨͔͓̣͚͓͈̍̈</a>
-        <a href="ctrlc.html">ctrl-c</a>
-        <a href="cyberderps.html">cyber_derps</a>
-        <a href="geometries.html">geometries̵̼͎̞̠̮̈̓</a>
-        <a href="glitchart.html">glitchart̵̖̦̬̦̎̈́͐̊͋̓͌̅̚͘̕͠</a>
-        <a href="mondriansstatic.html">Mondrian's Static</a>
-        <a href="othermind.html">other mind̴͍͉̳̞͍̬̟̥̭̟̰̗̈́̊ͅͅ</a>
-        <a href="scenes.html">scenes̷̜̐̏͐</a>
-        <a href="yojijukugo.html">yojijukugo (四字熟語)</a>
-    </div>
-    <a href="index.html" class="back-link">Back</a>
     <button id="photosensitive-toggle" title="Toggle Photosensitive Mode">⚡</button>
+    <a href="gallery.html" class="back-link">Back</a>
+    <h1>scenes̷̜̐̏͐</h1>
+    <div class="artworks-grid">
+            <a href="https://objkt.com/tokens/KT1W34fj4GNfmaYPsy7abbn1K9dhsAByf7S2/12" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1W34fj4GNfmaYPsy7abbn1K9dhsAByf7S2%2F12%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="installation ǫ̵͔̣̖̞̖̲̊̓̎̈́ne" class="artwork-image">
+                <div class="artwork-title">installation ǫ̵͔̣̖̞̖̲̊̓̎̈́ne</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/173747" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F173747%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="'Lotus'" class="artwork-image">
+                <div class="artwork-title">'Lotus'</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/187978" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F187978%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="Just bee" class="artwork-image">
+                <div class="artwork-title">Just bee</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/189083" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F189083%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="Just bee II" class="artwork-image">
+                <div class="artwork-title">Just bee II</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1LjmAdYQCLBjwv4S2oFkEzyHVkomAf5MrW/23792" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1LjmAdYQCLBjwv4S2oFkEzyHVkomAf5MrW%2F23792%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="𝚅𝚊𝚙𝚘𝚛 𝚃𝚒𝚖𝚎" class="artwork-image">
+                <div class="artwork-title">𝚅𝚊𝚙𝚘𝚛 𝚃𝚒𝚖𝚎</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/251738" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F251738%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="Transcendence" class="artwork-image">
+                <div class="artwork-title">Transcendence</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/260155" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F260155%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="TV Ambience" class="artwork-image">
+                <div class="artwork-title">TV Ambience</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/524898" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F524898%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="A Monument to the Death of the Video Store" class="artwork-image">
+                <div class="artwork-title">A Monument to the Death of the Video Store</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/811811" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F811811%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="The Tessera̶͈͇̯͇̞̝̜̞͍͗ct" class="artwork-image">
+                <div class="artwork-title">The Tessera̶͈͇̯͇̞̝̜̞͍͗ct</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/812274" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F812274%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="ＰＯＯＬＲＯＯＭ░０４" class="artwork-image">
+                <div class="artwork-title">ＰＯＯＬＲＯＯＭ░０４</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/812460" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F812460%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="ｐｏｏｌ ｒｏｏｍ░０７" class="artwork-image">
+                <div class="artwork-title">ｐｏｏｌ ｒｏｏｍ░０７</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/812856" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F812856%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="Tessera̷̳͉͈͍̾̒͋̄͌͜ct II" class="artwork-image">
+                <div class="artwork-title">Tessera̷̳͉͈͍̾̒͋̄͌͜ct II</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/813284" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F813284%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="infoxicatioņ̸̛̩̭͈̂́̊̋̏͒̐̍̑" class="artwork-image">
+                <div class="artwork-title">infoxicatioņ̸̛̩̭͈̂́̊̋̏͒̐̍̑</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/827744" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F827744%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="Escape Room" class="artwork-image">
+                <div class="artwork-title">Escape Room</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/828818" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F828818%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="clandestine cloud̶̛͔̰̺͓̘̳͔̥̰̦̀̋̋̆͆̈́̕̚" class="artwork-image">
+                <div class="artwork-title">clandestine cloud̶̛͔̰̺͓̘̳͔̥̰̦̀̋̋̆͆̈́̕̚</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/841949" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F841949%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="The Tezpole" class="artwork-image">
+                <div class="artwork-title">The Tezpole</div>
+            </a>
+            <a href="https://objkt.com/tokens/KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton/842661" class="artwork-card" target="_blank">
+                <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton%2F842661%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="Find Your Own Way" class="artwork-image">
+                <div class="artwork-title">Find Your Own Way</div>
+            </a>
+
+    </div>
+    
     <canvas id="webgl"></canvas>
+
+    <!-- Shared generative art preview iframe - only activated on hover for cards with data-generator -->
+    <iframe id="art-preview"
+        sandbox="allow-scripts"
+        style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
+        src="about:blank"
+        title="Generative art preview">
+    </iframe>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script id="vertexShader" type="x-shader/x-vertex">
+
         varying vec2 vUv;
         void main() {
             vUv = uv;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
+    
     </script>
 
     <script id="fragmentShader" type="x-shader/x-fragment">
+
         precision highp float;
 
         uniform sampler2D tDiffuse;
@@ -349,12 +456,11 @@
 
             gl_FragColor = vec4(phosphorColor, 1.0);
         }
+    
     </script>
 
     <script>
         const canvas = document.getElementById('webgl');
-        
-        // Single Text Canvas for Centered Zalgo
         const textCanvas = document.createElement('canvas');
         textCanvas.width = window.innerWidth;
         textCanvas.height = window.innerHeight; 
@@ -373,19 +479,11 @@
         let isPhotosensitiveMode = false;
         let targetWordRect = { x: 0, y: 0, w: 1, h: 1 };
 
-        let cachedNavLinks = [];
-        let cachedPhotosensitiveToggle = null;
-        let cachedBackLink = null;
-
         function init() {
             if (typeof THREE === 'undefined') {
                 setTimeout(init, 100);
                 return;
             }
-
-            cachedNavLinks = Array.from(document.querySelectorAll('#nav-links a'));
-            cachedPhotosensitiveToggle = document.getElementById('photosensitive-toggle');
-            cachedBackLink = document.querySelector('.back-link');
 
             scene = new THREE.Scene();
             const aspect = window.innerWidth / window.innerHeight;
@@ -436,54 +534,167 @@
                 offsetX = (Math.random() - 0.5) * 5; 
             }
 
-            const elementsToDraw = [...cachedNavLinks];
-            if (cachedPhotosensitiveToggle) elementsToDraw.push(cachedPhotosensitiveToggle);
-            if (cachedBackLink) elementsToDraw.push(cachedBackLink);
+            // Draw images and their titles
+            const cards = document.querySelectorAll('.artwork-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                // Check if card is in viewport
+                if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                    if (!card.matches(':hover')) {
+                        const img = card.querySelector('.artwork-image');
+                        const title = card.querySelector('.artwork-title');
+                        
+                        if (img && img.complete && img.naturalWidth !== 0) {
+                            const imgRect = img.getBoundingClientRect();
+                            tCtx.drawImage(img, imgRect.left + offsetX, imgRect.top, imgRect.width, imgRect.height);
+                        }
+                        
+                        if (title) {
+                            const titleRect = title.getBoundingClientRect();
+                            tCtx.font = '100 1rem "Roboto Condensed"';
+                            tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
+                            tCtx.textAlign = 'left';
+                            tCtx.textBaseline = 'top';
+                            
+                            const words = title.textContent.split(' ');
+                            let line = '';
+                            let yPos = titleRect.top;
+                            const lineHeight = 22; // ~1.4 * 16px
+                            const maxWidth = rect.width;
 
-            elementsToDraw.forEach(el => {
+                            for (let n = 0; n < words.length; n++) {
+                                // If a single word is insanely long, it will still render on one line, 
+                                // but standard long titles will wrap properly.
+                                const testLine = line + words[n] + ' ';
+                                const metrics = tCtx.measureText(testLine);
+                                const testWidth = metrics.width;
+                                if (testWidth > maxWidth && n > 0) {
+                                    tCtx.fillText(line, titleRect.left + offsetX, yPos);
+                                    if (!isPhotosensitiveMode && Math.random() > 0.85) {
+                                        tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                                        tCtx.fillText(line, titleRect.left - (offsetX * 2), yPos);
+                                        tCtx.fillStyle = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
+                                    }
+                                    line = words[n] + ' ';
+                                    yPos += lineHeight;
+                                } else {
+                                    line = testLine;
+                                }
+                            }
+                            tCtx.fillText(line, titleRect.left + offsetX, yPos);
+                            if (!isPhotosensitiveMode && Math.random() > 0.85) {
+                                tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                                tCtx.fillText(line, titleRect.left - (offsetX * 2), yPos);
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Draw persistent UI
+            const title = document.querySelector('h1');
+            const backLink = document.querySelector('.back-link');
+            const toggleBtn = document.getElementById('photosensitive-toggle');
+            
+            [title, backLink, toggleBtn].forEach(el => {
+                if(!el) return;
                 const rect = el.getBoundingClientRect();
-                
+                if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
                 let textColor = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
                 if (el.id === 'photosensitive-toggle' && isPhotosensitiveMode) {
                     textColor = '#888888';
                 }
+                
+                let fontSize = '24px';
+                if (el.tagName === 'H1') fontSize = '2.5rem';
+                
+                tCtx.font = `300 ${fontSize} "Roboto Condensed"`;
                 tCtx.fillStyle = textColor;
-                
-                let computedStyle = window.getComputedStyle(el);
-                tCtx.font = `100 ${computedStyle.fontSize} "Roboto Condensed"`;
-                
                 tCtx.textAlign = 'center';
                 tCtx.textBaseline = 'middle';
-                const centerX = rect.left + (rect.width / 2) + offsetX;
-                const centerY = rect.top + (rect.height / 2);
-                tCtx.fillText(el.textContent, centerX, centerY);
+                
+                let text = el.textContent;
+                
+                const centerX = rect.left + rect.width / 2 + offsetX;
+                const centerY = rect.top + rect.height / 2;
+                
+                tCtx.fillText(text, centerX, centerY);
 
                 if (!isPhotosensitiveMode && Math.random() > 0.85) {
                     tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-                    tCtx.fillText(el.textContent, centerX - offsetX * 3, centerY);
+                    tCtx.fillText(text, centerX - (offsetX * 2), centerY);
                 }
             });
 
+            // --- Per-artwork torus ring loaders drawn on canvas (glitch shader affects them) ---
+            if (!window._imgTracked) {
+                window._imgTracked = true;
+                document.querySelectorAll('.artwork-image').forEach(img => {
+                    img._loadStart = performance.now();
+                    img._loaded = img.complete && img.naturalWidth > 0;
+                    if (!img._loaded) {
+                        img.addEventListener('load',  () => { img._loaded = true; });
+                        img.addEventListener('error', () => { img._loaded = true; });
+                    }
+                });
+            }
+            document.querySelectorAll('.artwork-image').forEach(img => {
+                if (img._loaded) return;
+                const rect = img.getBoundingClientRect();
+                if (rect.width === 0) return;
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const outer = rect.width * 0.12;
+                const inner = outer * 0.65;
+                const elapsed = performance.now() - (img._loadStart || performance.now());
+                // Ease to ~90% over 4s; never reaches 100% until load event fires
+                const p = 0.9 * (1 - Math.exp(-3 * elapsed / 4000));
+                // Background track (dim hollow ring)
+                tCtx.globalAlpha = 0.22;
+                tCtx.beginPath();
+                tCtx.arc(cx, cy, outer, 0, Math.PI * 2);
+                tCtx.arc(cx, cy, inner, 0, Math.PI * 2, true);
+                tCtx.fillStyle = '#FFFFFF';
+                tCtx.fill('evenodd');
+                // Progress fill clockwise from 12 o'clock
+                if (p > 0.005) {
+                    tCtx.globalAlpha = 0.92;
+                    const a0 = -Math.PI / 2;
+                    const a1 = a0 + Math.PI * 2 * p;
+                    tCtx.beginPath();
+                    tCtx.arc(cx, cy, outer, a0, a1);
+                    tCtx.arc(cx, cy, inner, a1, a0, true);
+                    tCtx.closePath();
+                    tCtx.fillStyle = '#FFFFFF';
+                    tCtx.fill();
+                }
+                tCtx.globalAlpha = 1;
+            });
             textTexture.needsUpdate = true;
         }
 
         function animate(t) {
             const timeSeconds = t * 0.001;
-            
             updateTextLogic(timeSeconds);
-            
             shaderMaterial.uniforms.time.value = timeSeconds;
 
             effectTimer++;
             if (effectTimer > EFFECT_SWITCH_INTERVAL) {
                 effectTimer = 0;
 
-                const possibleTargets = [...cachedNavLinks];
-                if (cachedPhotosensitiveToggle) possibleTargets.push(cachedPhotosensitiveToggle);
-                if (cachedBackLink) possibleTargets.push(cachedBackLink);
+                const cards = Array.from(document.querySelectorAll('.artwork-card'));
+                const title = document.querySelector('h1');
+                const possibleTargets = [...cards, title];
                 
-                if (possibleTargets.length > 0) {
-                    const target = possibleTargets[Math.floor(Math.random() * possibleTargets.length)];
+                const visibleTargets = possibleTargets.filter(el => {
+                    if(!el) return false;
+                    const rect = el.getBoundingClientRect();
+                    return rect.bottom > 0 && rect.top < window.innerHeight;
+                });
+                
+                if (visibleTargets.length > 0) {
+                    const target = visibleTargets[Math.floor(Math.random() * visibleTargets.length)];
                     const rect = target.getBoundingClientRect();
                     
                     const paddingX = 40; 
@@ -512,6 +723,7 @@
 
             shaderMaterial.uniforms.u_glitch_region.value.set(targetWordRect.x, targetWordRect.y, targetWordRect.w, targetWordRect.h);
             
+            // Pass 1
             shaderMaterial.uniforms.tDiffuse.value = textTexture;
             shaderMaterial.uniforms.u_active_effect.value = activeEffects[0];
             shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[0];
@@ -519,6 +731,7 @@
             renderer.setRenderTarget(rtA);
             renderer.render(scene, camera);
 
+            // Pass 2
             shaderMaterial.uniforms.tDiffuse.value = rtA.texture;
             shaderMaterial.uniforms.u_active_effect.value = activeEffects[1];
             shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[1];
@@ -526,6 +739,7 @@
             renderer.setRenderTarget(rtB);
             renderer.render(scene, camera);
 
+            // Pass 3 (Final)
             shaderMaterial.uniforms.tDiffuse.value = rtB.texture;
             shaderMaterial.uniforms.u_active_effect.value = activeEffects[2];
             shaderMaterial.uniforms.u_effect_seed.value = effectSeeds[2];
@@ -536,7 +750,7 @@
             requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', () => {
+        window.onresize = () => {
             if (renderer && camera && shaderMaterial) {
                 const width = window.innerWidth;
                 const height = window.innerHeight;
@@ -551,12 +765,80 @@
                 camera.updateProjectionMatrix();
                 shaderMaterial.uniforms.aspect.value = aspect;
             }
-        });
+        };
 
         document.getElementById('photosensitive-toggle').addEventListener('click', (e) => {
             isPhotosensitiveMode = !isPhotosensitiveMode;
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
+
+        // --- IMAGE HOVER ANIMATION ---
+        // On mouseenter: swap to artifact (GIF/original) if available
+        // On mouseleave: restore display image
+        document.querySelectorAll('.artwork-card').forEach(card => {
+            const img = card.querySelector('.artwork-image');
+            if (!img) return;
+            const displaySrc = img.src;
+            const artifactSrc = img.dataset.artifact;
+
+            card.addEventListener('mouseenter', () => {
+                if (artifactSrc) {
+                    const probe = new Image();
+                    probe.crossOrigin = 'anonymous';
+                    probe.onload = () => { img.src = probe.src; };
+                    probe.onerror = () => {}; // stay on display image
+                    probe.src = artifactSrc;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                img.src = displaySrc;
+            });
+        });
+
+        // --- IMAGE ERROR FALLBACK ---
+        // If display_uri fails to load, try thumbnail, then hide gracefully
+        document.querySelectorAll('.artwork-image').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                // Already broken on load
+                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
+                else img.style.visibility = 'hidden';
+            }
+            img.addEventListener('error', function() {
+                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
+                    this.src = this.dataset.thumbnail;
+                } else {
+                    this.style.visibility = 'hidden';
+                }
+            });
+        });
+
+        // --- GENERATIVE ART PREVIEW IFRAME ---
+        // Cards with data-generator (e.g. Ctrl-C) show a live iframe on hover
+        const artPreview = document.getElementById('art-preview');
+        if (artPreview) {
+            let previewTimeout = null;
+
+            document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    clearTimeout(previewTimeout);
+                    const img = card.querySelector('.artwork-image');
+                    if (!img) return;
+                    const rect = img.getBoundingClientRect();
+                    artPreview.style.left   = rect.left   + 'px';
+                    artPreview.style.top    = rect.top    + 'px';
+                    artPreview.style.width  = rect.width  + 'px';
+                    artPreview.style.height = rect.height + 'px';
+                    artPreview.src = card.dataset.generator;
+                    artPreview.style.display = 'block';
+                });
+                card.addEventListener('mouseleave', () => {
+                    previewTimeout = setTimeout(() => {
+                        artPreview.style.display = 'none';
+                        artPreview.src = 'about:blank';
+                    }, 80);
+                });
+            });
+        }
 
         window.onload = init;
     </script>

@@ -152,31 +152,33 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
 
         @media screen and (max-width: 768px) {
             body {
-                padding: 20px;
-                padding-bottom: 80px;
+                padding: 18px;
+                padding-bottom: 90px;
             }
             h1 {
-                font-size: 1.5rem;
-                margin-bottom: 30px;
+                font-size: 1.8rem;
+                margin-bottom: 24px;
+                letter-spacing: 2px;
             }
             .artworks-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 28px;
             }
             .artwork-title {
-                font-size: 0.9rem;
+                font-size: 1.25rem;
+                line-height: 1.4;
             }
             .back-link {
-                bottom: 10px;
-                left: 10px;
-                padding: 10px;
-                font-size: 20px;
+                bottom: 12px;
+                left: 12px;
+                padding: 14px 18px;
+                font-size: 24px;
             }
             #photosensitive-toggle {
-                top: 10px;
-                right: 10px;
-                padding: 10px;
-                font-size: 20px;
+                top: 12px;
+                right: 12px;
+                padding: 14px;
+                font-size: 24px;
             }
         }
         /* Generative art preview iframe */
@@ -618,7 +620,7 @@ curations.forEach(curation => {
     if (curation.name.includes('clouds')) filename = 'clouds';
     if (curation.name.includes('other mind')) filename = 'othermind';
 
-    filename = 'curation_' + filename + '.html';
+    filename = filename + '.html';
 
     let itemsHtml = '';
     curation.tokens.forEach(({ token }) => {
