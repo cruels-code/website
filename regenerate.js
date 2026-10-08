@@ -45,7 +45,7 @@ const resolveGenerator = (token) => {
     if (isCodeArt && token.artifact_uri && token.artifact_uri.startsWith('ipfs://')) {
         const withoutProto = token.artifact_uri.replace('ipfs://', '');
         const isHen = (token.fa_contract === 'KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton');
-        const gateway = isHen ? 'https://cache.teia.rocks/ipfs/' : 'https://ipfs.filebase.io/ipfs/';
+        const gateway = isHen ? 'https://cache.teia.rocks/ipfs/' : 'https://magic.decentralized-content.com/ipfs/';
         if (withoutProto.includes('?')) {
             const qIdx = withoutProto.indexOf('?');
             const cid = withoutProto.substring(0, qIdx);
@@ -211,12 +211,17 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             width: 100%;
             height: 100%;
             border: none;
-            background: #000;
+            background: transparent;
             object-fit: cover;
             display: block;
             z-index: 2;
             pointer-events: none;
             image-rendering: pixelated;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .artwork-preview-media.loaded {
+            opacity: 1;
         }
         .artwork-title {
             font-size: 1rem;
@@ -296,7 +301,7 @@ ${itemsHtml}
                 <button id="runner-close" style="background:transparent;border:none;color:#FFF;font-size:24px;cursor:pointer;padding:0 8px;line-height:1;font-family:'Roboto Condensed',sans-serif;" title="Close runner">✕</button>
             </div>
         </div>
-        <iframe id="runner-iframe" style="position:absolute;top:48px;left:0;width:100vw;height:calc(100vh - 48px);border:none;background:#000;" sandbox="allow-scripts allow-same-origin allow-pointer-lock" src="about:blank" title="Interactive generative art"></iframe>
+        <iframe id="runner-iframe" style="position:absolute;top:48px;left:0;width:100vw;height:calc(100vh - 48px);border:none;background:#000;" allow="accelerometer; autoplay; encrypted-media; gyroscope" src="about:blank" title="Interactive generative art"></iframe>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -657,8 +662,13 @@ ${fragmentShaderSrc}
             if (card.dataset.generator) {
                 const iframe = document.createElement('iframe');
                 iframe.className = 'artwork-preview-media';
-                iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-pointer-lock');
                 iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope');
+                iframe.onload = () => {
+                    iframe.classList.add('loaded');
+                };
+                iframe.onerror = () => {
+                    iframe.remove();
+                };
                 iframe.src = card.dataset.generator;
                 container.appendChild(iframe);
                 return;
@@ -672,6 +682,12 @@ ${fragmentShaderSrc}
                 video.loop = true;
                 video.muted = true;
                 video.playsInline = true;
+                video.onloadeddata = () => {
+                    video.classList.add('loaded');
+                };
+                video.onerror = () => {
+                    video.remove();
+                };
                 video.src = card.dataset.animation;
                 container.appendChild(video);
                 video.play().catch(() => {});
@@ -684,6 +700,12 @@ ${fragmentShaderSrc}
                 gif.className = 'artwork-preview-media';
                 gif.crossOrigin = 'anonymous';
                 gif.alt = card.querySelector('.artwork-image')?.alt || '';
+                gif.onload = () => {
+                    gif.classList.add('loaded');
+                };
+                gif.onerror = () => {
+                    gif.remove();
+                };
                 gif.src = card.dataset.animation;
                 container.appendChild(gif);
                 return;

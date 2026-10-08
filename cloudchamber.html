@@ -109,12 +109,17 @@
             width: 100%;
             height: 100%;
             border: none;
-            background: #000;
+            background: transparent;
             object-fit: cover;
             display: block;
             z-index: 2;
             pointer-events: none;
             image-rendering: pixelated;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .artwork-preview-media.loaded {
+            opacity: 1;
         }
         .artwork-title {
             font-size: 1rem;
@@ -179,31 +184,31 @@
     <a href="gallery.html" class="back-link">Back</a>
     <h1>cloud chamber</h1>
     <div class="artworks-grid">
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1553" class="artwork-card" target="_blank" data-generator="https://ipfs.filebase.io/ipfs/bafybeigft2pfvtkrz4vv6zfgipme54nwveiqkrwntkdi6n7bwdzdld5m3a/?s=99acc08a3de06e28104ac1460de311775aca9526372fcaecfb20b51873685e7d&i=1">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1553" class="artwork-card" target="_blank" data-generator="https://magic.decentralized-content.com/ipfs/bafybeigft2pfvtkrz4vv6zfgipme54nwveiqkrwntkdi6n7bwdzdld5m3a/?s=99acc08a3de06e28104ac1460de311775aca9526372fcaecfb20b51873685e7d&i=1">
                 <div class="artwork-preview">
                     <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F1553%3Fv%3D4&output=webp&q=85" crossorigin="anonymous" alt="cloud chamber #1" class="artwork-image">
                 </div>
                 <div class="artwork-title">cloud chamber #1</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1565" class="artwork-card" target="_blank" data-generator="https://ipfs.filebase.io/ipfs/bafybeih54jipclnbp2sqkxrjp4lbdzefuaho623qhuegbohk64cikhrg3e/?s=a0798798fd98fc87c9f9f066521d232974eefcbc59eecbafff9c36ac687735a1&i=2">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1565" class="artwork-card" target="_blank" data-generator="https://magic.decentralized-content.com/ipfs/bafybeih54jipclnbp2sqkxrjp4lbdzefuaho623qhuegbohk64cikhrg3e/?s=a0798798fd98fc87c9f9f066521d232974eefcbc59eecbafff9c36ac687735a1&i=2">
                 <div class="artwork-preview">
                     <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F1565%3Fv%3D5&output=webp&q=85" crossorigin="anonymous" alt="cloud chamber #2" class="artwork-image">
                 </div>
                 <div class="artwork-title">cloud chamber #2</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1566" class="artwork-card" target="_blank" data-generator="https://ipfs.filebase.io/ipfs/bafybeigft2pfvtkrz4vv6zfgipme54nwveiqkrwntkdi6n7bwdzdld5m3a/?s=e9bec35a2457567e7e89f052259d81ddfbd2805dbfc36cd2029ec2dbf0fda81e&i=3">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1566" class="artwork-card" target="_blank" data-generator="https://magic.decentralized-content.com/ipfs/bafybeigft2pfvtkrz4vv6zfgipme54nwveiqkrwntkdi6n7bwdzdld5m3a/?s=e9bec35a2457567e7e89f052259d81ddfbd2805dbfc36cd2029ec2dbf0fda81e&i=3">
                 <div class="artwork-preview">
                     <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F1566%3Fv%3D4&output=webp&q=85" crossorigin="anonymous" alt="cloud chamber #3" class="artwork-image">
                 </div>
                 <div class="artwork-title">cloud chamber #3</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1743" class="artwork-card" target="_blank" data-generator="https://ipfs.filebase.io/ipfs/bafybeih54jipclnbp2sqkxrjp4lbdzefuaho623qhuegbohk64cikhrg3e/?s=0748776d09f01a14bca08527c2f972437b9440151e44712d762d254bb3cfc679&i=4">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1743" class="artwork-card" target="_blank" data-generator="https://magic.decentralized-content.com/ipfs/bafybeih54jipclnbp2sqkxrjp4lbdzefuaho623qhuegbohk64cikhrg3e/?s=0748776d09f01a14bca08527c2f972437b9440151e44712d762d254bb3cfc679&i=4">
                 <div class="artwork-preview">
                     <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F1743%3Fv%3D5&output=webp&q=85" crossorigin="anonymous" alt="cloud chamber #4" class="artwork-image">
                 </div>
                 <div class="artwork-title">cloud chamber #4</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1856" class="artwork-card" target="_blank" data-generator="https://ipfs.filebase.io/ipfs/bafybeih54jipclnbp2sqkxrjp4lbdzefuaho623qhuegbohk64cikhrg3e/?s=a96f7ffc4b260a4aee0eb454388e86aa575f75b3dd1cbe82d80cc55e0fed867d&i=5">
+            <a href="https://objkt.com/tokens/KT1VJwe36At1zvBkFg71yK4KYN7cRGaFdfqA/1856" class="artwork-card" target="_blank" data-generator="https://magic.decentralized-content.com/ipfs/bafybeih54jipclnbp2sqkxrjp4lbdzefuaho623qhuegbohk64cikhrg3e/?s=a96f7ffc4b260a4aee0eb454388e86aa575f75b3dd1cbe82d80cc55e0fed867d&i=5">
                 <div class="artwork-preview">
                     <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fgeneric-web%2Fv1%2Fthumbnail%2F1856%3Fv%3D5&output=webp&q=85" crossorigin="anonymous" alt="cloud chamber #5" class="artwork-image">
                 </div>
@@ -224,7 +229,7 @@
                 <button id="runner-close" style="background:transparent;border:none;color:#FFF;font-size:24px;cursor:pointer;padding:0 8px;line-height:1;font-family:'Roboto Condensed',sans-serif;" title="Close runner">✕</button>
             </div>
         </div>
-        <iframe id="runner-iframe" style="position:absolute;top:48px;left:0;width:100vw;height:calc(100vh - 48px);border:none;background:#000;" sandbox="allow-scripts allow-same-origin allow-pointer-lock" src="about:blank" title="Interactive generative art"></iframe>
+        <iframe id="runner-iframe" style="position:absolute;top:48px;left:0;width:100vw;height:calc(100vh - 48px);border:none;background:#000;" allow="accelerometer; autoplay; encrypted-media; gyroscope" src="about:blank" title="Interactive generative art"></iframe>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -801,8 +806,13 @@
             if (card.dataset.generator) {
                 const iframe = document.createElement('iframe');
                 iframe.className = 'artwork-preview-media';
-                iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-pointer-lock');
                 iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope');
+                iframe.onload = () => {
+                    iframe.classList.add('loaded');
+                };
+                iframe.onerror = () => {
+                    iframe.remove();
+                };
                 iframe.src = card.dataset.generator;
                 container.appendChild(iframe);
                 return;
@@ -816,6 +826,12 @@
                 video.loop = true;
                 video.muted = true;
                 video.playsInline = true;
+                video.onloadeddata = () => {
+                    video.classList.add('loaded');
+                };
+                video.onerror = () => {
+                    video.remove();
+                };
                 video.src = card.dataset.animation;
                 container.appendChild(video);
                 video.play().catch(() => {});
@@ -828,6 +844,12 @@
                 gif.className = 'artwork-preview-media';
                 gif.crossOrigin = 'anonymous';
                 gif.alt = card.querySelector('.artwork-image')?.alt || '';
+                gif.onload = () => {
+                    gif.classList.add('loaded');
+                };
+                gif.onerror = () => {
+                    gif.remove();
+                };
                 gif.src = card.dataset.animation;
                 container.appendChild(gif);
                 return;

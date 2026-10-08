@@ -109,12 +109,17 @@
             width: 100%;
             height: 100%;
             border: none;
-            background: #000;
+            background: transparent;
             object-fit: cover;
             display: block;
             z-index: 2;
             pointer-events: none;
             image-rendering: pixelated;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .artwork-preview-media.loaded {
+            opacity: 1;
         }
         .artwork-title {
             font-size: 1rem;
@@ -203,7 +208,7 @@
                 </div>
                 <div class="artwork-title">Just bee II</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1LjmAdYQCLBjwv4S2oFkEzyHVkomAf5MrW/23792" class="artwork-card" target="_blank" data-generator="https://ipfs.filebase.io/ipfs/QmXjdQxwNuP7aLyYg4dwQLuzoQm6rjWWUzAEQjP9huVKDM/">
+            <a href="https://objkt.com/tokens/KT1LjmAdYQCLBjwv4S2oFkEzyHVkomAf5MrW/23792" class="artwork-card" target="_blank" data-generator="https://magic.decentralized-content.com/ipfs/QmXjdQxwNuP7aLyYg4dwQLuzoQm6rjWWUzAEQjP9huVKDM/">
                 <div class="artwork-preview">
                     <img src="https://wsrv.nl/?url=https%3A%2F%2Fassets.objkt.media%2Ffile%2Fassets-003%2FKT1LjmAdYQCLBjwv4S2oFkEzyHVkomAf5MrW%2F23792%2Fthumb400&output=webp&q=85" crossorigin="anonymous" alt="𝚅𝚊𝚙𝚘𝚛 𝚃𝚒𝚖𝚎" class="artwork-image">
                 </div>
@@ -296,7 +301,7 @@
                 <button id="runner-close" style="background:transparent;border:none;color:#FFF;font-size:24px;cursor:pointer;padding:0 8px;line-height:1;font-family:'Roboto Condensed',sans-serif;" title="Close runner">✕</button>
             </div>
         </div>
-        <iframe id="runner-iframe" style="position:absolute;top:48px;left:0;width:100vw;height:calc(100vh - 48px);border:none;background:#000;" sandbox="allow-scripts allow-same-origin allow-pointer-lock" src="about:blank" title="Interactive generative art"></iframe>
+        <iframe id="runner-iframe" style="position:absolute;top:48px;left:0;width:100vw;height:calc(100vh - 48px);border:none;background:#000;" allow="accelerometer; autoplay; encrypted-media; gyroscope" src="about:blank" title="Interactive generative art"></iframe>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -873,8 +878,13 @@
             if (card.dataset.generator) {
                 const iframe = document.createElement('iframe');
                 iframe.className = 'artwork-preview-media';
-                iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-pointer-lock');
                 iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope');
+                iframe.onload = () => {
+                    iframe.classList.add('loaded');
+                };
+                iframe.onerror = () => {
+                    iframe.remove();
+                };
                 iframe.src = card.dataset.generator;
                 container.appendChild(iframe);
                 return;
@@ -888,6 +898,12 @@
                 video.loop = true;
                 video.muted = true;
                 video.playsInline = true;
+                video.onloadeddata = () => {
+                    video.classList.add('loaded');
+                };
+                video.onerror = () => {
+                    video.remove();
+                };
                 video.src = card.dataset.animation;
                 container.appendChild(video);
                 video.play().catch(() => {});
@@ -900,6 +916,12 @@
                 gif.className = 'artwork-preview-media';
                 gif.crossOrigin = 'anonymous';
                 gif.alt = card.querySelector('.artwork-image')?.alt || '';
+                gif.onload = () => {
+                    gif.classList.add('loaded');
+                };
+                gif.onerror = () => {
+                    gif.remove();
+                };
                 gif.src = card.dataset.animation;
                 container.appendChild(gif);
                 return;
