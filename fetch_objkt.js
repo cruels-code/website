@@ -16,6 +16,7 @@ const query = `{
       token {
         token_id
         name
+        mime
         display_uri
         thumbnail_uri
         artifact_uri

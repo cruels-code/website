@@ -28,18 +28,33 @@ const resolveImage = (token) => {
 
 // Resolves generative art iframe URL from token data
 // For Bootloader tokens, uses their direct CDN artifact endpoint.
-// For IPFS tokens, uses Filebase gateway to avoid dweb.link service worker deprecation warnings.
+// For SVG data URI tokens (cyber_derps), uses the data URI directly.
+// For IPFS code tokens (code, fxhash, HEN/Teia interactive directories), uses Filebase gateway.
 const resolveGenerator = (token) => {
-    if (token.thumbnail_uri && token.thumbnail_uri.includes('bootloader.art') && token.artifact_uri && token.artifact_uri.includes('?')) {
+    if (token.thumbnail_uri && token.thumbnail_uri.includes('bootloader.art')) {
         return `https://media.bootloader.art/generic-web/v1/artifact/${token.token_id}?v=1`;
     }
-    const rawUri = token.artifact_uri;
-    if (!rawUri || !rawUri.startsWith('ipfs://') || !rawUri.includes('?')) return '';
-    const withoutProto = rawUri.replace('ipfs://', '');
-    const qIdx = withoutProto.indexOf('?');
-    const cid = withoutProto.substring(0, qIdx);
-    const query = withoutProto.substring(qIdx + 1); // e.g. m0=0.500
-    return `https://ipfs.filebase.io/ipfs/${cid}/?${query}`;
+    if (token.artifact_uri && token.artifact_uri.startsWith('data:image/svg+xml')) {
+        return token.artifact_uri;
+    }
+    const isCodeArt = (
+        token.mime === 'application/x-directory' ||
+        token.mime === 'text/html' ||
+        (token.artifact_uri && token.artifact_uri.includes('?'))
+    );
+    if (isCodeArt && token.artifact_uri && token.artifact_uri.startsWith('ipfs://')) {
+        const withoutProto = token.artifact_uri.replace('ipfs://', '');
+        if (withoutProto.includes('?')) {
+            const qIdx = withoutProto.indexOf('?');
+            const cid = withoutProto.substring(0, qIdx);
+            const query = withoutProto.substring(qIdx + 1);
+            return `https://ipfs.filebase.io/ipfs/${cid}/?${query}`;
+        } else {
+            const cleanCid = withoutProto.replace(/\/+$/, '');
+            return `https://ipfs.filebase.io/ipfs/${cleanCid}/`;
+        }
+    }
+    return '';
 };
 
 const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
@@ -212,13 +227,26 @@ ${itemsHtml}
     
     <canvas id="webgl"></canvas>
 
-    <!-- Shared generative art preview iframe - only activated on hover for cards with data-generator -->
+    <!-- Shared generative art preview iframe - only activated on hover/hold for cards with data-generator -->
     <iframe id="art-preview"
-        sandbox="allow-scripts"
+        sandbox="allow-scripts allow-same-origin"
         style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
         src="about:blank"
         title="Generative art preview">
     </iframe>
+
+    <!-- Fullscreen interactive generative art runner modal -->
+    <div id="runner-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:#050505;">
+        <div id="runner-header" style="position:absolute;top:0;left:0;right:0;height:48px;background:rgba(10,10,10,0.95);border-bottom:1px solid #333;display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:10000;box-sizing:border-box;">
+            <div id="runner-title" style="color:#FFF;font-size:16px;font-weight:100;letter-spacing:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:12px;"></div>
+            <div style="display:flex;gap:12px;align-items:center;flex-shrink:0;">
+                <a id="runner-newtab" href="#" target="_blank" rel="noopener noreferrer" style="color:#FFF;text-decoration:none;font-size:14px;border:1px solid #444;padding:4px 10px;font-family:'Roboto Condensed',sans-serif;">Open Tab ↗</a>
+                <a id="runner-objkt" href="#" target="_blank" rel="noopener noreferrer" style="color:#FFF;text-decoration:none;font-size:14px;border:1px solid #444;padding:4px 10px;font-family:'Roboto Condensed',sans-serif;">Objkt ↗</a>
+                <button id="runner-close" style="background:transparent;border:none;color:#FFF;font-size:24px;cursor:pointer;padding:0 8px;line-height:1;font-family:'Roboto Condensed',sans-serif;" title="Close runner">✕</button>
+            </div>
+        </div>
+        <iframe id="runner-iframe" style="position:absolute;top:48px;left:0;width:100vw;height:calc(100vh - 48px);border:none;background:#000;" sandbox="allow-scripts allow-same-origin allow-pointer-lock" src="about:blank" title="Interactive generative art"></iframe>
+    </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -583,6 +611,37 @@ ${fragmentShaderSrc}
             });
         });
 
+        // --- FULLSCREEN GENERATIVE ART RUNNER MODAL ---
+        const runnerModal = document.getElementById('runner-modal');
+        const runnerIframe = document.getElementById('runner-iframe');
+        const runnerTitle = document.getElementById('runner-title');
+        const runnerNewtab = document.getElementById('runner-newtab');
+        const runnerObjkt = document.getElementById('runner-objkt');
+        const runnerClose = document.getElementById('runner-close');
+
+        function openRunner(card) {
+            if (!card.dataset.generator || !runnerModal) return;
+            const titleEl = card.querySelector('.artwork-title');
+            if (runnerTitle) runnerTitle.textContent = titleEl ? titleEl.textContent : '';
+            if (runnerIframe) runnerIframe.src = card.dataset.generator;
+            if (runnerNewtab) runnerNewtab.href = card.dataset.generator;
+            if (runnerObjkt) runnerObjkt.href = card.href;
+            runnerModal.style.display = 'block';
+        }
+
+        function closeRunner() {
+            if (!runnerModal) return;
+            runnerModal.style.display = 'none';
+            if (runnerIframe) runnerIframe.src = 'about:blank';
+        }
+
+        if (runnerClose) runnerClose.addEventListener('click', closeRunner);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && runnerModal && runnerModal.style.display === 'block') {
+                closeRunner();
+            }
+        });
+
         // --- GENERATIVE ART PREVIEW IFRAME ---
         // Cards with data-generator show live preview when tapped/clicked and held
         const artPreview = document.getElementById('art-preview');
@@ -672,6 +731,10 @@ ${fragmentShaderSrc}
                         suppressClick = false;
                         return false;
                     }
+                    if (card.dataset.generator) {
+                        e.preventDefault();
+                        openRunner(card);
+                    }
                 });
 
                 card.addEventListener('contextmenu', (e) => {
@@ -732,6 +795,17 @@ curations.forEach(curation => {
         itemsHtml += '            </a>\n';
     });
 
-    fs.writeFileSync(filename, getTemplate(curation.name, itemsHtml));
+    const generatedHtml = getTemplate(curation.name, itemsHtml);
+    fs.writeFileSync(filename, generatedHtml);
     console.log('Generated WebGL-enabled', filename);
+
+    if (filename === 'emergence.html') {
+        fs.writeFileSync('emergent.html', generatedHtml);
+        console.log('Generated alias emergent.html');
+    }
+    if (filename === 'proceduralparadise.html') {
+        fs.writeFileSync('procedural-paradise.html', generatedHtml);
+        fs.writeFileSync('procedural_paradise.html', generatedHtml);
+        console.log('Generated aliases procedural-paradise.html and procedural_paradise.html');
+    }
 });

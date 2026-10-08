@@ -89,11 +89,13 @@
                 justify-items: start;
             }
             #nav-links a {
+                display: block;
+                width: 100%;
                 white-space: normal;
                 line-height: 1.25;
                 text-align: left;
-                font-size: clamp(32px, 8vw, 44px);
-                padding: 6px 0;
+                font-size: clamp(28px, 7vw, 40px);
+                padding: 8px 0;
             }
             .back-link {
                 bottom: 12px;
@@ -445,6 +447,7 @@
 
             elementsToDraw.forEach(el => {
                 const rect = el.getBoundingClientRect();
+                if (rect.bottom < 0 || rect.top > window.innerHeight) return;
                 
                 let textColor = Math.random() > 0.8 ? '#AAAAAA' : '#FFFFFF';
                 if (el.id === 'photosensitive-toggle' && isPhotosensitiveMode) {
@@ -455,15 +458,16 @@
                 let computedStyle = window.getComputedStyle(el);
                 tCtx.font = `100 ${computedStyle.fontSize} "Roboto Condensed"`;
                 
-                tCtx.textAlign = 'center';
+                const isLeft = computedStyle.textAlign === 'left';
+                tCtx.textAlign = isLeft ? 'left' : 'center';
                 tCtx.textBaseline = 'middle';
-                const centerX = rect.left + (rect.width / 2) + offsetX;
-                const centerY = rect.top + (rect.height / 2);
-                tCtx.fillText(el.textContent, centerX, centerY);
+                const textX = isLeft ? rect.left + offsetX : rect.left + (rect.width / 2) + offsetX;
+                const textY = rect.top + (rect.height / 2);
+                tCtx.fillText(el.textContent, textX, textY);
 
                 if (!isPhotosensitiveMode && Math.random() > 0.85) {
                     tCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-                    tCtx.fillText(el.textContent, centerX - offsetX * 3, centerY);
+                    tCtx.fillText(el.textContent, textX - offsetX * 3, textY);
                 }
             });
 
@@ -560,6 +564,13 @@
             isPhotosensitiveMode = !isPhotosensitiveMode;
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
+
+        const navLinksEl = document.getElementById('nav-links');
+        if (navLinksEl) {
+            navLinksEl.addEventListener('scroll', () => {
+                if (typeof tCtx !== 'undefined') updateTextLogic(performance.now() * 0.001);
+            }, { passive: true });
+        }
 
         window.onload = init;
     </script>

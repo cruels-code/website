@@ -216,13 +216,26 @@
     
     <canvas id="webgl"></canvas>
 
-    <!-- Shared generative art preview iframe - only activated on hover for cards with data-generator -->
+    <!-- Shared generative art preview iframe - only activated on hover/hold for cards with data-generator -->
     <iframe id="art-preview"
-        sandbox="allow-scripts"
+        sandbox="allow-scripts allow-same-origin"
         style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
         src="about:blank"
         title="Generative art preview">
     </iframe>
+
+    <!-- Fullscreen interactive generative art runner modal -->
+    <div id="runner-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:#050505;">
+        <div id="runner-header" style="position:absolute;top:0;left:0;right:0;height:48px;background:rgba(10,10,10,0.95);border-bottom:1px solid #333;display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:10000;box-sizing:border-box;">
+            <div id="runner-title" style="color:#FFF;font-size:16px;font-weight:100;letter-spacing:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:12px;"></div>
+            <div style="display:flex;gap:12px;align-items:center;flex-shrink:0;">
+                <a id="runner-newtab" href="#" target="_blank" rel="noopener noreferrer" style="color:#FFF;text-decoration:none;font-size:14px;border:1px solid #444;padding:4px 10px;font-family:'Roboto Condensed',sans-serif;">Open Tab ↗</a>
+                <a id="runner-objkt" href="#" target="_blank" rel="noopener noreferrer" style="color:#FFF;text-decoration:none;font-size:14px;border:1px solid #444;padding:4px 10px;font-family:'Roboto Condensed',sans-serif;">Objkt ↗</a>
+                <button id="runner-close" style="background:transparent;border:none;color:#FFF;font-size:24px;cursor:pointer;padding:0 8px;line-height:1;font-family:'Roboto Condensed',sans-serif;" title="Close runner">✕</button>
+            </div>
+        </div>
+        <iframe id="runner-iframe" style="position:absolute;top:48px;left:0;width:100vw;height:calc(100vh - 48px);border:none;background:#000;" sandbox="allow-scripts allow-same-origin allow-pointer-lock" src="about:blank" title="Interactive generative art"></iframe>
+    </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -803,6 +816,37 @@
             });
         });
 
+        // --- FULLSCREEN GENERATIVE ART RUNNER MODAL ---
+        const runnerModal = document.getElementById('runner-modal');
+        const runnerIframe = document.getElementById('runner-iframe');
+        const runnerTitle = document.getElementById('runner-title');
+        const runnerNewtab = document.getElementById('runner-newtab');
+        const runnerObjkt = document.getElementById('runner-objkt');
+        const runnerClose = document.getElementById('runner-close');
+
+        function openRunner(card) {
+            if (!card.dataset.generator || !runnerModal) return;
+            const titleEl = card.querySelector('.artwork-title');
+            if (runnerTitle) runnerTitle.textContent = titleEl ? titleEl.textContent : '';
+            if (runnerIframe) runnerIframe.src = card.dataset.generator;
+            if (runnerNewtab) runnerNewtab.href = card.dataset.generator;
+            if (runnerObjkt) runnerObjkt.href = card.href;
+            runnerModal.style.display = 'block';
+        }
+
+        function closeRunner() {
+            if (!runnerModal) return;
+            runnerModal.style.display = 'none';
+            if (runnerIframe) runnerIframe.src = 'about:blank';
+        }
+
+        if (runnerClose) runnerClose.addEventListener('click', closeRunner);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && runnerModal && runnerModal.style.display === 'block') {
+                closeRunner();
+            }
+        });
+
         // --- GENERATIVE ART PREVIEW IFRAME ---
         // Cards with data-generator show live preview when tapped/clicked and held
         const artPreview = document.getElementById('art-preview');
@@ -891,6 +935,10 @@
                         e.stopPropagation();
                         suppressClick = false;
                         return false;
+                    }
+                    if (card.dataset.generator) {
+                        e.preventDefault();
+                        openRunner(card);
                     }
                 });
 
