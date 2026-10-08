@@ -700,15 +700,21 @@ ${fragmentShaderSrc}
 
 curations.forEach(curation => {
     let filename = curation.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-    if (curation.name.includes('scenes')) filename = 'scenes';
-    if (curation.name.includes('code')) filename = 'code';
-    if (curation.name.includes('concerned')) filename = 'concerned';
-    if (curation.name.includes('artifacts')) filename = 'artifacts';
-    if (curation.name.includes('yojijukugo')) filename = 'yojijukugo';
-    if (curation.name.includes('glitchart')) filename = 'glitchart';
-    if (curation.name.includes('geometries')) filename = 'geometries';
-    if (curation.name.includes('clouds')) filename = 'clouds';
-    if (curation.name.includes('other mind')) filename = 'othermind';
+    if (curation.name.toLowerCase().includes('scenes')) filename = 'scenes';
+    if (curation.name.toLowerCase().includes('code')) filename = 'code';
+    if (curation.name.toLowerCase().includes('concerned')) filename = 'concerned';
+    if (curation.name.toLowerCase().includes('artifacts')) filename = 'artifacts';
+    if (curation.name.toLowerCase().includes('yojijukugo')) filename = 'yojijukugo';
+    if (curation.name.toLowerCase().includes('glitchart')) filename = 'glitchart';
+    if (curation.name.toLowerCase().includes('geometries')) filename = 'geometries';
+    if (curation.name.toLowerCase().includes('clouds')) filename = 'clouds';
+    if (curation.name.toLowerCase().includes('other mind')) filename = 'othermind';
+    if (curation.name.toLowerCase().includes('mondrian')) filename = 'mondriansstatic';
+    if (curation.name.toLowerCase().includes('ctrl')) filename = 'ctrlc';
+    if (curation.name.toLowerCase().includes('cyber')) filename = 'cyberderps';
+    if (curation.name.toLowerCase().includes('procedural')) filename = 'proceduralparadise';
+    if (curation.name.toLowerCase().includes('cloud chamber')) filename = 'cloudchamber';
+    if (curation.name.toLowerCase().includes('emergence')) filename = 'emergence';
 
     filename = filename + '.html';
 

@@ -12,7 +12,7 @@ const query = `{
   ) {
     name
     slug
-    tokens(limit: 300) {
+    tokens(limit: 500) {
       token {
         token_id
         name
