@@ -65,25 +65,56 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
             text-decoration: none;
             color: transparent;
             pointer-events: auto;
+            position: relative;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: pan-y;
         }
         .artwork-card:hover {
             border-color: #FFFFFF;
             background-color: rgba(17, 17, 17, 0.8);
         }
-        .artwork-image {
+        .artwork-preview {
+            position: relative;
             width: 100%;
             aspect-ratio: 1;
-            object-fit: cover;
             border: 1px solid #222;
+            overflow: hidden;
+            background: #000;
+        }
+        .artwork-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
             filter: grayscale(100%) brightness(0.45);
             transition: filter 0.4s ease, opacity 0.3s ease;
+            display: block;
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: none;
         }
         .artwork-card:hover .artwork-image {
             filter: none;
+        }
+        .artwork-preview-media {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+            object-fit: cover;
+            display: block;
+            z-index: 2;
+            pointer-events: none;
+            image-rendering: pixelated;
         }
         .artwork-title {
             font-size: 1rem;
@@ -141,21 +172,6 @@
                 font-size: 24px;
             }
         }
-        /* Generative art preview iframe */
-        #art-preview {
-            image-rendering: pixelated;
-        }
-        .artwork-card {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-            touch-action: pan-y;
-        }
-        .artwork-image {
-            -webkit-user-drag: none;
-            user-select: none;
-            pointer-events: none;
-        }
     </style>
 </head>
 <body>
@@ -163,34 +179,34 @@
     <a href="gallery.html" class="back-link">Back</a>
     <h1>cyber_derps</h1>
     <div class="artworks-grid">
-            <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4707" class="artwork-card" target="_blank" data-generator="https://media.bootloader.art/generic-web/v1/artifact/4707?v=1">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4707%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #1" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4707" class="artwork-card" target="_blank" data-generator="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cscript%3E%3C%21%5BCDATA%5Bconst%20SEED%3D26268628403146286006186470782047811205463882109280096690978825777616263908213n%3Bfunction%20splitmix64%28f%29%7Blet%20n%3Df%3Breturn%20function%28%29%7Blet%20f%3Dn%3Dn%2B0x9e3779b97f4a7c15n%260xffffffffffffffffn%3Breturn%20f%3D%28%28f%3D%28f%5Ef%3E%3E30n%29%2A0xbf58476d1ce4e5b9n%260xffffffffffffffffn%29%5Ef%3E%3E27n%29%2A0x94d049bb133111ebn%260xffffffffffffffffn%2CNumber%284294967295n%26%28f%5E%3Df%3E%3E31n%29%29%3E%3E%3E0%7D%7Dfunction%20sfc32%28f%2Cn%2C%24%2Ct%29%7Breturn%20function%28%29%7B%24%7C%3D0%3Blet%20e%3D%28%28f%7C%3D0%29%2B%28n%7C%3D0%29%7C0%29%2B%28t%7C%3D0%29%7C0%3Breturn%20t%3Dt%2B1%7C0%2Cf%3Dn%5En%3E%3E%3E9%2Cn%3D%24%2B%28%24%3C%3C3%29%7C0%2C%24%3D%28%24%3D%24%3C%3C21%7C%24%3E%3E%3E11%29%2Be%7C0%2C%28e%3E%3E%3E0%29%2F4294967296%7D%7Dconst%20sm%3Dsplitmix64%28SEED%29%2Ca%3Dsm%28%29%2Cb%3Dsm%28%29%2Cc%3Dsm%28%29%2Cd%3Dsm%28%29%2Cn%3D1%2CBTLDR%3D%7Brnd%3Asfc32%28a%2Cb%2Cc%2Cd%29%2Cseed%3ASEED%2CiterationNumber%3An%2CisPreview%3An%3D%3D%3D0%26%26SEED%3D%3D%3D0n%2Csvg%3Adocument.documentElement%2Cv%3A%27svg-js%3A0.0.1%27%7D%3B%28%28BTLDR%29%3D%3E%7B((B)%3D%3E%7B'use%20strict'%3Bconst%20C%3D400%2CS%3D5%2CO%3D'%23111827'%2CL%3D%7BS%3A%5B'%23F09'%2C'%230FF'%2C'%23FF0'%2C'%233F2'%2C'%23B4B4B4'%2C'%237E57C2'%5D%2CA%3A%5B'%23F09'%2C'%230FF'%2C'%23FFF'%2C'%23F60'%2C'%23FD0'%5D%2CH%3A%5B'%23F09'%2C'%230FF'%2C'%23FFF'%2C'%23000'%2C'%233F2'%2C'%23F60'%5D%7D%2Cf1%3D%5B'thin'%2C'medium'%2C'fat'%5D%2Ch1%3D%5B'bald'%2C'thin'%2C'medium'%2C'fat'%2C'mohawk'%2C'side_shave'%5D%2Ce1%3D%5B'standard'%2C'shades'%2C'monocle'%2C'cyber_visor'%2C'big_eyes'%2C'glowing_eyes'%2C'lazer_eye'%5D%2Cn1%3D%5B'standard'%2C'big_nose'%2C'small_nose'%5D%2Ca1%3D%5B'standard'%2C'big_ears'%2C'elf_ears'%5D%2Cm1%3D%5B'standard'%2C'open'%2C'smirk'%2C'cigarette'%2C'frown'%2C'vampire_fangs'%2C'drool'%5D%2Cf2%3D%5B'none'%2C'mustache'%2C'goatee'%5D%2Ch2%3D%5B'none'%2C'hat'%2C'helmet'%2C'headphones'%2C'bandana'%5D%2Cc1%3D%5B'none'%2C'cyber_eye'%2C'facial_seams'%5D%2Cs1%3D%5B'none'%2C'eye_scar'%2C'cheek_scar'%5D%2CH%3Da%3D%3Ea%5B~~(B.rnd()*a.length)%5D%2CI%3Dm%3D%3E~~(B.rnd()*m)%2CG%3D(m%2Cx)%3D%3Em%2BB.rnd()*(x-m)%2CD%3Dn%3D%3Edocument.createElementNS('http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%2Cn)%2CR%3D(x%2Cy%2Cw%2Ch%2Cf%2Ck%3D'none'%2CW%3D0%2Cp%3D1)%3D%3E%7Blet%20r%3DD('rect')%3Br.setAttribute('x'%2C~~(x%2FS)*S)%2Cr.setAttribute('y'%2C~~(y%2FS)*S)%2Cr.setAttribute('width'%2CMath.max(S%2C~~(w%2FS)*S))%2Cr.setAttribute('height'%2CMath.max(S%2C~~(h%2FS)*S))%2Cr.setAttribute('fill'%2Cf)%2Cr.setAttribute('stroke'%2Ck)%2Cr.setAttribute('stroke-width'%2CW)%2Cr.setAttribute('shape-rendering'%2C'crispEdges')%2Cp%3C1%26%26r.setAttribute('opacity'%2Cp)%2CB.svg.appendChild(r)%7D%2CJ%3D()%3D%3E%7Bfor(let%20y%3D0%3By%3CC%3By%2B%3D2*S)R(0%2Cy%2CC%2CS%2C%22%23000%22%2C0%2C0%2C.1)%7D%2CK%3D(d%3D.1)%3D%3E%7Bfor(let%20i%3D0%3Bi%3C5e3*d%3Bi%2B%2B)B.rnd()%3Cd%26%26R(I(C%2FS)*S%2CI(C%2FS)*S%2CS*(I(2)%2B1)%2CS*(I(2)%2B1)%2C%22%23FFF%22%2C0%2C0%2C.1)%7D%2CV%3D()%3D%3E%7Blet%20d%3DD('defs')%2Cg%3DD('radialGradient')%2Cs1%3DD('stop')%2Cs2%3DD('stop')%3Bg.id%3D'v'%2Cg.setAttribute('cx'%2C'50%25')%2Cg.setAttribute('cy'%2C'50%25')%2Cg.setAttribute('r'%2C'50%25')%2Cg.setAttribute('fx'%2C'50%25')%2Cg.setAttribute('fy'%2C'50%25')%2Cs1.setAttribute('offset'%2C'60%25')%2Cs1.setAttribute('stop-color'%2C'%23000')%2Cs1.setAttribute('stop-opacity'%2C'0')%2Cs2.setAttribute('offset'%2C'100%25')%2Cs2.setAttribute('stop-color'%2C'%23000')%2Cs2.setAttribute('stop-opacity'%2C.4)%2Cg.appendChild(s1)%2Cg.appendChild(s2)%2Cd.appendChild(g)%2CB.svg.appendChild(d)%3Blet%20r%3DD('rect')%3Br.setAttribute('x'%2C0)%2Cr.setAttribute('y'%2C0)%2Cr.setAttribute('width'%2CC)%2Cr.setAttribute('height'%2CC)%2Cr.setAttribute('fill'%2C'url(%23v)')%2CB.svg.appendChild(r)%7D%2CF%3Dt%3D%3E%7Blet%20st%3DH(L.S)%2Chc%3DH(L.H)%2Cac%3DH(L.A)%2Ccc%3DH(L.A)%2Csc%3Dac%2Csw%3Dt.as%3FS%3A0%2Csk%3Dt.as%3Fsc%3A'none'%2Ccx%3DC%2F2%2Chw%3D250%2Chh%3D300%3Bt.fs%3D%3D%3D'thin'%26%26(hw%3D200%2Chh%3D320)%2Ct.fs%3D%3D%3D'fat'%26%26(hw%3D300%2Chh%3D280)%3Blet%20hy%3D(C-hh)%2F2%2B30%2Ces%3Dt.et%3D%3D%3D'big_eyes'%3F1.5%3A1%2Cas%3Dt.at%3D%3D%3D'big_ears'%3F1.5%3A1%2Cns%3D1%3Bt.nt%3D%3D%3D'big_nose'%26%26(ns%3D1.5)%2Ct.nt%3D%3D%3D'small_nose'%26%26(ns%3D.7)%3Blet%20ey%3Dhy%2Bhh*.38%2Ced%3Dhw*.15%2Cmy%3Dhy%2Bhh*.7%3Bif(t.hs%3D%3D%3D'mohawk')R(cx-10%2Chy-60%2C20%2C70%2Chc%2Csk%2Csw)%3Belse%20if(t.hs!%3D%3D'bald')%7Blet%20cv%3D%7B'thin'%3A.7%2C'medium'%3A1%2C'fat'%3A1.3%2C'side_shave'%3A1%7D%5Bt.hs%5D%7C%7C1%3BR(cx-hw*cv%2F2%2Chy-50%2Chw*cv%2Chh*.7%2B50%2Chc%2Csk%2Csw)%7DR(cx-hw%2F2%2Chy%2Chw%2Chh%2Cst%2Csk%2Csw)%3Bfor(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)%7Blet%20aw%3D2*S*as%2Cah%3D8*S*as%2Cax%3Dcx%2Bi*hw%2F2%2Cay%3Dhy%2Bhh*.5-ah%2F2%3Bt.at%3D%3D%3D'elf_ears'%26%26(ay-%3Dah*.2)%2CR(ax%2Cay%2Caw%2Cah%2Cst%2Csk%2Csw)%2Ct.at%3D%3D%3D'elf_ears'%26%26R(ax%2Cay-S%2Caw%2CS%2Cst%2Csk%2Csw)%2Ct.he%26%26R(ax%2Cay%2Bah*.7%2C2*S%2CS%2Ccc)%7Dlet%20ew%3D10*S*es%2Ceh%3D2*S*es%3Bif(t.et%3D%3D%3D'cyber_visor')R(cx-hw%2F2%2Cey-eh%2Chw%2Ceh*3%2CH(L.A)%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'shades')R(cx-ed*2%2Cey-eh%2F2%2Ced*4%2Ceh*2%2C'%23111'%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'monocle')%7BR(cx%2Bed-ew%2F2%2Cey%2Cew%2Ceh%2Cac)%3Blet%20mx%3Dcx-ed-ew*.75%2Cms%3D4*S%3BR(mx%2Cey-eh*.5%2Cms%2Cms%2CH(L.A))%2CR(mx%2BS%2Cey-eh*.5%2BS%2Cms-2*S%2Cms-2*S%2CO)%7Delse%20if(t.et%3D%3D%3D'glowing_eyes')for(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*ed-ew%2F2%2Cey%2Cew%2Ceh%2CH(%5B'%23F00'%2C'%23FF0'%2C'%230F0'%5D)%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'lazer_eye')%7Blet%20rex%3Dcx%2Bed-ew%2F2%3BR(cx-ed-ew%2F2%2Cey%2Cew%2Ceh%2C'%23F00'%2Csk%2Csw)%2CR(rex%2Cey%2Cew%2Ceh%2C'%23F00'%2Csk%2Csw)%2CR(rex%2Bew%2Cey%2Beh%2F2-S%2F2%2Chw%2CS%2C'%23F00')%7Delse%20for(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*ed-ew%2F2%2Cey%2Cew%2Ceh%2Cac%2Csk%2Csw%2F2)%3Blet%20nw%3D2*S*ns%2Cnh%3D3*S*ns%3BR(cx-nw%2F2%2Cey%2Beh%2BS%2Cnw%2Cnh%2Cac%2Csk%2Csw)%2Ct.hn%26%26R(cx%2Cey%2Beh%2BS%2Bnh%2CS%2CS%2C'%23FFF')%3Blet%20mw%3D6*S%2Cmh%3D2*S%3Bif(t.mt%3D%3D%3D'open')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh*2%2CO)%3Belse%20if(t.mt%3D%3D%3D'smirk')R(cx%2Cmy%2Cmw%2F2%2Cmh%2Cac)%3Belse%20if(t.mt%3D%3D%3D'frown')R(cx-mw%2F2%2Cmy%2Bmh%2Cmw%2Cmh%2Cac)%2CR(cx-mw%2F2-S%2Cmy%2Bmh%2CS%2Cmh%2Cac)%2CR(cx%2Bmw%2F2%2Cmy%2Bmh%2CS%2Cmh%2Cac)%3Belse%20if(t.mt%3D%3D%3D'cigarette')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%2CR(cx%2Bmw%2F2%2Cmy%2C2*S%2CS%2C'%23FFF')%3Belse%20if(t.mt%3D%3D%3D'vampire_fangs')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%2CR(cx-mw%2F2%2Cmy%2Bmh%2CS%2CS%2C'%23FFF')%2CR(cx%2Bmw%2F2-S%2Cmy%2Bmh%2CS%2CS%2C'%23FFF')%3Belse%20if(t.mt%3D%3D%3D'drool')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh*1.5%2CO)%2CR(cx%2Bmw%2F2-S%2Cmy%2Bmh%2CS%2Cmh*3%2C'%233F2')%3Belse%20R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%3Bt.hl%26%26R(cx%2Cmy%2Bmh*1.5%2CS%2CS%2C'%23FFF')%3Bif(t.fh!%3D%3D'none')%7Blet%20bc%3Dhc%3Bt.fh%3D%3D%3D'mustache'%3FR(cx-mw%2F2%2Cmy-mh%2Cmw%2Cmh%2Cbc%2Csk%2Csw)%3At.fh%3D%3D%3D'goatee'%26%26R(cx-mw%2F4%2Cmy%2Bmh*1.5%2Cmw%2F2%2Cmh*2%2Cbc%2Csk%2Csw)%7Dif(t.ha%3D%3D%3D'hat')R(cx-hw%2F2%2Chy-30%2Chw%2C35%2Ccc)%3Belse%20if(t.ha%3D%3D%3D'helmet')R(cx-hw*.55%2Chy-40%2Chw*1.1%2Chh*.4%2Ccc)%2CR(cx-hw%2F2%2Cey%2Chw%2C5%2CO)%3Belse%20if(t.ha%3D%3D%3D'headphones')%7BR(cx-hw%2F2-5%2Chy-10%2Chw%2B10%2CS%2Ccc)%3Bfor(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*(hw%2F2%2B5)%2Chy%2Bhh*.4%2C20%2C30%2Ccc)%7Delse%20t.ha%3D%3D%3D'bandana'%26%26R(cx-hw%2F2%2Chy-S*2%2Chw%2CS*6%2CH(L.A))%3Bt.hs%3D%3D%3D'side_shave'%26%26R(cx-hw%2F2%2BS*2%2Chy%2Chw*.4%2Chh*.3%2Chc%2Csk%2Csw)%3Bif(t.c%3D%3D%3D'cyber_eye'%26%26t.et!%3D%3D'cyber_visor'%26%26t.et!%3D%3D'shades')R(cx%2Bed-ew%2F2-S%2Cey-S%2Cew%2B2*S%2Ceh%2B2*S%2C'%23B4B4B4')%2CR(cx%2Bed-ew%2F2%2Cey%2Cew%2Ceh%2C'%23F00')%3Bif(t.c%3D%3D%3D'facial_seams')R(cx-hw%2F2%2BS%2Chy%2CS%2Chh%2C'%23333')%2CR(cx-hw*.25%2Cmy%2Chw*.5%2CS%2C'%23333')%3Bif(t.s%3D%3D%3D'eye_scar')R(cx-ed-ew%2Cey-eh%2Cew*2%2Ceh*2%2Cst)%2CR(cx-ed-ew%2F2-20%2Cey%2B10%2C40%2CS%2F2%2Cac)%3Bt.s%3D%3D%3D'cheek_scar'%26%26R(cx-hw*.3%2Cmy-hh*.1%2Chw*.15%2CS%2Cac)%3Bfor(let%20i%3DI(3)%2B1%3Bi--%3B)R(G(0%2CC)%2CG(0%2CC)%2CG(10%2C50)%2CG(2%2C6)%2CH(L.A))%7D%3BB.svg.setAttribute('viewBox'%2C'0%200%20'%2BC%2B'%20'%2BC)%2CR(0%2C0%2CC%2CC%2CO)%3Bconst%20t%3D%7Bfs%3AH(f1)%2Chs%3AH(h1)%2Cet%3AH(e1)%2Cnt%3AH(n1)%2Cat%3AH(a1)%2Cmt%3AH(m1)%2Cfh%3AH(f2)%2Cha%3AH(h2)%2Cc%3AH(c1)%2Cs%3AH(s1)%2Chn%3AB.rnd()%3C.2%2Chl%3AB.rnd()%3C.2%2Che%3AB.rnd()%3C.4%2Cas%3AB.rnd()%3C.4%7D%2Ce%3D%7Bs%3AB.rnd()%3C.8%2Cn%3AB.rnd()%3C.8%2Cv%3AB.rnd()%3C.9%7D%3BF(t)%2Ce.s%26%26J()%2Ce.n%26%26K()%2Ce.v%26%26V()%7D)(BTLDR)%3B%7D%29%28BTLDR%29%3B%5D%5D%3E%3C%2Fscript%3E%3C%2Fsvg%3E">
+                <div class="artwork-preview">
+                    <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4707%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #1" class="artwork-image">
+                </div>
                 <div class="artwork-title">cyber_derps #1</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4714" class="artwork-card" target="_blank" data-generator="https://media.bootloader.art/generic-web/v1/artifact/4714?v=1">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4714%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #2" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4714" class="artwork-card" target="_blank" data-generator="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cscript%3E%3C%21%5BCDATA%5Bconst%20SEED%3D42879718107458987287467028967143210177931939607027836743514148426334292339747n%3Bfunction%20splitmix64%28f%29%7Blet%20n%3Df%3Breturn%20function%28%29%7Blet%20f%3Dn%3Dn%2B0x9e3779b97f4a7c15n%260xffffffffffffffffn%3Breturn%20f%3D%28%28f%3D%28f%5Ef%3E%3E30n%29%2A0xbf58476d1ce4e5b9n%260xffffffffffffffffn%29%5Ef%3E%3E27n%29%2A0x94d049bb133111ebn%260xffffffffffffffffn%2CNumber%284294967295n%26%28f%5E%3Df%3E%3E31n%29%29%3E%3E%3E0%7D%7Dfunction%20sfc32%28f%2Cn%2C%24%2Ct%29%7Breturn%20function%28%29%7B%24%7C%3D0%3Blet%20e%3D%28%28f%7C%3D0%29%2B%28n%7C%3D0%29%7C0%29%2B%28t%7C%3D0%29%7C0%3Breturn%20t%3Dt%2B1%7C0%2Cf%3Dn%5En%3E%3E%3E9%2Cn%3D%24%2B%28%24%3C%3C3%29%7C0%2C%24%3D%28%24%3D%24%3C%3C21%7C%24%3E%3E%3E11%29%2Be%7C0%2C%28e%3E%3E%3E0%29%2F4294967296%7D%7Dconst%20sm%3Dsplitmix64%28SEED%29%2Ca%3Dsm%28%29%2Cb%3Dsm%28%29%2Cc%3Dsm%28%29%2Cd%3Dsm%28%29%2Cn%3D2%2CBTLDR%3D%7Brnd%3Asfc32%28a%2Cb%2Cc%2Cd%29%2Cseed%3ASEED%2CiterationNumber%3An%2CisPreview%3An%3D%3D%3D0%26%26SEED%3D%3D%3D0n%2Csvg%3Adocument.documentElement%2Cv%3A%27svg-js%3A0.0.1%27%7D%3B%28%28BTLDR%29%3D%3E%7B((B)%3D%3E%7B'use%20strict'%3Bconst%20C%3D400%2CS%3D5%2CO%3D'%23111827'%2CL%3D%7BS%3A%5B'%23F09'%2C'%230FF'%2C'%23FF0'%2C'%233F2'%2C'%23B4B4B4'%2C'%237E57C2'%5D%2CA%3A%5B'%23F09'%2C'%230FF'%2C'%23FFF'%2C'%23F60'%2C'%23FD0'%5D%2CH%3A%5B'%23F09'%2C'%230FF'%2C'%23FFF'%2C'%23000'%2C'%233F2'%2C'%23F60'%5D%7D%2Cf1%3D%5B'thin'%2C'medium'%2C'fat'%5D%2Ch1%3D%5B'bald'%2C'thin'%2C'medium'%2C'fat'%2C'mohawk'%2C'side_shave'%5D%2Ce1%3D%5B'standard'%2C'shades'%2C'monocle'%2C'cyber_visor'%2C'big_eyes'%2C'glowing_eyes'%2C'lazer_eye'%5D%2Cn1%3D%5B'standard'%2C'big_nose'%2C'small_nose'%5D%2Ca1%3D%5B'standard'%2C'big_ears'%2C'elf_ears'%5D%2Cm1%3D%5B'standard'%2C'open'%2C'smirk'%2C'cigarette'%2C'frown'%2C'vampire_fangs'%2C'drool'%5D%2Cf2%3D%5B'none'%2C'mustache'%2C'goatee'%5D%2Ch2%3D%5B'none'%2C'hat'%2C'helmet'%2C'headphones'%2C'bandana'%5D%2Cc1%3D%5B'none'%2C'cyber_eye'%2C'facial_seams'%5D%2Cs1%3D%5B'none'%2C'eye_scar'%2C'cheek_scar'%5D%2CH%3Da%3D%3Ea%5B~~(B.rnd()*a.length)%5D%2CI%3Dm%3D%3E~~(B.rnd()*m)%2CG%3D(m%2Cx)%3D%3Em%2BB.rnd()*(x-m)%2CD%3Dn%3D%3Edocument.createElementNS('http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%2Cn)%2CR%3D(x%2Cy%2Cw%2Ch%2Cf%2Ck%3D'none'%2CW%3D0%2Cp%3D1)%3D%3E%7Blet%20r%3DD('rect')%3Br.setAttribute('x'%2C~~(x%2FS)*S)%2Cr.setAttribute('y'%2C~~(y%2FS)*S)%2Cr.setAttribute('width'%2CMath.max(S%2C~~(w%2FS)*S))%2Cr.setAttribute('height'%2CMath.max(S%2C~~(h%2FS)*S))%2Cr.setAttribute('fill'%2Cf)%2Cr.setAttribute('stroke'%2Ck)%2Cr.setAttribute('stroke-width'%2CW)%2Cr.setAttribute('shape-rendering'%2C'crispEdges')%2Cp%3C1%26%26r.setAttribute('opacity'%2Cp)%2CB.svg.appendChild(r)%7D%2CJ%3D()%3D%3E%7Bfor(let%20y%3D0%3By%3CC%3By%2B%3D2*S)R(0%2Cy%2CC%2CS%2C%22%23000%22%2C0%2C0%2C.1)%7D%2CK%3D(d%3D.1)%3D%3E%7Bfor(let%20i%3D0%3Bi%3C5e3*d%3Bi%2B%2B)B.rnd()%3Cd%26%26R(I(C%2FS)*S%2CI(C%2FS)*S%2CS*(I(2)%2B1)%2CS*(I(2)%2B1)%2C%22%23FFF%22%2C0%2C0%2C.1)%7D%2CV%3D()%3D%3E%7Blet%20d%3DD('defs')%2Cg%3DD('radialGradient')%2Cs1%3DD('stop')%2Cs2%3DD('stop')%3Bg.id%3D'v'%2Cg.setAttribute('cx'%2C'50%25')%2Cg.setAttribute('cy'%2C'50%25')%2Cg.setAttribute('r'%2C'50%25')%2Cg.setAttribute('fx'%2C'50%25')%2Cg.setAttribute('fy'%2C'50%25')%2Cs1.setAttribute('offset'%2C'60%25')%2Cs1.setAttribute('stop-color'%2C'%23000')%2Cs1.setAttribute('stop-opacity'%2C'0')%2Cs2.setAttribute('offset'%2C'100%25')%2Cs2.setAttribute('stop-color'%2C'%23000')%2Cs2.setAttribute('stop-opacity'%2C.4)%2Cg.appendChild(s1)%2Cg.appendChild(s2)%2Cd.appendChild(g)%2CB.svg.appendChild(d)%3Blet%20r%3DD('rect')%3Br.setAttribute('x'%2C0)%2Cr.setAttribute('y'%2C0)%2Cr.setAttribute('width'%2CC)%2Cr.setAttribute('height'%2CC)%2Cr.setAttribute('fill'%2C'url(%23v)')%2CB.svg.appendChild(r)%7D%2CF%3Dt%3D%3E%7Blet%20st%3DH(L.S)%2Chc%3DH(L.H)%2Cac%3DH(L.A)%2Ccc%3DH(L.A)%2Csc%3Dac%2Csw%3Dt.as%3FS%3A0%2Csk%3Dt.as%3Fsc%3A'none'%2Ccx%3DC%2F2%2Chw%3D250%2Chh%3D300%3Bt.fs%3D%3D%3D'thin'%26%26(hw%3D200%2Chh%3D320)%2Ct.fs%3D%3D%3D'fat'%26%26(hw%3D300%2Chh%3D280)%3Blet%20hy%3D(C-hh)%2F2%2B30%2Ces%3Dt.et%3D%3D%3D'big_eyes'%3F1.5%3A1%2Cas%3Dt.at%3D%3D%3D'big_ears'%3F1.5%3A1%2Cns%3D1%3Bt.nt%3D%3D%3D'big_nose'%26%26(ns%3D1.5)%2Ct.nt%3D%3D%3D'small_nose'%26%26(ns%3D.7)%3Blet%20ey%3Dhy%2Bhh*.38%2Ced%3Dhw*.15%2Cmy%3Dhy%2Bhh*.7%3Bif(t.hs%3D%3D%3D'mohawk')R(cx-10%2Chy-60%2C20%2C70%2Chc%2Csk%2Csw)%3Belse%20if(t.hs!%3D%3D'bald')%7Blet%20cv%3D%7B'thin'%3A.7%2C'medium'%3A1%2C'fat'%3A1.3%2C'side_shave'%3A1%7D%5Bt.hs%5D%7C%7C1%3BR(cx-hw*cv%2F2%2Chy-50%2Chw*cv%2Chh*.7%2B50%2Chc%2Csk%2Csw)%7DR(cx-hw%2F2%2Chy%2Chw%2Chh%2Cst%2Csk%2Csw)%3Bfor(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)%7Blet%20aw%3D2*S*as%2Cah%3D8*S*as%2Cax%3Dcx%2Bi*hw%2F2%2Cay%3Dhy%2Bhh*.5-ah%2F2%3Bt.at%3D%3D%3D'elf_ears'%26%26(ay-%3Dah*.2)%2CR(ax%2Cay%2Caw%2Cah%2Cst%2Csk%2Csw)%2Ct.at%3D%3D%3D'elf_ears'%26%26R(ax%2Cay-S%2Caw%2CS%2Cst%2Csk%2Csw)%2Ct.he%26%26R(ax%2Cay%2Bah*.7%2C2*S%2CS%2Ccc)%7Dlet%20ew%3D10*S*es%2Ceh%3D2*S*es%3Bif(t.et%3D%3D%3D'cyber_visor')R(cx-hw%2F2%2Cey-eh%2Chw%2Ceh*3%2CH(L.A)%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'shades')R(cx-ed*2%2Cey-eh%2F2%2Ced*4%2Ceh*2%2C'%23111'%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'monocle')%7BR(cx%2Bed-ew%2F2%2Cey%2Cew%2Ceh%2Cac)%3Blet%20mx%3Dcx-ed-ew*.75%2Cms%3D4*S%3BR(mx%2Cey-eh*.5%2Cms%2Cms%2CH(L.A))%2CR(mx%2BS%2Cey-eh*.5%2BS%2Cms-2*S%2Cms-2*S%2CO)%7Delse%20if(t.et%3D%3D%3D'glowing_eyes')for(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*ed-ew%2F2%2Cey%2Cew%2Ceh%2CH(%5B'%23F00'%2C'%23FF0'%2C'%230F0'%5D)%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'lazer_eye')%7Blet%20rex%3Dcx%2Bed-ew%2F2%3BR(cx-ed-ew%2F2%2Cey%2Cew%2Ceh%2C'%23F00'%2Csk%2Csw)%2CR(rex%2Cey%2Cew%2Ceh%2C'%23F00'%2Csk%2Csw)%2CR(rex%2Bew%2Cey%2Beh%2F2-S%2F2%2Chw%2CS%2C'%23F00')%7Delse%20for(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*ed-ew%2F2%2Cey%2Cew%2Ceh%2Cac%2Csk%2Csw%2F2)%3Blet%20nw%3D2*S*ns%2Cnh%3D3*S*ns%3BR(cx-nw%2F2%2Cey%2Beh%2BS%2Cnw%2Cnh%2Cac%2Csk%2Csw)%2Ct.hn%26%26R(cx%2Cey%2Beh%2BS%2Bnh%2CS%2CS%2C'%23FFF')%3Blet%20mw%3D6*S%2Cmh%3D2*S%3Bif(t.mt%3D%3D%3D'open')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh*2%2CO)%3Belse%20if(t.mt%3D%3D%3D'smirk')R(cx%2Cmy%2Cmw%2F2%2Cmh%2Cac)%3Belse%20if(t.mt%3D%3D%3D'frown')R(cx-mw%2F2%2Cmy%2Bmh%2Cmw%2Cmh%2Cac)%2CR(cx-mw%2F2-S%2Cmy%2Bmh%2CS%2Cmh%2Cac)%2CR(cx%2Bmw%2F2%2Cmy%2Bmh%2CS%2Cmh%2Cac)%3Belse%20if(t.mt%3D%3D%3D'cigarette')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%2CR(cx%2Bmw%2F2%2Cmy%2C2*S%2CS%2C'%23FFF')%3Belse%20if(t.mt%3D%3D%3D'vampire_fangs')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%2CR(cx-mw%2F2%2Cmy%2Bmh%2CS%2CS%2C'%23FFF')%2CR(cx%2Bmw%2F2-S%2Cmy%2Bmh%2CS%2CS%2C'%23FFF')%3Belse%20if(t.mt%3D%3D%3D'drool')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh*1.5%2CO)%2CR(cx%2Bmw%2F2-S%2Cmy%2Bmh%2CS%2Cmh*3%2C'%233F2')%3Belse%20R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%3Bt.hl%26%26R(cx%2Cmy%2Bmh*1.5%2CS%2CS%2C'%23FFF')%3Bif(t.fh!%3D%3D'none')%7Blet%20bc%3Dhc%3Bt.fh%3D%3D%3D'mustache'%3FR(cx-mw%2F2%2Cmy-mh%2Cmw%2Cmh%2Cbc%2Csk%2Csw)%3At.fh%3D%3D%3D'goatee'%26%26R(cx-mw%2F4%2Cmy%2Bmh*1.5%2Cmw%2F2%2Cmh*2%2Cbc%2Csk%2Csw)%7Dif(t.ha%3D%3D%3D'hat')R(cx-hw%2F2%2Chy-30%2Chw%2C35%2Ccc)%3Belse%20if(t.ha%3D%3D%3D'helmet')R(cx-hw*.55%2Chy-40%2Chw*1.1%2Chh*.4%2Ccc)%2CR(cx-hw%2F2%2Cey%2Chw%2C5%2CO)%3Belse%20if(t.ha%3D%3D%3D'headphones')%7BR(cx-hw%2F2-5%2Chy-10%2Chw%2B10%2CS%2Ccc)%3Bfor(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*(hw%2F2%2B5)%2Chy%2Bhh*.4%2C20%2C30%2Ccc)%7Delse%20t.ha%3D%3D%3D'bandana'%26%26R(cx-hw%2F2%2Chy-S*2%2Chw%2CS*6%2CH(L.A))%3Bt.hs%3D%3D%3D'side_shave'%26%26R(cx-hw%2F2%2BS*2%2Chy%2Chw*.4%2Chh*.3%2Chc%2Csk%2Csw)%3Bif(t.c%3D%3D%3D'cyber_eye'%26%26t.et!%3D%3D'cyber_visor'%26%26t.et!%3D%3D'shades')R(cx%2Bed-ew%2F2-S%2Cey-S%2Cew%2B2*S%2Ceh%2B2*S%2C'%23B4B4B4')%2CR(cx%2Bed-ew%2F2%2Cey%2Cew%2Ceh%2C'%23F00')%3Bif(t.c%3D%3D%3D'facial_seams')R(cx-hw%2F2%2BS%2Chy%2CS%2Chh%2C'%23333')%2CR(cx-hw*.25%2Cmy%2Chw*.5%2CS%2C'%23333')%3Bif(t.s%3D%3D%3D'eye_scar')R(cx-ed-ew%2Cey-eh%2Cew*2%2Ceh*2%2Cst)%2CR(cx-ed-ew%2F2-20%2Cey%2B10%2C40%2CS%2F2%2Cac)%3Bt.s%3D%3D%3D'cheek_scar'%26%26R(cx-hw*.3%2Cmy-hh*.1%2Chw*.15%2CS%2Cac)%3Bfor(let%20i%3DI(3)%2B1%3Bi--%3B)R(G(0%2CC)%2CG(0%2CC)%2CG(10%2C50)%2CG(2%2C6)%2CH(L.A))%7D%3BB.svg.setAttribute('viewBox'%2C'0%200%20'%2BC%2B'%20'%2BC)%2CR(0%2C0%2CC%2CC%2CO)%3Bconst%20t%3D%7Bfs%3AH(f1)%2Chs%3AH(h1)%2Cet%3AH(e1)%2Cnt%3AH(n1)%2Cat%3AH(a1)%2Cmt%3AH(m1)%2Cfh%3AH(f2)%2Cha%3AH(h2)%2Cc%3AH(c1)%2Cs%3AH(s1)%2Chn%3AB.rnd()%3C.2%2Chl%3AB.rnd()%3C.2%2Che%3AB.rnd()%3C.4%2Cas%3AB.rnd()%3C.4%7D%2Ce%3D%7Bs%3AB.rnd()%3C.8%2Cn%3AB.rnd()%3C.8%2Cv%3AB.rnd()%3C.9%7D%3BF(t)%2Ce.s%26%26J()%2Ce.n%26%26K()%2Ce.v%26%26V()%7D)(BTLDR)%3B%7D%29%28BTLDR%29%3B%5D%5D%3E%3C%2Fscript%3E%3C%2Fsvg%3E">
+                <div class="artwork-preview">
+                    <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4714%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #2" class="artwork-image">
+                </div>
                 <div class="artwork-title">cyber_derps #2</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4715" class="artwork-card" target="_blank" data-generator="https://media.bootloader.art/generic-web/v1/artifact/4715?v=1">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4715%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #3" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4715" class="artwork-card" target="_blank" data-generator="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cscript%3E%3C%21%5BCDATA%5Bconst%20SEED%3D70297662265346316450302725448323822552734194049537077272187261419484107687710n%3Bfunction%20splitmix64%28f%29%7Blet%20n%3Df%3Breturn%20function%28%29%7Blet%20f%3Dn%3Dn%2B0x9e3779b97f4a7c15n%260xffffffffffffffffn%3Breturn%20f%3D%28%28f%3D%28f%5Ef%3E%3E30n%29%2A0xbf58476d1ce4e5b9n%260xffffffffffffffffn%29%5Ef%3E%3E27n%29%2A0x94d049bb133111ebn%260xffffffffffffffffn%2CNumber%284294967295n%26%28f%5E%3Df%3E%3E31n%29%29%3E%3E%3E0%7D%7Dfunction%20sfc32%28f%2Cn%2C%24%2Ct%29%7Breturn%20function%28%29%7B%24%7C%3D0%3Blet%20e%3D%28%28f%7C%3D0%29%2B%28n%7C%3D0%29%7C0%29%2B%28t%7C%3D0%29%7C0%3Breturn%20t%3Dt%2B1%7C0%2Cf%3Dn%5En%3E%3E%3E9%2Cn%3D%24%2B%28%24%3C%3C3%29%7C0%2C%24%3D%28%24%3D%24%3C%3C21%7C%24%3E%3E%3E11%29%2Be%7C0%2C%28e%3E%3E%3E0%29%2F4294967296%7D%7Dconst%20sm%3Dsplitmix64%28SEED%29%2Ca%3Dsm%28%29%2Cb%3Dsm%28%29%2Cc%3Dsm%28%29%2Cd%3Dsm%28%29%2Cn%3D3%2CBTLDR%3D%7Brnd%3Asfc32%28a%2Cb%2Cc%2Cd%29%2Cseed%3ASEED%2CiterationNumber%3An%2CisPreview%3An%3D%3D%3D0%26%26SEED%3D%3D%3D0n%2Csvg%3Adocument.documentElement%2Cv%3A%27svg-js%3A0.0.1%27%7D%3B%28%28BTLDR%29%3D%3E%7B((B)%3D%3E%7B'use%20strict'%3Bconst%20C%3D400%2CS%3D5%2CO%3D'%23111827'%2CL%3D%7BS%3A%5B'%23F09'%2C'%230FF'%2C'%23FF0'%2C'%233F2'%2C'%23B4B4B4'%2C'%237E57C2'%5D%2CA%3A%5B'%23F09'%2C'%230FF'%2C'%23FFF'%2C'%23F60'%2C'%23FD0'%5D%2CH%3A%5B'%23F09'%2C'%230FF'%2C'%23FFF'%2C'%23000'%2C'%233F2'%2C'%23F60'%5D%7D%2Cf1%3D%5B'thin'%2C'medium'%2C'fat'%5D%2Ch1%3D%5B'bald'%2C'thin'%2C'medium'%2C'fat'%2C'mohawk'%2C'side_shave'%5D%2Ce1%3D%5B'standard'%2C'shades'%2C'monocle'%2C'cyber_visor'%2C'big_eyes'%2C'glowing_eyes'%2C'lazer_eye'%5D%2Cn1%3D%5B'standard'%2C'big_nose'%2C'small_nose'%5D%2Ca1%3D%5B'standard'%2C'big_ears'%2C'elf_ears'%5D%2Cm1%3D%5B'standard'%2C'open'%2C'smirk'%2C'cigarette'%2C'frown'%2C'vampire_fangs'%2C'drool'%5D%2Cf2%3D%5B'none'%2C'mustache'%2C'goatee'%5D%2Ch2%3D%5B'none'%2C'hat'%2C'helmet'%2C'headphones'%2C'bandana'%5D%2Cc1%3D%5B'none'%2C'cyber_eye'%2C'facial_seams'%5D%2Cs1%3D%5B'none'%2C'eye_scar'%2C'cheek_scar'%5D%2CH%3Da%3D%3Ea%5B~~(B.rnd()*a.length)%5D%2CI%3Dm%3D%3E~~(B.rnd()*m)%2CG%3D(m%2Cx)%3D%3Em%2BB.rnd()*(x-m)%2CD%3Dn%3D%3Edocument.createElementNS('http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%2Cn)%2CR%3D(x%2Cy%2Cw%2Ch%2Cf%2Ck%3D'none'%2CW%3D0%2Cp%3D1)%3D%3E%7Blet%20r%3DD('rect')%3Br.setAttribute('x'%2C~~(x%2FS)*S)%2Cr.setAttribute('y'%2C~~(y%2FS)*S)%2Cr.setAttribute('width'%2CMath.max(S%2C~~(w%2FS)*S))%2Cr.setAttribute('height'%2CMath.max(S%2C~~(h%2FS)*S))%2Cr.setAttribute('fill'%2Cf)%2Cr.setAttribute('stroke'%2Ck)%2Cr.setAttribute('stroke-width'%2CW)%2Cr.setAttribute('shape-rendering'%2C'crispEdges')%2Cp%3C1%26%26r.setAttribute('opacity'%2Cp)%2CB.svg.appendChild(r)%7D%2CJ%3D()%3D%3E%7Bfor(let%20y%3D0%3By%3CC%3By%2B%3D2*S)R(0%2Cy%2CC%2CS%2C%22%23000%22%2C0%2C0%2C.1)%7D%2CK%3D(d%3D.1)%3D%3E%7Bfor(let%20i%3D0%3Bi%3C5e3*d%3Bi%2B%2B)B.rnd()%3Cd%26%26R(I(C%2FS)*S%2CI(C%2FS)*S%2CS*(I(2)%2B1)%2CS*(I(2)%2B1)%2C%22%23FFF%22%2C0%2C0%2C.1)%7D%2CV%3D()%3D%3E%7Blet%20d%3DD('defs')%2Cg%3DD('radialGradient')%2Cs1%3DD('stop')%2Cs2%3DD('stop')%3Bg.id%3D'v'%2Cg.setAttribute('cx'%2C'50%25')%2Cg.setAttribute('cy'%2C'50%25')%2Cg.setAttribute('r'%2C'50%25')%2Cg.setAttribute('fx'%2C'50%25')%2Cg.setAttribute('fy'%2C'50%25')%2Cs1.setAttribute('offset'%2C'60%25')%2Cs1.setAttribute('stop-color'%2C'%23000')%2Cs1.setAttribute('stop-opacity'%2C'0')%2Cs2.setAttribute('offset'%2C'100%25')%2Cs2.setAttribute('stop-color'%2C'%23000')%2Cs2.setAttribute('stop-opacity'%2C.4)%2Cg.appendChild(s1)%2Cg.appendChild(s2)%2Cd.appendChild(g)%2CB.svg.appendChild(d)%3Blet%20r%3DD('rect')%3Br.setAttribute('x'%2C0)%2Cr.setAttribute('y'%2C0)%2Cr.setAttribute('width'%2CC)%2Cr.setAttribute('height'%2CC)%2Cr.setAttribute('fill'%2C'url(%23v)')%2CB.svg.appendChild(r)%7D%2CF%3Dt%3D%3E%7Blet%20st%3DH(L.S)%2Chc%3DH(L.H)%2Cac%3DH(L.A)%2Ccc%3DH(L.A)%2Csc%3Dac%2Csw%3Dt.as%3FS%3A0%2Csk%3Dt.as%3Fsc%3A'none'%2Ccx%3DC%2F2%2Chw%3D250%2Chh%3D300%3Bt.fs%3D%3D%3D'thin'%26%26(hw%3D200%2Chh%3D320)%2Ct.fs%3D%3D%3D'fat'%26%26(hw%3D300%2Chh%3D280)%3Blet%20hy%3D(C-hh)%2F2%2B30%2Ces%3Dt.et%3D%3D%3D'big_eyes'%3F1.5%3A1%2Cas%3Dt.at%3D%3D%3D'big_ears'%3F1.5%3A1%2Cns%3D1%3Bt.nt%3D%3D%3D'big_nose'%26%26(ns%3D1.5)%2Ct.nt%3D%3D%3D'small_nose'%26%26(ns%3D.7)%3Blet%20ey%3Dhy%2Bhh*.38%2Ced%3Dhw*.15%2Cmy%3Dhy%2Bhh*.7%3Bif(t.hs%3D%3D%3D'mohawk')R(cx-10%2Chy-60%2C20%2C70%2Chc%2Csk%2Csw)%3Belse%20if(t.hs!%3D%3D'bald')%7Blet%20cv%3D%7B'thin'%3A.7%2C'medium'%3A1%2C'fat'%3A1.3%2C'side_shave'%3A1%7D%5Bt.hs%5D%7C%7C1%3BR(cx-hw*cv%2F2%2Chy-50%2Chw*cv%2Chh*.7%2B50%2Chc%2Csk%2Csw)%7DR(cx-hw%2F2%2Chy%2Chw%2Chh%2Cst%2Csk%2Csw)%3Bfor(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)%7Blet%20aw%3D2*S*as%2Cah%3D8*S*as%2Cax%3Dcx%2Bi*hw%2F2%2Cay%3Dhy%2Bhh*.5-ah%2F2%3Bt.at%3D%3D%3D'elf_ears'%26%26(ay-%3Dah*.2)%2CR(ax%2Cay%2Caw%2Cah%2Cst%2Csk%2Csw)%2Ct.at%3D%3D%3D'elf_ears'%26%26R(ax%2Cay-S%2Caw%2CS%2Cst%2Csk%2Csw)%2Ct.he%26%26R(ax%2Cay%2Bah*.7%2C2*S%2CS%2Ccc)%7Dlet%20ew%3D10*S*es%2Ceh%3D2*S*es%3Bif(t.et%3D%3D%3D'cyber_visor')R(cx-hw%2F2%2Cey-eh%2Chw%2Ceh*3%2CH(L.A)%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'shades')R(cx-ed*2%2Cey-eh%2F2%2Ced*4%2Ceh*2%2C'%23111'%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'monocle')%7BR(cx%2Bed-ew%2F2%2Cey%2Cew%2Ceh%2Cac)%3Blet%20mx%3Dcx-ed-ew*.75%2Cms%3D4*S%3BR(mx%2Cey-eh*.5%2Cms%2Cms%2CH(L.A))%2CR(mx%2BS%2Cey-eh*.5%2BS%2Cms-2*S%2Cms-2*S%2CO)%7Delse%20if(t.et%3D%3D%3D'glowing_eyes')for(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*ed-ew%2F2%2Cey%2Cew%2Ceh%2CH(%5B'%23F00'%2C'%23FF0'%2C'%230F0'%5D)%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'lazer_eye')%7Blet%20rex%3Dcx%2Bed-ew%2F2%3BR(cx-ed-ew%2F2%2Cey%2Cew%2Ceh%2C'%23F00'%2Csk%2Csw)%2CR(rex%2Cey%2Cew%2Ceh%2C'%23F00'%2Csk%2Csw)%2CR(rex%2Bew%2Cey%2Beh%2F2-S%2F2%2Chw%2CS%2C'%23F00')%7Delse%20for(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*ed-ew%2F2%2Cey%2Cew%2Ceh%2Cac%2Csk%2Csw%2F2)%3Blet%20nw%3D2*S*ns%2Cnh%3D3*S*ns%3BR(cx-nw%2F2%2Cey%2Beh%2BS%2Cnw%2Cnh%2Cac%2Csk%2Csw)%2Ct.hn%26%26R(cx%2Cey%2Beh%2BS%2Bnh%2CS%2CS%2C'%23FFF')%3Blet%20mw%3D6*S%2Cmh%3D2*S%3Bif(t.mt%3D%3D%3D'open')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh*2%2CO)%3Belse%20if(t.mt%3D%3D%3D'smirk')R(cx%2Cmy%2Cmw%2F2%2Cmh%2Cac)%3Belse%20if(t.mt%3D%3D%3D'frown')R(cx-mw%2F2%2Cmy%2Bmh%2Cmw%2Cmh%2Cac)%2CR(cx-mw%2F2-S%2Cmy%2Bmh%2CS%2Cmh%2Cac)%2CR(cx%2Bmw%2F2%2Cmy%2Bmh%2CS%2Cmh%2Cac)%3Belse%20if(t.mt%3D%3D%3D'cigarette')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%2CR(cx%2Bmw%2F2%2Cmy%2C2*S%2CS%2C'%23FFF')%3Belse%20if(t.mt%3D%3D%3D'vampire_fangs')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%2CR(cx-mw%2F2%2Cmy%2Bmh%2CS%2CS%2C'%23FFF')%2CR(cx%2Bmw%2F2-S%2Cmy%2Bmh%2CS%2CS%2C'%23FFF')%3Belse%20if(t.mt%3D%3D%3D'drool')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh*1.5%2CO)%2CR(cx%2Bmw%2F2-S%2Cmy%2Bmh%2CS%2Cmh*3%2C'%233F2')%3Belse%20R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%3Bt.hl%26%26R(cx%2Cmy%2Bmh*1.5%2CS%2CS%2C'%23FFF')%3Bif(t.fh!%3D%3D'none')%7Blet%20bc%3Dhc%3Bt.fh%3D%3D%3D'mustache'%3FR(cx-mw%2F2%2Cmy-mh%2Cmw%2Cmh%2Cbc%2Csk%2Csw)%3At.fh%3D%3D%3D'goatee'%26%26R(cx-mw%2F4%2Cmy%2Bmh*1.5%2Cmw%2F2%2Cmh*2%2Cbc%2Csk%2Csw)%7Dif(t.ha%3D%3D%3D'hat')R(cx-hw%2F2%2Chy-30%2Chw%2C35%2Ccc)%3Belse%20if(t.ha%3D%3D%3D'helmet')R(cx-hw*.55%2Chy-40%2Chw*1.1%2Chh*.4%2Ccc)%2CR(cx-hw%2F2%2Cey%2Chw%2C5%2CO)%3Belse%20if(t.ha%3D%3D%3D'headphones')%7BR(cx-hw%2F2-5%2Chy-10%2Chw%2B10%2CS%2Ccc)%3Bfor(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*(hw%2F2%2B5)%2Chy%2Bhh*.4%2C20%2C30%2Ccc)%7Delse%20t.ha%3D%3D%3D'bandana'%26%26R(cx-hw%2F2%2Chy-S*2%2Chw%2CS*6%2CH(L.A))%3Bt.hs%3D%3D%3D'side_shave'%26%26R(cx-hw%2F2%2BS*2%2Chy%2Chw*.4%2Chh*.3%2Chc%2Csk%2Csw)%3Bif(t.c%3D%3D%3D'cyber_eye'%26%26t.et!%3D%3D'cyber_visor'%26%26t.et!%3D%3D'shades')R(cx%2Bed-ew%2F2-S%2Cey-S%2Cew%2B2*S%2Ceh%2B2*S%2C'%23B4B4B4')%2CR(cx%2Bed-ew%2F2%2Cey%2Cew%2Ceh%2C'%23F00')%3Bif(t.c%3D%3D%3D'facial_seams')R(cx-hw%2F2%2BS%2Chy%2CS%2Chh%2C'%23333')%2CR(cx-hw*.25%2Cmy%2Chw*.5%2CS%2C'%23333')%3Bif(t.s%3D%3D%3D'eye_scar')R(cx-ed-ew%2Cey-eh%2Cew*2%2Ceh*2%2Cst)%2CR(cx-ed-ew%2F2-20%2Cey%2B10%2C40%2CS%2F2%2Cac)%3Bt.s%3D%3D%3D'cheek_scar'%26%26R(cx-hw*.3%2Cmy-hh*.1%2Chw*.15%2CS%2Cac)%3Bfor(let%20i%3DI(3)%2B1%3Bi--%3B)R(G(0%2CC)%2CG(0%2CC)%2CG(10%2C50)%2CG(2%2C6)%2CH(L.A))%7D%3BB.svg.setAttribute('viewBox'%2C'0%200%20'%2BC%2B'%20'%2BC)%2CR(0%2C0%2CC%2CC%2CO)%3Bconst%20t%3D%7Bfs%3AH(f1)%2Chs%3AH(h1)%2Cet%3AH(e1)%2Cnt%3AH(n1)%2Cat%3AH(a1)%2Cmt%3AH(m1)%2Cfh%3AH(f2)%2Cha%3AH(h2)%2Cc%3AH(c1)%2Cs%3AH(s1)%2Chn%3AB.rnd()%3C.2%2Chl%3AB.rnd()%3C.2%2Che%3AB.rnd()%3C.4%2Cas%3AB.rnd()%3C.4%7D%2Ce%3D%7Bs%3AB.rnd()%3C.8%2Cn%3AB.rnd()%3C.8%2Cv%3AB.rnd()%3C.9%7D%3BF(t)%2Ce.s%26%26J()%2Ce.n%26%26K()%2Ce.v%26%26V()%7D)(BTLDR)%3B%7D%29%28BTLDR%29%3B%5D%5D%3E%3C%2Fscript%3E%3C%2Fsvg%3E">
+                <div class="artwork-preview">
+                    <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4715%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #3" class="artwork-image">
+                </div>
                 <div class="artwork-title">cyber_derps #3</div>
             </a>
-            <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4724" class="artwork-card" target="_blank" data-generator="https://media.bootloader.art/generic-web/v1/artifact/4724?v=1">
-                <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4724%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #4" class="artwork-image">
+            <a href="https://objkt.com/tokens/KT1CB4MYiAViCuXWBU961x7LjQXGeA8SnQwt/4724" class="artwork-card" target="_blank" data-generator="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cscript%3E%3C%21%5BCDATA%5Bconst%20SEED%3D105401659038866835095219807693598388959150494969881737742084269991060056116040n%3Bfunction%20splitmix64%28f%29%7Blet%20n%3Df%3Breturn%20function%28%29%7Blet%20f%3Dn%3Dn%2B0x9e3779b97f4a7c15n%260xffffffffffffffffn%3Breturn%20f%3D%28%28f%3D%28f%5Ef%3E%3E30n%29%2A0xbf58476d1ce4e5b9n%260xffffffffffffffffn%29%5Ef%3E%3E27n%29%2A0x94d049bb133111ebn%260xffffffffffffffffn%2CNumber%284294967295n%26%28f%5E%3Df%3E%3E31n%29%29%3E%3E%3E0%7D%7Dfunction%20sfc32%28f%2Cn%2C%24%2Ct%29%7Breturn%20function%28%29%7B%24%7C%3D0%3Blet%20e%3D%28%28f%7C%3D0%29%2B%28n%7C%3D0%29%7C0%29%2B%28t%7C%3D0%29%7C0%3Breturn%20t%3Dt%2B1%7C0%2Cf%3Dn%5En%3E%3E%3E9%2Cn%3D%24%2B%28%24%3C%3C3%29%7C0%2C%24%3D%28%24%3D%24%3C%3C21%7C%24%3E%3E%3E11%29%2Be%7C0%2C%28e%3E%3E%3E0%29%2F4294967296%7D%7Dconst%20sm%3Dsplitmix64%28SEED%29%2Ca%3Dsm%28%29%2Cb%3Dsm%28%29%2Cc%3Dsm%28%29%2Cd%3Dsm%28%29%2Cn%3D4%2CBTLDR%3D%7Brnd%3Asfc32%28a%2Cb%2Cc%2Cd%29%2Cseed%3ASEED%2CiterationNumber%3An%2CisPreview%3An%3D%3D%3D0%26%26SEED%3D%3D%3D0n%2Csvg%3Adocument.documentElement%2Cv%3A%27svg-js%3A0.0.1%27%7D%3B%28%28BTLDR%29%3D%3E%7B((B)%3D%3E%7B'use%20strict'%3Bconst%20C%3D400%2CS%3D5%2CO%3D'%23111827'%2CL%3D%7BS%3A%5B'%23F09'%2C'%230FF'%2C'%23FF0'%2C'%233F2'%2C'%23B4B4B4'%2C'%237E57C2'%5D%2CA%3A%5B'%23F09'%2C'%230FF'%2C'%23FFF'%2C'%23F60'%2C'%23FD0'%5D%2CH%3A%5B'%23F09'%2C'%230FF'%2C'%23FFF'%2C'%23000'%2C'%233F2'%2C'%23F60'%5D%7D%2Cf1%3D%5B'thin'%2C'medium'%2C'fat'%5D%2Ch1%3D%5B'bald'%2C'thin'%2C'medium'%2C'fat'%2C'mohawk'%2C'side_shave'%5D%2Ce1%3D%5B'standard'%2C'shades'%2C'monocle'%2C'cyber_visor'%2C'big_eyes'%2C'glowing_eyes'%2C'lazer_eye'%5D%2Cn1%3D%5B'standard'%2C'big_nose'%2C'small_nose'%5D%2Ca1%3D%5B'standard'%2C'big_ears'%2C'elf_ears'%5D%2Cm1%3D%5B'standard'%2C'open'%2C'smirk'%2C'cigarette'%2C'frown'%2C'vampire_fangs'%2C'drool'%5D%2Cf2%3D%5B'none'%2C'mustache'%2C'goatee'%5D%2Ch2%3D%5B'none'%2C'hat'%2C'helmet'%2C'headphones'%2C'bandana'%5D%2Cc1%3D%5B'none'%2C'cyber_eye'%2C'facial_seams'%5D%2Cs1%3D%5B'none'%2C'eye_scar'%2C'cheek_scar'%5D%2CH%3Da%3D%3Ea%5B~~(B.rnd()*a.length)%5D%2CI%3Dm%3D%3E~~(B.rnd()*m)%2CG%3D(m%2Cx)%3D%3Em%2BB.rnd()*(x-m)%2CD%3Dn%3D%3Edocument.createElementNS('http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%2Cn)%2CR%3D(x%2Cy%2Cw%2Ch%2Cf%2Ck%3D'none'%2CW%3D0%2Cp%3D1)%3D%3E%7Blet%20r%3DD('rect')%3Br.setAttribute('x'%2C~~(x%2FS)*S)%2Cr.setAttribute('y'%2C~~(y%2FS)*S)%2Cr.setAttribute('width'%2CMath.max(S%2C~~(w%2FS)*S))%2Cr.setAttribute('height'%2CMath.max(S%2C~~(h%2FS)*S))%2Cr.setAttribute('fill'%2Cf)%2Cr.setAttribute('stroke'%2Ck)%2Cr.setAttribute('stroke-width'%2CW)%2Cr.setAttribute('shape-rendering'%2C'crispEdges')%2Cp%3C1%26%26r.setAttribute('opacity'%2Cp)%2CB.svg.appendChild(r)%7D%2CJ%3D()%3D%3E%7Bfor(let%20y%3D0%3By%3CC%3By%2B%3D2*S)R(0%2Cy%2CC%2CS%2C%22%23000%22%2C0%2C0%2C.1)%7D%2CK%3D(d%3D.1)%3D%3E%7Bfor(let%20i%3D0%3Bi%3C5e3*d%3Bi%2B%2B)B.rnd()%3Cd%26%26R(I(C%2FS)*S%2CI(C%2FS)*S%2CS*(I(2)%2B1)%2CS*(I(2)%2B1)%2C%22%23FFF%22%2C0%2C0%2C.1)%7D%2CV%3D()%3D%3E%7Blet%20d%3DD('defs')%2Cg%3DD('radialGradient')%2Cs1%3DD('stop')%2Cs2%3DD('stop')%3Bg.id%3D'v'%2Cg.setAttribute('cx'%2C'50%25')%2Cg.setAttribute('cy'%2C'50%25')%2Cg.setAttribute('r'%2C'50%25')%2Cg.setAttribute('fx'%2C'50%25')%2Cg.setAttribute('fy'%2C'50%25')%2Cs1.setAttribute('offset'%2C'60%25')%2Cs1.setAttribute('stop-color'%2C'%23000')%2Cs1.setAttribute('stop-opacity'%2C'0')%2Cs2.setAttribute('offset'%2C'100%25')%2Cs2.setAttribute('stop-color'%2C'%23000')%2Cs2.setAttribute('stop-opacity'%2C.4)%2Cg.appendChild(s1)%2Cg.appendChild(s2)%2Cd.appendChild(g)%2CB.svg.appendChild(d)%3Blet%20r%3DD('rect')%3Br.setAttribute('x'%2C0)%2Cr.setAttribute('y'%2C0)%2Cr.setAttribute('width'%2CC)%2Cr.setAttribute('height'%2CC)%2Cr.setAttribute('fill'%2C'url(%23v)')%2CB.svg.appendChild(r)%7D%2CF%3Dt%3D%3E%7Blet%20st%3DH(L.S)%2Chc%3DH(L.H)%2Cac%3DH(L.A)%2Ccc%3DH(L.A)%2Csc%3Dac%2Csw%3Dt.as%3FS%3A0%2Csk%3Dt.as%3Fsc%3A'none'%2Ccx%3DC%2F2%2Chw%3D250%2Chh%3D300%3Bt.fs%3D%3D%3D'thin'%26%26(hw%3D200%2Chh%3D320)%2Ct.fs%3D%3D%3D'fat'%26%26(hw%3D300%2Chh%3D280)%3Blet%20hy%3D(C-hh)%2F2%2B30%2Ces%3Dt.et%3D%3D%3D'big_eyes'%3F1.5%3A1%2Cas%3Dt.at%3D%3D%3D'big_ears'%3F1.5%3A1%2Cns%3D1%3Bt.nt%3D%3D%3D'big_nose'%26%26(ns%3D1.5)%2Ct.nt%3D%3D%3D'small_nose'%26%26(ns%3D.7)%3Blet%20ey%3Dhy%2Bhh*.38%2Ced%3Dhw*.15%2Cmy%3Dhy%2Bhh*.7%3Bif(t.hs%3D%3D%3D'mohawk')R(cx-10%2Chy-60%2C20%2C70%2Chc%2Csk%2Csw)%3Belse%20if(t.hs!%3D%3D'bald')%7Blet%20cv%3D%7B'thin'%3A.7%2C'medium'%3A1%2C'fat'%3A1.3%2C'side_shave'%3A1%7D%5Bt.hs%5D%7C%7C1%3BR(cx-hw*cv%2F2%2Chy-50%2Chw*cv%2Chh*.7%2B50%2Chc%2Csk%2Csw)%7DR(cx-hw%2F2%2Chy%2Chw%2Chh%2Cst%2Csk%2Csw)%3Bfor(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)%7Blet%20aw%3D2*S*as%2Cah%3D8*S*as%2Cax%3Dcx%2Bi*hw%2F2%2Cay%3Dhy%2Bhh*.5-ah%2F2%3Bt.at%3D%3D%3D'elf_ears'%26%26(ay-%3Dah*.2)%2CR(ax%2Cay%2Caw%2Cah%2Cst%2Csk%2Csw)%2Ct.at%3D%3D%3D'elf_ears'%26%26R(ax%2Cay-S%2Caw%2CS%2Cst%2Csk%2Csw)%2Ct.he%26%26R(ax%2Cay%2Bah*.7%2C2*S%2CS%2Ccc)%7Dlet%20ew%3D10*S*es%2Ceh%3D2*S*es%3Bif(t.et%3D%3D%3D'cyber_visor')R(cx-hw%2F2%2Cey-eh%2Chw%2Ceh*3%2CH(L.A)%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'shades')R(cx-ed*2%2Cey-eh%2F2%2Ced*4%2Ceh*2%2C'%23111'%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'monocle')%7BR(cx%2Bed-ew%2F2%2Cey%2Cew%2Ceh%2Cac)%3Blet%20mx%3Dcx-ed-ew*.75%2Cms%3D4*S%3BR(mx%2Cey-eh*.5%2Cms%2Cms%2CH(L.A))%2CR(mx%2BS%2Cey-eh*.5%2BS%2Cms-2*S%2Cms-2*S%2CO)%7Delse%20if(t.et%3D%3D%3D'glowing_eyes')for(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*ed-ew%2F2%2Cey%2Cew%2Ceh%2CH(%5B'%23F00'%2C'%23FF0'%2C'%230F0'%5D)%2Csk%2Csw)%3Belse%20if(t.et%3D%3D%3D'lazer_eye')%7Blet%20rex%3Dcx%2Bed-ew%2F2%3BR(cx-ed-ew%2F2%2Cey%2Cew%2Ceh%2C'%23F00'%2Csk%2Csw)%2CR(rex%2Cey%2Cew%2Ceh%2C'%23F00'%2Csk%2Csw)%2CR(rex%2Bew%2Cey%2Beh%2F2-S%2F2%2Chw%2CS%2C'%23F00')%7Delse%20for(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*ed-ew%2F2%2Cey%2Cew%2Ceh%2Cac%2Csk%2Csw%2F2)%3Blet%20nw%3D2*S*ns%2Cnh%3D3*S*ns%3BR(cx-nw%2F2%2Cey%2Beh%2BS%2Cnw%2Cnh%2Cac%2Csk%2Csw)%2Ct.hn%26%26R(cx%2Cey%2Beh%2BS%2Bnh%2CS%2CS%2C'%23FFF')%3Blet%20mw%3D6*S%2Cmh%3D2*S%3Bif(t.mt%3D%3D%3D'open')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh*2%2CO)%3Belse%20if(t.mt%3D%3D%3D'smirk')R(cx%2Cmy%2Cmw%2F2%2Cmh%2Cac)%3Belse%20if(t.mt%3D%3D%3D'frown')R(cx-mw%2F2%2Cmy%2Bmh%2Cmw%2Cmh%2Cac)%2CR(cx-mw%2F2-S%2Cmy%2Bmh%2CS%2Cmh%2Cac)%2CR(cx%2Bmw%2F2%2Cmy%2Bmh%2CS%2Cmh%2Cac)%3Belse%20if(t.mt%3D%3D%3D'cigarette')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%2CR(cx%2Bmw%2F2%2Cmy%2C2*S%2CS%2C'%23FFF')%3Belse%20if(t.mt%3D%3D%3D'vampire_fangs')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%2CR(cx-mw%2F2%2Cmy%2Bmh%2CS%2CS%2C'%23FFF')%2CR(cx%2Bmw%2F2-S%2Cmy%2Bmh%2CS%2CS%2C'%23FFF')%3Belse%20if(t.mt%3D%3D%3D'drool')R(cx-mw%2F2%2Cmy%2Cmw%2Cmh*1.5%2CO)%2CR(cx%2Bmw%2F2-S%2Cmy%2Bmh%2CS%2Cmh*3%2C'%233F2')%3Belse%20R(cx-mw%2F2%2Cmy%2Cmw%2Cmh%2Cac)%3Bt.hl%26%26R(cx%2Cmy%2Bmh*1.5%2CS%2CS%2C'%23FFF')%3Bif(t.fh!%3D%3D'none')%7Blet%20bc%3Dhc%3Bt.fh%3D%3D%3D'mustache'%3FR(cx-mw%2F2%2Cmy-mh%2Cmw%2Cmh%2Cbc%2Csk%2Csw)%3At.fh%3D%3D%3D'goatee'%26%26R(cx-mw%2F4%2Cmy%2Bmh*1.5%2Cmw%2F2%2Cmh*2%2Cbc%2Csk%2Csw)%7Dif(t.ha%3D%3D%3D'hat')R(cx-hw%2F2%2Chy-30%2Chw%2C35%2Ccc)%3Belse%20if(t.ha%3D%3D%3D'helmet')R(cx-hw*.55%2Chy-40%2Chw*1.1%2Chh*.4%2Ccc)%2CR(cx-hw%2F2%2Cey%2Chw%2C5%2CO)%3Belse%20if(t.ha%3D%3D%3D'headphones')%7BR(cx-hw%2F2-5%2Chy-10%2Chw%2B10%2CS%2Ccc)%3Bfor(let%20i%3D-1%3Bi%3C%3D1%3Bi%2B%3D2)R(cx%2Bi*(hw%2F2%2B5)%2Chy%2Bhh*.4%2C20%2C30%2Ccc)%7Delse%20t.ha%3D%3D%3D'bandana'%26%26R(cx-hw%2F2%2Chy-S*2%2Chw%2CS*6%2CH(L.A))%3Bt.hs%3D%3D%3D'side_shave'%26%26R(cx-hw%2F2%2BS*2%2Chy%2Chw*.4%2Chh*.3%2Chc%2Csk%2Csw)%3Bif(t.c%3D%3D%3D'cyber_eye'%26%26t.et!%3D%3D'cyber_visor'%26%26t.et!%3D%3D'shades')R(cx%2Bed-ew%2F2-S%2Cey-S%2Cew%2B2*S%2Ceh%2B2*S%2C'%23B4B4B4')%2CR(cx%2Bed-ew%2F2%2Cey%2Cew%2Ceh%2C'%23F00')%3Bif(t.c%3D%3D%3D'facial_seams')R(cx-hw%2F2%2BS%2Chy%2CS%2Chh%2C'%23333')%2CR(cx-hw*.25%2Cmy%2Chw*.5%2CS%2C'%23333')%3Bif(t.s%3D%3D%3D'eye_scar')R(cx-ed-ew%2Cey-eh%2Cew*2%2Ceh*2%2Cst)%2CR(cx-ed-ew%2F2-20%2Cey%2B10%2C40%2CS%2F2%2Cac)%3Bt.s%3D%3D%3D'cheek_scar'%26%26R(cx-hw*.3%2Cmy-hh*.1%2Chw*.15%2CS%2Cac)%3Bfor(let%20i%3DI(3)%2B1%3Bi--%3B)R(G(0%2CC)%2CG(0%2CC)%2CG(10%2C50)%2CG(2%2C6)%2CH(L.A))%7D%3BB.svg.setAttribute('viewBox'%2C'0%200%20'%2BC%2B'%20'%2BC)%2CR(0%2C0%2CC%2CC%2CO)%3Bconst%20t%3D%7Bfs%3AH(f1)%2Chs%3AH(h1)%2Cet%3AH(e1)%2Cnt%3AH(n1)%2Cat%3AH(a1)%2Cmt%3AH(m1)%2Cfh%3AH(f2)%2Cha%3AH(h2)%2Cc%3AH(c1)%2Cs%3AH(s1)%2Chn%3AB.rnd()%3C.2%2Chl%3AB.rnd()%3C.2%2Che%3AB.rnd()%3C.4%2Cas%3AB.rnd()%3C.4%7D%2Ce%3D%7Bs%3AB.rnd()%3C.8%2Cn%3AB.rnd()%3C.8%2Cv%3AB.rnd()%3C.9%7D%3BF(t)%2Ce.s%26%26J()%2Ce.n%26%26K()%2Ce.v%26%26V()%7D)(BTLDR)%3B%7D%29%28BTLDR%29%3B%5D%5D%3E%3C%2Fscript%3E%3C%2Fsvg%3E">
+                <div class="artwork-preview">
+                    <img src="https://wsrv.nl/?url=https%3A%2F%2Fmedia.bootloader.art%2Fthumbnail%2F4724%3Fv%3D1&output=webp&q=85" crossorigin="anonymous" alt="cyber_derps #4" class="artwork-image">
+                </div>
                 <div class="artwork-title">cyber_derps #4</div>
             </a>
 
     </div>
     
     <canvas id="webgl"></canvas>
-
-    <!-- Shared generative art preview iframe - only activated on hover/hold for cards with data-generator -->
-    <iframe id="art-preview"
-        sandbox="allow-scripts allow-same-origin"
-        style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
-        src="about:blank"
-        title="Generative art preview">
-    </iframe>
 
     <!-- Fullscreen interactive generative art runner modal -->
     <div id="runner-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:#050505;">
@@ -744,45 +760,73 @@
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
 
-        // --- IMAGE HOVER ANIMATION ---
-        // On mouseenter: swap to artifact (GIF/original) if available
-        // On mouseleave: restore display image
-        document.querySelectorAll('.artwork-card').forEach(card => {
-            const img = card.querySelector('.artwork-image');
-            if (!img) return;
-            const displaySrc = img.src;
-            const artifactSrc = img.dataset.artifact;
+        // --- PREVIEW WINDOW ACTIVATION ON MOUSE OVER / TOUCH ---
+        // All art activates on mouse over: code runs in preview, animations play
+        let activePreviewCard = null;
+        let previewHoverTimer = null;
 
-            card.addEventListener('mouseenter', () => {
-                if (artifactSrc) {
-                    const probe = new Image();
-                    probe.crossOrigin = 'anonymous';
-                    probe.onload = () => { img.src = probe.src; };
-                    probe.onerror = () => {}; // stay on display image
-                    probe.src = artifactSrc;
-                }
-            });
-            card.addEventListener('mouseleave', () => {
-                img.src = displaySrc;
-            });
-        });
-
-        // --- IMAGE ERROR FALLBACK ---
-        // If display_uri fails to load, try thumbnail, then hide gracefully
-        document.querySelectorAll('.artwork-image').forEach(img => {
-            if (img.complete && img.naturalWidth === 0) {
-                // Already broken on load
-                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
-                else img.style.visibility = 'hidden';
+        function clearActivePreview() {
+            clearTimeout(previewHoverTimer);
+            if (!activePreviewCard) return;
+            const container = activePreviewCard.querySelector('.artwork-preview');
+            if (container) {
+                const mediaEls = container.querySelectorAll('.artwork-preview-media');
+                mediaEls.forEach(el => {
+                    if (el.tagName === 'IFRAME') el.src = 'about:blank';
+                    if (el.tagName === 'VIDEO') {
+                        try { el.pause(); el.src = ''; } catch(e) {}
+                    }
+                    el.remove();
+                });
             }
-            img.addEventListener('error', function() {
-                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
-                    this.src = this.dataset.thumbnail;
-                } else {
-                    this.style.visibility = 'hidden';
-                }
-            });
-        });
+            activePreviewCard = null;
+        }
+
+        function activatePreview(card) {
+            if (activePreviewCard === card) return;
+            clearActivePreview();
+
+            const container = card.querySelector('.artwork-preview');
+            if (!container) return;
+
+            activePreviewCard = card;
+
+            // 1. Interactive code art (runs live in preview)
+            if (card.dataset.generator) {
+                const iframe = document.createElement('iframe');
+                iframe.className = 'artwork-preview-media';
+                iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-pointer-lock');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope');
+                iframe.src = card.dataset.generator;
+                container.appendChild(iframe);
+                return;
+            }
+
+            // 2. Video animation (plays looping video)
+            if (card.dataset.animation && card.dataset.animationType === 'video') {
+                const video = document.createElement('video');
+                video.className = 'artwork-preview-media';
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.src = card.dataset.animation;
+                container.appendChild(video);
+                video.play().catch(() => {});
+                return;
+            }
+
+            // 3. GIF animation (plays animated GIF)
+            if (card.dataset.animation && card.dataset.animationType === 'gif') {
+                const gif = document.createElement('img');
+                gif.className = 'artwork-preview-media';
+                gif.crossOrigin = 'anonymous';
+                gif.alt = card.querySelector('.artwork-image')?.alt || '';
+                gif.src = card.dataset.animation;
+                container.appendChild(gif);
+                return;
+            }
+        }
 
         // --- FULLSCREEN GENERATIVE ART RUNNER MODAL ---
         const runnerModal = document.getElementById('runner-modal');
@@ -794,6 +838,7 @@
 
         function openRunner(card) {
             if (!card.dataset.generator || !runnerModal) return;
+            clearActivePreview();
             const titleEl = card.querySelector('.artwork-title');
             if (runnerTitle) runnerTitle.textContent = titleEl ? titleEl.textContent : '';
             if (runnerIframe) runnerIframe.src = card.dataset.generator;
@@ -815,112 +860,63 @@
             }
         });
 
-        // --- GENERATIVE ART PREVIEW IFRAME ---
-        // Cards with data-generator show live preview when tapped/clicked and held
-        const artPreview = document.getElementById('art-preview');
-        if (artPreview) {
-            let previewTimeout = null;
-            let activeCard = null;
-
-            function showPreview(card) {
-                clearTimeout(previewTimeout);
-                const img = card.querySelector('.artwork-image');
-                if (!img) return;
-                const rect = img.getBoundingClientRect();
-                artPreview.style.left   = rect.left   + 'px';
-                artPreview.style.top    = rect.top    + 'px';
-                artPreview.style.width  = rect.width  + 'px';
-                artPreview.style.height = rect.height + 'px';
-                if (artPreview.src !== card.dataset.generator) {
-                    artPreview.src = card.dataset.generator;
-                }
-                artPreview.style.display = 'block';
-                activeCard = card;
-            }
-
-            function hidePreview(delay = 80) {
-                clearTimeout(previewTimeout);
-                previewTimeout = setTimeout(() => {
-                    artPreview.style.display = 'none';
-                    artPreview.src = 'about:blank';
-                    activeCard = null;
-                }, delay);
-            }
-
-            document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
-                let holdTimer = null;
-                let startX = 0;
-                let startY = 0;
-                let isHolding = false;
-                let suppressClick = false;
-
-                function startHold(e) {
-                    if (e.button !== undefined && e.button !== 0) return;
-                    isHolding = false;
-                    suppressClick = false;
-                    startX = e.clientX;
-                    startY = e.clientY;
-                    clearTimeout(holdTimer);
-
-                    holdTimer = setTimeout(() => {
-                        isHolding = true;
-                        suppressClick = true;
-                        showPreview(card);
-                    }, 350);
-                }
-
-                function endHold(e) {
-                    clearTimeout(holdTimer);
-                    if (isHolding) {
-                        isHolding = false;
-                        hidePreview(100);
-                    }
-                }
-
-                function moveHold(e) {
-                    if (holdTimer && !isHolding) {
-                        if (Math.hypot(e.clientX - startX, e.clientY - startY) > 10) {
-                            clearTimeout(holdTimer);
-                        }
-                    }
-                }
-
-                card.addEventListener('pointerdown', startHold);
-                card.addEventListener('pointermove', moveHold);
-                card.addEventListener('pointerup', endHold);
-                card.addEventListener('pointercancel', endHold);
-                card.addEventListener('mouseleave', () => {
-                    clearTimeout(holdTimer);
-                    if (isHolding || activeCard === card) {
-                        isHolding = false;
-                        hidePreview(80);
-                    }
-                });
-
-                card.addEventListener('click', (e) => {
-                    if (suppressClick) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        suppressClick = false;
-                        return false;
-                    }
-                    if (card.dataset.generator) {
-                        e.preventDefault();
-                        openRunner(card);
-                    }
-                });
-
-                card.addEventListener('contextmenu', (e) => {
-                    e.preventDefault();
-                });
+        // Bind hover and click events across all cards
+        document.querySelectorAll('.artwork-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                clearTimeout(previewHoverTimer);
+                previewHoverTimer = setTimeout(() => {
+                    activatePreview(card);
+                }, 60);
             });
 
-            window.addEventListener('scroll', () => {
-                if (artPreview.style.display === 'block') {
-                    hidePreview(0);
+            card.addEventListener('mouseleave', () => {
+                clearTimeout(previewHoverTimer);
+                if (activePreviewCard === card) {
+                    clearActivePreview();
+                }
+            });
+
+            // Touch / mobile activation
+            card.addEventListener('touchstart', () => {
+                if (card.dataset.generator || card.dataset.animation) {
+                    if (activePreviewCard !== card) {
+                        activatePreview(card);
+                    }
                 }
             }, { passive: true });
-        }
+
+            card.addEventListener('click', (e) => {
+                if (card.dataset.generator) {
+                    e.preventDefault();
+                    openRunner(card);
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (activePreviewCard) {
+                const rect = activePreviewCard.getBoundingClientRect();
+                if (rect.bottom < 0 || rect.top > window.innerHeight) {
+                    clearActivePreview();
+                }
+            }
+        }, { passive: true });
+
+        // --- IMAGE ERROR FALLBACK ---
+        // If display_uri fails to load, try thumbnail, then hide gracefully
+        document.querySelectorAll('.artwork-image').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
+                else img.style.visibility = 'hidden';
+            }
+            img.addEventListener('error', function() {
+                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
+                    this.src = this.dataset.thumbnail;
+                } else {
+                    this.style.visibility = 'hidden';
+                }
+            });
+        });
 
         window.onload = init;
     </script>

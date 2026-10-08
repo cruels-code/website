@@ -27,16 +27,16 @@ const resolveImage = (token) => {
 };
 
 // Resolves generative art iframe URL from token data
-// For Bootloader tokens, uses their direct CDN artifact endpoint.
+// For Bootloader tokens, uses their direct IPFS sketch if available, or generic-web endpoint.
 // For SVG data URI tokens (cyber_derps), uses the data URI directly.
-// For IPFS code tokens (code, fxhash, HEN/Teia interactive directories), uses Filebase gateway.
+// For IPFS code tokens (code, fxhash, HEN/Teia interactive directories), uses Teia cache (HEN) or Filebase gateway.
 const resolveGenerator = (token) => {
-    if (token.thumbnail_uri && token.thumbnail_uri.includes('bootloader.art')) {
-        return `https://media.bootloader.art/generic-web/v1/artifact/${token.token_id}?v=1`;
-    }
+    // 1. Cyber derps inline SVG data URI apps
     if (token.artifact_uri && token.artifact_uri.startsWith('data:image/svg+xml')) {
         return token.artifact_uri;
     }
+
+    // 2. IPFS code / interactive sketch tokens
     const isCodeArt = (
         token.mime === 'application/x-directory' ||
         token.mime === 'text/html' ||
@@ -44,17 +44,60 @@ const resolveGenerator = (token) => {
     );
     if (isCodeArt && token.artifact_uri && token.artifact_uri.startsWith('ipfs://')) {
         const withoutProto = token.artifact_uri.replace('ipfs://', '');
+        const isHen = (token.fa_contract === 'KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton');
+        const gateway = isHen ? 'https://cache.teia.rocks/ipfs/' : 'https://ipfs.filebase.io/ipfs/';
         if (withoutProto.includes('?')) {
             const qIdx = withoutProto.indexOf('?');
             const cid = withoutProto.substring(0, qIdx);
             const query = withoutProto.substring(qIdx + 1);
-            return `https://ipfs.filebase.io/ipfs/${cid}/?${query}`;
+            return `${gateway}${cid}/?${query}`;
         } else {
             const cleanCid = withoutProto.replace(/\/+$/, '');
-            return `https://ipfs.filebase.io/ipfs/${cleanCid}/`;
+            return `${gateway}${cleanCid}/`;
         }
     }
+
+    // 3. Fallback for Bootloader tokens without direct IPFS sketch
+    if (token.thumbnail_uri && token.thumbnail_uri.includes('bootloader.art')) {
+        return `https://media.bootloader.art/generic-web/v1/artifact/${token.token_id}?v=1`;
+    }
+
     return '';
+};
+
+// Resolves animation URL and type (video or gif) for animated artworks
+const resolveAnimation = (token) => {
+    // MP4 video animation
+    if (token.mime === 'video/mp4' && token.artifact_uri && token.artifact_uri.startsWith('ipfs://')) {
+        const cid = token.artifact_uri.replace('ipfs://', '').split('?')[0].replace(/\/+$/, '');
+        const isHen = (token.fa_contract === 'KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton');
+        const gateway = isHen ? 'https://cache.teia.rocks/ipfs/' : 'https://ipfs.filebase.io/ipfs/';
+        return {
+            type: 'video',
+            url: `${gateway}${cid}`
+        };
+    }
+    // Animated GIF
+    if (token.mime === 'image/gif') {
+        const uri = (token.artifact_uri && token.artifact_uri.startsWith('ipfs://'))
+            ? token.artifact_uri
+            : (token.display_uri && token.display_uri.startsWith('ipfs://') ? token.display_uri : '');
+        if (uri) {
+            const cid = uri.replace('ipfs://', '').split('?')[0].replace(/\/+$/, '');
+            const isHen = (token.fa_contract === 'KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton');
+            if (isHen) {
+                return {
+                    type: 'gif',
+                    url: `https://cache.teia.rocks/ipfs/${cid}`
+                };
+            }
+            return {
+                type: 'gif',
+                url: `https://wsrv.nl/?url=${encodeURIComponent('https://ipfs.filebase.io/ipfs/' + cid)}&n=-1`
+            };
+        }
+    }
+    return null;
 };
 
 const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
@@ -124,25 +167,56 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             display: flex;
             flex-direction: column;
             gap: 15px;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
             text-decoration: none;
             color: transparent;
             pointer-events: auto;
+            position: relative;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: pan-y;
         }
         .artwork-card:hover {
             border-color: #FFFFFF;
             background-color: rgba(17, 17, 17, 0.8);
         }
-        .artwork-image {
+        .artwork-preview {
+            position: relative;
             width: 100%;
             aspect-ratio: 1;
-            object-fit: cover;
             border: 1px solid #222;
+            overflow: hidden;
+            background: #000;
+        }
+        .artwork-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
             filter: grayscale(100%) brightness(0.45);
             transition: filter 0.4s ease, opacity 0.3s ease;
+            display: block;
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: none;
         }
         .artwork-card:hover .artwork-image {
             filter: none;
+        }
+        .artwork-preview-media {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+            object-fit: cover;
+            display: block;
+            z-index: 2;
+            pointer-events: none;
+            image-rendering: pixelated;
         }
         .artwork-title {
             font-size: 1rem;
@@ -200,21 +274,6 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
                 font-size: 24px;
             }
         }
-        /* Generative art preview iframe */
-        #art-preview {
-            image-rendering: pixelated;
-        }
-        .artwork-card {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-            touch-action: pan-y;
-        }
-        .artwork-image {
-            -webkit-user-drag: none;
-            user-select: none;
-            pointer-events: none;
-        }
     </style>
 </head>
 <body>
@@ -226,14 +285,6 @@ ${itemsHtml}
     </div>
     
     <canvas id="webgl"></canvas>
-
-    <!-- Shared generative art preview iframe - only activated on hover/hold for cards with data-generator -->
-    <iframe id="art-preview"
-        sandbox="allow-scripts allow-same-origin"
-        style="position:fixed;display:none;border:none;z-index:50;background:#000;pointer-events:none;"
-        src="about:blank"
-        title="Generative art preview">
-    </iframe>
 
     <!-- Fullscreen interactive generative art runner modal -->
     <div id="runner-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:#050505;">
@@ -571,45 +622,73 @@ ${fragmentShaderSrc}
             shaderMaterial.uniforms.u_safe_mode.value = isPhotosensitiveMode;
         });
 
-        // --- IMAGE HOVER ANIMATION ---
-        // On mouseenter: swap to artifact (GIF/original) if available
-        // On mouseleave: restore display image
-        document.querySelectorAll('.artwork-card').forEach(card => {
-            const img = card.querySelector('.artwork-image');
-            if (!img) return;
-            const displaySrc = img.src;
-            const artifactSrc = img.dataset.artifact;
+        // --- PREVIEW WINDOW ACTIVATION ON MOUSE OVER / TOUCH ---
+        // All art activates on mouse over: code runs in preview, animations play
+        let activePreviewCard = null;
+        let previewHoverTimer = null;
 
-            card.addEventListener('mouseenter', () => {
-                if (artifactSrc) {
-                    const probe = new Image();
-                    probe.crossOrigin = 'anonymous';
-                    probe.onload = () => { img.src = probe.src; };
-                    probe.onerror = () => {}; // stay on display image
-                    probe.src = artifactSrc;
-                }
-            });
-            card.addEventListener('mouseleave', () => {
-                img.src = displaySrc;
-            });
-        });
-
-        // --- IMAGE ERROR FALLBACK ---
-        // If display_uri fails to load, try thumbnail, then hide gracefully
-        document.querySelectorAll('.artwork-image').forEach(img => {
-            if (img.complete && img.naturalWidth === 0) {
-                // Already broken on load
-                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
-                else img.style.visibility = 'hidden';
+        function clearActivePreview() {
+            clearTimeout(previewHoverTimer);
+            if (!activePreviewCard) return;
+            const container = activePreviewCard.querySelector('.artwork-preview');
+            if (container) {
+                const mediaEls = container.querySelectorAll('.artwork-preview-media');
+                mediaEls.forEach(el => {
+                    if (el.tagName === 'IFRAME') el.src = 'about:blank';
+                    if (el.tagName === 'VIDEO') {
+                        try { el.pause(); el.src = ''; } catch(e) {}
+                    }
+                    el.remove();
+                });
             }
-            img.addEventListener('error', function() {
-                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
-                    this.src = this.dataset.thumbnail;
-                } else {
-                    this.style.visibility = 'hidden';
-                }
-            });
-        });
+            activePreviewCard = null;
+        }
+
+        function activatePreview(card) {
+            if (activePreviewCard === card) return;
+            clearActivePreview();
+
+            const container = card.querySelector('.artwork-preview');
+            if (!container) return;
+
+            activePreviewCard = card;
+
+            // 1. Interactive code art (runs live in preview)
+            if (card.dataset.generator) {
+                const iframe = document.createElement('iframe');
+                iframe.className = 'artwork-preview-media';
+                iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-pointer-lock');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope');
+                iframe.src = card.dataset.generator;
+                container.appendChild(iframe);
+                return;
+            }
+
+            // 2. Video animation (plays looping video)
+            if (card.dataset.animation && card.dataset.animationType === 'video') {
+                const video = document.createElement('video');
+                video.className = 'artwork-preview-media';
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.src = card.dataset.animation;
+                container.appendChild(video);
+                video.play().catch(() => {});
+                return;
+            }
+
+            // 3. GIF animation (plays animated GIF)
+            if (card.dataset.animation && card.dataset.animationType === 'gif') {
+                const gif = document.createElement('img');
+                gif.className = 'artwork-preview-media';
+                gif.crossOrigin = 'anonymous';
+                gif.alt = card.querySelector('.artwork-image')?.alt || '';
+                gif.src = card.dataset.animation;
+                container.appendChild(gif);
+                return;
+            }
+        }
 
         // --- FULLSCREEN GENERATIVE ART RUNNER MODAL ---
         const runnerModal = document.getElementById('runner-modal');
@@ -621,6 +700,7 @@ ${fragmentShaderSrc}
 
         function openRunner(card) {
             if (!card.dataset.generator || !runnerModal) return;
+            clearActivePreview();
             const titleEl = card.querySelector('.artwork-title');
             if (runnerTitle) runnerTitle.textContent = titleEl ? titleEl.textContent : '';
             if (runnerIframe) runnerIframe.src = card.dataset.generator;
@@ -642,112 +722,63 @@ ${fragmentShaderSrc}
             }
         });
 
-        // --- GENERATIVE ART PREVIEW IFRAME ---
-        // Cards with data-generator show live preview when tapped/clicked and held
-        const artPreview = document.getElementById('art-preview');
-        if (artPreview) {
-            let previewTimeout = null;
-            let activeCard = null;
-
-            function showPreview(card) {
-                clearTimeout(previewTimeout);
-                const img = card.querySelector('.artwork-image');
-                if (!img) return;
-                const rect = img.getBoundingClientRect();
-                artPreview.style.left   = rect.left   + 'px';
-                artPreview.style.top    = rect.top    + 'px';
-                artPreview.style.width  = rect.width  + 'px';
-                artPreview.style.height = rect.height + 'px';
-                if (artPreview.src !== card.dataset.generator) {
-                    artPreview.src = card.dataset.generator;
-                }
-                artPreview.style.display = 'block';
-                activeCard = card;
-            }
-
-            function hidePreview(delay = 80) {
-                clearTimeout(previewTimeout);
-                previewTimeout = setTimeout(() => {
-                    artPreview.style.display = 'none';
-                    artPreview.src = 'about:blank';
-                    activeCard = null;
-                }, delay);
-            }
-
-            document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
-                let holdTimer = null;
-                let startX = 0;
-                let startY = 0;
-                let isHolding = false;
-                let suppressClick = false;
-
-                function startHold(e) {
-                    if (e.button !== undefined && e.button !== 0) return;
-                    isHolding = false;
-                    suppressClick = false;
-                    startX = e.clientX;
-                    startY = e.clientY;
-                    clearTimeout(holdTimer);
-
-                    holdTimer = setTimeout(() => {
-                        isHolding = true;
-                        suppressClick = true;
-                        showPreview(card);
-                    }, 350);
-                }
-
-                function endHold(e) {
-                    clearTimeout(holdTimer);
-                    if (isHolding) {
-                        isHolding = false;
-                        hidePreview(100);
-                    }
-                }
-
-                function moveHold(e) {
-                    if (holdTimer && !isHolding) {
-                        if (Math.hypot(e.clientX - startX, e.clientY - startY) > 10) {
-                            clearTimeout(holdTimer);
-                        }
-                    }
-                }
-
-                card.addEventListener('pointerdown', startHold);
-                card.addEventListener('pointermove', moveHold);
-                card.addEventListener('pointerup', endHold);
-                card.addEventListener('pointercancel', endHold);
-                card.addEventListener('mouseleave', () => {
-                    clearTimeout(holdTimer);
-                    if (isHolding || activeCard === card) {
-                        isHolding = false;
-                        hidePreview(80);
-                    }
-                });
-
-                card.addEventListener('click', (e) => {
-                    if (suppressClick) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        suppressClick = false;
-                        return false;
-                    }
-                    if (card.dataset.generator) {
-                        e.preventDefault();
-                        openRunner(card);
-                    }
-                });
-
-                card.addEventListener('contextmenu', (e) => {
-                    e.preventDefault();
-                });
+        // Bind hover and click events across all cards
+        document.querySelectorAll('.artwork-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                clearTimeout(previewHoverTimer);
+                previewHoverTimer = setTimeout(() => {
+                    activatePreview(card);
+                }, 60);
             });
 
-            window.addEventListener('scroll', () => {
-                if (artPreview.style.display === 'block') {
-                    hidePreview(0);
+            card.addEventListener('mouseleave', () => {
+                clearTimeout(previewHoverTimer);
+                if (activePreviewCard === card) {
+                    clearActivePreview();
+                }
+            });
+
+            // Touch / mobile activation
+            card.addEventListener('touchstart', () => {
+                if (card.dataset.generator || card.dataset.animation) {
+                    if (activePreviewCard !== card) {
+                        activatePreview(card);
+                    }
                 }
             }, { passive: true });
-        }
+
+            card.addEventListener('click', (e) => {
+                if (card.dataset.generator) {
+                    e.preventDefault();
+                    openRunner(card);
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (activePreviewCard) {
+                const rect = activePreviewCard.getBoundingClientRect();
+                if (rect.bottom < 0 || rect.top > window.innerHeight) {
+                    clearActivePreview();
+                }
+            }
+        }, { passive: true });
+
+        // --- IMAGE ERROR FALLBACK ---
+        // If display_uri fails to load, try thumbnail, then hide gracefully
+        document.querySelectorAll('.artwork-image').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                if (img.dataset.thumbnail) img.src = img.dataset.thumbnail;
+                else img.style.visibility = 'hidden';
+            }
+            img.addEventListener('error', function() {
+                if (this.dataset.thumbnail && this.src !== this.dataset.thumbnail) {
+                    this.src = this.dataset.thumbnail;
+                } else {
+                    this.style.visibility = 'hidden';
+                }
+            });
+        });
 
         window.onload = init;
     </script>
@@ -785,12 +816,17 @@ curations.forEach(curation => {
     curation.tokens.forEach(({ token }) => {
         const link = 'https://objkt.com/tokens/' + token.fa_contract + '/' + token.token_id;
         const imgUrl = resolveImage(token);
+        const genUrl = resolveGenerator(token);
+        const anim = resolveAnimation(token);
 
         itemsHtml += '            <a href="' + link + '" class="artwork-card" target="_blank"'
-            + (resolveGenerator(token) ? ' data-generator="' + resolveGenerator(token) + '"' : '')
+            + (genUrl ? ' data-generator="' + genUrl + '"' : '')
+            + (anim ? ' data-animation="' + anim.url + '" data-animation-type="' + anim.type + '"' : '')
             + '>\n';
-        itemsHtml += '                <img src="' + imgUrl + '"'
+        itemsHtml += '                <div class="artwork-preview">\n';
+        itemsHtml += '                    <img src="' + imgUrl + '"'
             + ' crossorigin="anonymous" alt="' + token.name.replace(/"/g, '&quot;') + '" class="artwork-image">\n';
+        itemsHtml += '                </div>\n';
         itemsHtml += '                <div class="artwork-title">' + token.name + '</div>\n';
         itemsHtml += '            </a>\n';
     });
