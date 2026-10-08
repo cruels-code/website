@@ -26,16 +26,20 @@ const resolveImage = (token) => {
     return 'https://wsrv.nl/?url=' + encodeURIComponent(objktCdnUrl) + '&output=webp&q=85';
 };
 
-// Resolves generative art iframe URL from artifact_uri ipfs://CID?s=SEED
-// Uses subdomain-style IPFS routing (CID.ipfs.dweb.link) which preserves query params
+// Resolves generative art iframe URL from token data
+// For Bootloader tokens, uses their direct CDN artifact endpoint.
+// For IPFS tokens, uses Filebase gateway to avoid dweb.link service worker deprecation warnings.
 const resolveGenerator = (token) => {
+    if (token.thumbnail_uri && token.thumbnail_uri.includes('bootloader.art') && token.artifact_uri && token.artifact_uri.includes('?')) {
+        return `https://media.bootloader.art/generic-web/v1/artifact/${token.token_id}?v=1`;
+    }
     const rawUri = token.artifact_uri;
     if (!rawUri || !rawUri.startsWith('ipfs://') || !rawUri.includes('?')) return '';
     const withoutProto = rawUri.replace('ipfs://', '');
     const qIdx = withoutProto.indexOf('?');
     const cid = withoutProto.substring(0, qIdx);
-    const query = withoutProto.substring(qIdx + 1); // e.g. s=abc123 or m0=0.500
-    return `https://${cid}.ipfs.dweb.link/?${query}`;
+    const query = withoutProto.substring(qIdx + 1); // e.g. m0=0.500
+    return `https://ipfs.filebase.io/ipfs/${cid}/?${query}`;
 };
 
 const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
