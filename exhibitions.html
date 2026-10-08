@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -144,8 +144,21 @@
                 padding-bottom: 80px;
             }
             h1 {
-                font-size: 1.5rem;
+                font-size: clamp(2.2rem, 7vw, 3rem);
                 margin-bottom: 30px;
+            }
+            .year {
+                font-size: clamp(2rem, 6vw, 3rem);
+            }
+            .exhibition-title {
+                font-size: clamp(1.8rem, 5.5vw, 2.4rem);
+            }
+            .exhibition-desc {
+                font-size: clamp(1.4rem, 4.5vw, 1.8rem);
+                line-height: 1.4;
+            }
+            .exhibition-link {
+                font-size: clamp(1.4rem, 4.5vw, 1.8rem);
             }
             .timeline::after {
                 left: 31px;
@@ -169,7 +182,7 @@
                 bottom: 10px !important;
                 left: 10px !important;
                 padding: 10px !important;
-                font-size: 20px !important;
+                font-size: clamp(28px, 7vw, 40px) !important;
             }
         }
         .back-link {

@@ -30,11 +30,11 @@ const resolveImage = (token) => {
 // Uses subdomain-style IPFS routing (CID.ipfs.dweb.link) which preserves query params
 const resolveGenerator = (token) => {
     const rawUri = token.artifact_uri;
-    if (!rawUri || !rawUri.startsWith('ipfs://') || !rawUri.includes('?s=')) return '';
+    if (!rawUri || !rawUri.startsWith('ipfs://') || !rawUri.includes('?')) return '';
     const withoutProto = rawUri.replace('ipfs://', '');
     const qIdx = withoutProto.indexOf('?');
     const cid = withoutProto.substring(0, qIdx);
-    const query = withoutProto.substring(qIdx + 1); // e.g. s=abc123
+    const query = withoutProto.substring(qIdx + 1); // e.g. s=abc123 or m0=0.500
     return `https://${cid}.ipfs.dweb.link/?${query}`;
 };
 
@@ -184,6 +184,17 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
         /* Generative art preview iframe */
         #art-preview {
             image-rendering: pixelated;
+        }
+        .artwork-card {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: pan-y;
+        }
+        .artwork-image {
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -569,31 +580,106 @@ ${fragmentShaderSrc}
         });
 
         // --- GENERATIVE ART PREVIEW IFRAME ---
-        // Cards with data-generator (e.g. Ctrl-C) show a live iframe on hover
+        // Cards with data-generator show live preview when tapped/clicked and held
         const artPreview = document.getElementById('art-preview');
         if (artPreview) {
             let previewTimeout = null;
+            let activeCard = null;
+
+            function showPreview(card) {
+                clearTimeout(previewTimeout);
+                const img = card.querySelector('.artwork-image');
+                if (!img) return;
+                const rect = img.getBoundingClientRect();
+                artPreview.style.left   = rect.left   + 'px';
+                artPreview.style.top    = rect.top    + 'px';
+                artPreview.style.width  = rect.width  + 'px';
+                artPreview.style.height = rect.height + 'px';
+                if (artPreview.src !== card.dataset.generator) {
+                    artPreview.src = card.dataset.generator;
+                }
+                artPreview.style.display = 'block';
+                activeCard = card;
+            }
+
+            function hidePreview(delay = 80) {
+                clearTimeout(previewTimeout);
+                previewTimeout = setTimeout(() => {
+                    artPreview.style.display = 'none';
+                    artPreview.src = 'about:blank';
+                    activeCard = null;
+                }, delay);
+            }
 
             document.querySelectorAll('.artwork-card[data-generator]').forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    clearTimeout(previewTimeout);
-                    const img = card.querySelector('.artwork-image');
-                    if (!img) return;
-                    const rect = img.getBoundingClientRect();
-                    artPreview.style.left   = rect.left   + 'px';
-                    artPreview.style.top    = rect.top    + 'px';
-                    artPreview.style.width  = rect.width  + 'px';
-                    artPreview.style.height = rect.height + 'px';
-                    artPreview.src = card.dataset.generator;
-                    artPreview.style.display = 'block';
-                });
+                let holdTimer = null;
+                let startX = 0;
+                let startY = 0;
+                let isHolding = false;
+                let suppressClick = false;
+
+                function startHold(e) {
+                    if (e.button !== undefined && e.button !== 0) return;
+                    isHolding = false;
+                    suppressClick = false;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    clearTimeout(holdTimer);
+
+                    holdTimer = setTimeout(() => {
+                        isHolding = true;
+                        suppressClick = true;
+                        showPreview(card);
+                    }, 350);
+                }
+
+                function endHold(e) {
+                    clearTimeout(holdTimer);
+                    if (isHolding) {
+                        isHolding = false;
+                        hidePreview(100);
+                    }
+                }
+
+                function moveHold(e) {
+                    if (holdTimer && !isHolding) {
+                        if (Math.hypot(e.clientX - startX, e.clientY - startY) > 10) {
+                            clearTimeout(holdTimer);
+                        }
+                    }
+                }
+
+                card.addEventListener('pointerdown', startHold);
+                card.addEventListener('pointermove', moveHold);
+                card.addEventListener('pointerup', endHold);
+                card.addEventListener('pointercancel', endHold);
                 card.addEventListener('mouseleave', () => {
-                    previewTimeout = setTimeout(() => {
-                        artPreview.style.display = 'none';
-                        artPreview.src = 'about:blank';
-                    }, 80);
+                    clearTimeout(holdTimer);
+                    if (isHolding || activeCard === card) {
+                        isHolding = false;
+                        hidePreview(80);
+                    }
+                });
+
+                card.addEventListener('click', (e) => {
+                    if (suppressClick) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        suppressClick = false;
+                        return false;
+                    }
+                });
+
+                card.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
                 });
             });
+
+            window.addEventListener('scroll', () => {
+                if (artPreview.style.display === 'block') {
+                    hidePreview(0);
+                }
+            }, { passive: true });
         }
 
         window.onload = init;
