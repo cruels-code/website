@@ -71,7 +71,7 @@ const resolveAnimation = (token) => {
     if (token.mime === 'video/mp4' && token.artifact_uri && token.artifact_uri.startsWith('ipfs://')) {
         const cid = token.artifact_uri.replace('ipfs://', '').split('?')[0].replace(/\/+$/, '');
         const isHen = (token.fa_contract === 'KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton');
-        const gateway = isHen ? 'https://cache.teia.rocks/ipfs/' : 'https://ipfs.filebase.io/ipfs/';
+        const gateway = isHen ? 'https://cache.teia.rocks/ipfs/' : 'https://magic.decentralized-content.com/ipfs/';
         return {
             type: 'video',
             url: `${gateway}${cid}`
@@ -93,7 +93,7 @@ const resolveAnimation = (token) => {
             }
             return {
                 type: 'gif',
-                url: `https://wsrv.nl/?url=${encodeURIComponent('https://ipfs.filebase.io/ipfs/' + cid)}&n=-1`
+                url: `https://wsrv.nl/?url=${encodeURIComponent('https://magic.decentralized-content.com/ipfs/' + cid)}&n=-1`
             };
         }
     }
@@ -216,9 +216,8 @@ const getTemplate = (title, itemsHtml) => `<!DOCTYPE html>
             display: block;
             z-index: 2;
             pointer-events: none;
-            image-rendering: pixelated;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
         .artwork-preview-media.loaded {
             opacity: 1;
@@ -641,7 +640,11 @@ ${fragmentShaderSrc}
                 mediaEls.forEach(el => {
                     if (el.tagName === 'IFRAME') el.src = 'about:blank';
                     if (el.tagName === 'VIDEO') {
-                        try { el.pause(); el.src = ''; } catch(e) {}
+                        try {
+                            el.pause();
+                            el.removeAttribute('src');
+                            el.load();
+                        } catch(e) {}
                     }
                     el.remove();
                 });
@@ -663,14 +666,14 @@ ${fragmentShaderSrc}
                 const iframe = document.createElement('iframe');
                 iframe.className = 'artwork-preview-media';
                 iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope');
-                iframe.onload = () => {
-                    iframe.classList.add('loaded');
-                };
+                const showIframe = () => iframe.classList.add('loaded');
+                iframe.onload = showIframe;
                 iframe.onerror = () => {
                     iframe.remove();
                 };
                 iframe.src = card.dataset.generator;
                 container.appendChild(iframe);
+                setTimeout(showIframe, 500);
                 return;
             }
 
@@ -678,19 +681,59 @@ ${fragmentShaderSrc}
             if (card.dataset.animation && card.dataset.animationType === 'video') {
                 const video = document.createElement('video');
                 video.className = 'artwork-preview-media';
-                video.autoplay = true;
-                video.loop = true;
                 video.muted = true;
-                video.playsInline = true;
-                video.onloadeddata = () => {
+                video.defaultMuted = true;
+                video.setAttribute('muted', '');
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+                video.setAttribute('autoplay', '');
+                video.setAttribute('loop', '');
+                video.setAttribute('preload', 'auto');
+                video.preload = 'auto';
+
+                const showVideo = () => {
                     video.classList.add('loaded');
                 };
+
+                if (video.readyState >= 2) {
+                    showVideo();
+                }
+                video.addEventListener('loadeddata', showVideo, { once: true });
+                video.addEventListener('canplay', showVideo, { once: true });
+                video.addEventListener('playing', showVideo, { once: true });
+                video.addEventListener('timeupdate', () => {
+                    if (video.currentTime > 0) showVideo();
+                });
+
                 video.onerror = () => {
+                    const curSrc = video.src;
+                    if (curSrc.includes('cache.teia.rocks')) {
+                        video.src = curSrc.replace('https://cache.teia.rocks/ipfs/', 'https://magic.decentralized-content.com/ipfs/');
+                        video.load();
+                        video.play().catch(() => {});
+                        return;
+                    }
+                    if (curSrc.includes('magic.decentralized-content.com')) {
+                        video.src = curSrc.replace('https://magic.decentralized-content.com/ipfs/', 'https://cache.teia.rocks/ipfs/');
+                        video.load();
+                        video.play().catch(() => {});
+                        return;
+                    }
                     video.remove();
                 };
+
                 video.src = card.dataset.animation;
                 container.appendChild(video);
-                video.play().catch(() => {});
+
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        showVideo();
+                    }).catch(err => {
+                        video.muted = true;
+                        video.play().then(showVideo).catch(() => {});
+                    });
+                }
                 return;
             }
 
@@ -700,9 +743,9 @@ ${fragmentShaderSrc}
                 gif.className = 'artwork-preview-media';
                 gif.crossOrigin = 'anonymous';
                 gif.alt = card.querySelector('.artwork-image')?.alt || '';
-                gif.onload = () => {
-                    gif.classList.add('loaded');
-                };
+                const showGif = () => gif.classList.add('loaded');
+                gif.onload = showGif;
+                if (gif.complete && gif.naturalWidth > 0) showGif();
                 gif.onerror = () => {
                     gif.remove();
                 };
@@ -750,7 +793,7 @@ ${fragmentShaderSrc}
                 clearTimeout(previewHoverTimer);
                 previewHoverTimer = setTimeout(() => {
                     activatePreview(card);
-                }, 60);
+                }, 20);
             });
 
             card.addEventListener('mouseleave', () => {
