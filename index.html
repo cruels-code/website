@@ -322,7 +322,7 @@
                 u_active_effect == 31 || u_active_effect == 32
             );
 
-            if (isFullScreen || (inRegion && letter_active > 0.0)) {
+            if (inRegion && (letter_active > 0.0 || isFullScreen)) {
                 if(u_active_effect == 2) effect_color = effect_Posterize(final_color, u_effect_seed);
                 else if(u_active_effect == 3) effect_color = effect_PixelSort(uv, u_effect_seed);
                 else if(u_active_effect == 4) effect_color = effect_Thermal(final_color, u_effect_seed);
@@ -598,7 +598,8 @@ void main() {
     </script>
     <script id="division-feedback-shader" type="x-shader/x-fragment">
 #version 300 es 
-precision mediump float;
+precision highp float;
+precision highp int;
 uniform vec2 iResolution;
 uniform float iTime;
 uniform float u_scale;
@@ -670,8 +671,9 @@ float getPatternValue(vec2 coord, float timeOffset) {
      int denominator = y+x+int(t*u_warpSpeed);
      if (denominator == 0) { denominator = 1; }
      
-     int r_powered = int(pow(float(abs(r)), u_density));
-     float scaled_r = float(abs(r_powered)) / float(denominator);
+     float abs_r = float(abs(r));
+     float r_powered = pow(abs_r, u_density);
+     float scaled_r = r_powered / float(abs(denominator));
      bool b = mod(scaled_r, u_scale) < u_thickness;
 
      return b ? 1.0 : 0.0;
@@ -723,7 +725,8 @@ void main() {
     </script>
     <script id="division-draw-screen-shader" type="x-shader/x-fragment">
 #version 300 es
-precision mediump float;
+precision highp float;
+precision highp int;
 uniform vec2 iResolution;
 uniform sampler2D u_frame;
 out vec4 fragColorOut;
@@ -760,12 +763,10 @@ void main() {
     float mono = (source_color.r + source_color.g + source_color.b) / 3.0;
     
     // Apply Bayer Dithering
-    // This compares the brightness to a matrix threshold based on pixel position
     float threshold = getDitherThreshold(ivec2(gl_FragCoord.xy));
     
-    // Quantize: If brightness > threshold, make it white (1.0), else black (0.0)
-    // We use a slight adjustment to the mono value to control contrast
-    float dithered = mono > (threshold * 0.9) ? 0.5 : 0.0;
+    // Clearly visible pattern (0.65 brightness against true black 0.0)
+    float dithered = mono > (threshold * 0.9) ? 0.65 : 0.0;
     
     fragColorOut = vec4(vec3(dithered), 1.0);
 }
@@ -773,23 +774,22 @@ void main() {
     <script>
 (function() {
 function startDivision() {
+    const CONFIG = {
+        U_SCALE: 17730.0, U_DENSITY: 3.0, U_THICKNESS: 1950.0,
+        U_SCROLL_SPEED: 38.0, U_WARP_SPEED: 68.0,
+        U_RECURSION: 5.0, U_GLITCH_INTENSITY: 25.0,
+        CYCLE_DURATION: 240.0, 
+        FORWARD_PHASE: 120.0,
+    };
+    
+    const canvas = document.getElementById('glslCanvas');
+    if (!canvas) return;
+    const gl = canvas.getContext('webgl2');
 
-    window.addEventListener('DOMContentLoaded', () => {
-        const CONFIG = {
-            U_SCALE: 17730.0, U_DENSITY: 3.0, U_THICKNESS: 1950.0,
-            U_SCROLL_SPEED: 38.0, U_WARP_SPEED: 68.0,
-            U_RECURSION: 5.0, U_GLITCH_INTENSITY: 25.0,
-            CYCLE_DURATION: 240.0, 
-            FORWARD_PHASE: 120.0,
-        };
-        
-        const canvas = document.getElementById('glslCanvas');
-        const gl = canvas.getContext('webgl2');
-
-        if (!gl) {
-            document.body.innerHTML = "WebGL 2 not supported.";
-            return; 
-        }
+    if (!gl) {
+        console.warn("WebGL 2 not supported for division background.");
+        return; 
+    }
 
         function createShader(gl, type, source) {
             const shader = gl.createShader(type);
@@ -937,8 +937,6 @@ function startDivision() {
         }
         
         requestAnimationFrame(render);
-    });
-    
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', startDivision);
