@@ -874,8 +874,12 @@ curations.forEach(curation => {
     if (curation.name.toLowerCase().includes('procedural')) filename = 'proceduralparadise';
     if (curation.name.toLowerCase().includes('cloud chamber')) filename = 'cloudchamber';
     if (curation.name.toLowerCase().includes('emergence')) filename = 'emergence';
+    if (curation.name.toLowerCase().includes('sculptural') || curation.name.toLowerCase().includes('entropy')) filename = 'sculpturalentropy';
 
     filename = filename + '.html';
+
+    let title = curation.name;
+    if (filename === 'code.html') title = '{ cruel_c0de }';
 
     let itemsHtml = '';
     curation.tokens.forEach(({ token }) => {
@@ -896,7 +900,7 @@ curations.forEach(curation => {
         itemsHtml += '            </a>\n';
     });
 
-    const generatedHtml = getTemplate(curation.name, itemsHtml);
+    const generatedHtml = getTemplate(title, itemsHtml);
     fs.writeFileSync(filename, generatedHtml);
     console.log('Generated WebGL-enabled', filename);
 
@@ -908,5 +912,17 @@ curations.forEach(curation => {
         fs.writeFileSync('procedural-paradise.html', generatedHtml);
         fs.writeFileSync('procedural_paradise.html', generatedHtml);
         console.log('Generated aliases procedural-paradise.html and procedural_paradise.html');
+    }
+    if (filename === 'sculpturalentropy.html') {
+        fs.writeFileSync('sculptural-entropy.html', generatedHtml);
+        fs.writeFileSync('sculptural_entropy.html', generatedHtml);
+        console.log('Generated aliases sculptural-entropy.html and sculptural_entropy.html');
+    }
+    if (filename === 'code.html') {
+        fs.writeFileSync('cruelcode.html', generatedHtml);
+        fs.writeFileSync('cruel-code.html', generatedHtml);
+        fs.writeFileSync('cruel_code.html', generatedHtml);
+        fs.writeFileSync('cruel_c0de.html', generatedHtml);
+        console.log('Generated aliases cruelcode.html, cruel-code.html, cruel_code.html, cruel_c0de.html');
     }
 });
