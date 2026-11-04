@@ -21,17 +21,17 @@
             user-select: text;
         }
 
-        canvas {
-            image-rendering: pixelated;
-            image-rendering: crisp-edges;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: block;
-            z-index: 1;
-            pointer-events: none;
+        canvas, .textmodeCanvas {
+            image-rendering: pixelated !important;
+            image-rendering: crisp-edges !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            display: block !important;
+            z-index: 1 !important;
+            pointer-events: none !important;
         }
 
         .content-container {
@@ -614,21 +614,6 @@
             // === SIMULATION LOGIC ===
 
             
-            const toggleBtn = document.getElementById('photosensitive-toggle');
-            let isRunning = true;
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', () => {
-                    isRunning = !isRunning;
-                    if (isRunning) {
-                        t.play();
-                        toggleBtn.style.opacity = '1';
-                    } else {
-                        t.pause();
-                        toggleBtn.style.opacity = '0.4';
-                    }
-                });
-            }
-
             const t = textmode.create({
                 width: window.innerWidth,
                 height: window.innerHeight,
@@ -692,20 +677,6 @@
             t.setup(() => {
                 resetSimulation();
                 lastFullResetTime = performance.now();
-                document.getElementById('grayscaleBtn').addEventListener('click', () => { isGrayscale = !isGrayscale; });
-                
-                let cursorHideTimer;
-                function hideCursor() {
-                    document.body.classList.add('hide-cursor');
-                }
-                function resetCursorTimer() {
-                    document.body.classList.remove('hide-cursor');
-                    clearTimeout(cursorHideTimer);
-                    cursorHideTimer = setTimeout(hideCursor, 5000);
-                }
-
-                window.addEventListener('mousemove', resetCursorTimer);
-                resetCursorTimer();
             });
 
             t.draw(() => {

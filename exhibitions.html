@@ -198,7 +198,34 @@
             border: 1px solid #333;
             z-index: 20;
         }
+    
+        canvas, .textmodeCanvas {
+            image-rendering: pixelated !important;
+            image-rendering: crisp-edges !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            display: block !important;
+            z-index: 1 !important;
+            pointer-events: none !important;
+        }
+        .timeline {
+            position: relative;
+            z-index: 10;
+        }
+        .timeline::after {
+            z-index: 1;
+        }
+        .content {
+            background-color: rgba(17, 17, 17, 0.85) !important;
+            position: relative;
+            z-index: 15;
+        }
+
     </style>
+    <script src="textmode.umd.js"></script>
 </head>
 <body>
     <a href="index.html" class="back-link">Back</a>
@@ -355,5 +382,589 @@
             </div>
         </div>
     </div>
+<script>
+
+        (function() {
+            // === GLSL SHADER DEFINITIONS ===
+
+            const InitialPixelShader = `#version 300 es
+            precision highp float;
+            uniform float u_frameCount;
+            uniform vec2 u_gridSize;
+            layout(location = 0) out vec4 o_character;
+            layout(location = 1) out vec4 o_primaryColor;
+            layout(location = 2) out vec4 o_secondaryColor;
+            layout(location = 3) out vec4 o_rotation;
+            layout(location = 4) out vec4 o_transform;
+            float random(vec2 st) { return fract(sin(dot(st, vec2(12.9898,78.233))) * 43758.5453123); }
+            void main() {
+                vec2 uv = gl_FragCoord.xy / u_gridSize;
+                float blockChar = 219.0 / 255.0; // Set pixel character to solid block
+                float gray = random(uv);
+                if (gray > 0.98) { gray = 1.0; }
+                vec3 color = vec3(gray);
+                o_character = vec4(blockChar, 0.0f, 0.0f, 1.0f);
+                o_primaryColor = vec4(color, 1.0f); // Use pixel's calculated color for foreground
+                o_secondaryColor = vec4(0.0, 0.0, 0.0, 1.0); // Set a black background
+                o_rotation = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+                o_transform = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+            }
+            `;
+
+            const PixelDisplacementShader = `#version 300 es
+            precision highp float;
+            in vec2 v_uv;
+            uniform float u_frameCount;
+            uniform vec2 u_gridSize;
+            uniform vec4 u_rect0, u_rect1, u_rect2, u_rect3, u_rect4;
+            uniform int u_effect0, u_effect1, u_effect2, u_effect3, u_effect4;
+            uniform bool u_inverted0, u_inverted1, u_inverted2, u_inverted3, u_inverted4;
+            uniform sampler2D u_previousPrimaryColor;
+            uniform sampler2D u_previousSecondaryColor;
+
+            layout(location = 0) out vec4 o_character;
+            layout(location = 1) out vec4 o_primaryColor;
+            layout(location = 2) out vec4 o_secondaryColor;
+            layout(location = 3) out vec4 o_rotation;
+            layout(location = 4) out vec4 o_transform;
+            float random(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); }
+            float noise(vec2 st) {
+                vec2 i = floor(st); vec2 f = fract(st); vec2 u = f*f*(3.0-2.0*f);
+                float a = random(i); float b = random(i + vec2(1.0, 0.0));
+                float c = random(i + vec2(0.0, 1.0)); float d = random(i + vec2(1.0, 1.0));
+                return mix(a, b, u.x) + (c - a)* u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+            }
+            bool insideBox(vec2 point, vec2 bottomLeft, vec2 topRight) { return all(greaterThanEqual(point, bottomLeft)) && all(lessThan(point, topRight)); }
+            void main() {
+                vec2 u_resolution = u_gridSize;
+                float u_time = u_frameCount * 0.01;
+                vec2 texelSize = 1.0f / u_resolution;
+                vec2 offset = vec2(0.0f);
+                vec4 rects[5];
+                rects[0] = u_rect0; rects[1] = u_rect1; rects[2] = u_rect2; rects[3] = u_rect3; rects[4] = u_rect4;
+                
+                int effects[5];
+                effects[0] = u_effect0; effects[1] = u_effect1; effects[2] = u_effect2; effects[3] = u_effect3; effects[4] = u_effect4;
+
+                bool inversions[5];
+                inversions[0] = u_inverted0; inversions[1] = u_inverted1; inversions[2] = u_inverted2; inversions[3] = u_inverted3; inversions[4] = u_inverted4;
+
+                int zoneIndex = -1;
+                for(int i = 0; i < 5; i++) {
+                    vec2 bottomLeft = rects[i].xy / u_resolution;
+                    vec2 topRight = (rects[i].xy + rects[i].zw) / u_resolution;
+                    if (insideBox(v_uv, bottomLeft, topRight)) {
+                        zoneIndex = i;
+                        break;
+                    }
+                }
+                
+                if (zoneIndex != -1) {
+                    int effectIndex = effects[zoneIndex];
+                    vec2 center = rects[zoneIndex].xy + rects[zoneIndex].zw * 0.5;
+                    float radius = length(rects[zoneIndex].zw * 0.5);
+                    vec2 relativePos = (gl_FragCoord.xy - rects[zoneIndex].xy) / rects[zoneIndex].zw;
+
+                    if (effectIndex == 0) { offset.y = -2.0 * texelSize.y; } // Rain
+                    else if (effectIndex == 1) { if (mod(u_frameCount, 45.0) < 4.0) { offset.x = floor(random(vec2(floor(u_frameCount/45.0)))*30.0-15.0) * texelSize.x; } } // Glitch
+                    else if (effectIndex == 2) { vec2 fromCenter = gl_FragCoord.xy - center; if(radius > 0.0 && length(fromCenter) > 0.0) { offset = normalize(fromCenter) * texelSize * (length(fromCenter)/radius)*3.0;} } // Explode
+                    else if (effectIndex == 3) { offset = vec2(0.0); } // Shuffle (in Push)
+                    else if (effectIndex == 4) { vec2 toCenter = center - gl_FragCoord.xy; if(length(toCenter) > 0.0) { offset = normalize(toCenter) * texelSize;} } // Implode
+                    else if (effectIndex == 5) { vec2 nCoord = v_uv * 4.0 + u_time * 0.2; offset = vec2(noise(nCoord)-0.5, noise(nCoord+vec2(15.7,-15.7))-0.5)*texelSize*3.0; } // Turbulence
+                    else if (effectIndex == 6) { offset.y = 2.0 * texelSize.y; } // Rise
+                    else if (effectIndex == 7) { offset.x = 2.0 * texelSize.x; } // Wind
+                    else if (effectIndex == 8) { vec2 toCenter = center-gl_FragCoord.xy; vec2 perp = vec2(-toCenter.y, toCenter.x); if(length(toCenter)>0.0){ offset=normalize(toCenter*0.5+perp)*texelSize*2.0;} } // Vortex
+                    else if (effectIndex == 9) { offset.y = sin(gl_FragCoord.x * 0.1 + u_time * 2.0) * 5.0 * texelSize.y; } // Wave
+                    else if (effectIndex == 10) { float speed = (1.0 - relativePos.y) * 5.0 + 1.0; offset.y = -1.0 * texelSize.y * speed; } // Gravity
+                    else if (effectIndex == 11) { offset.x = (relativePos.y - 0.5) * 10.0 * texelSize.x; } // Shear
+                    else if (effectIndex == 12) { vec2 fromCenter=gl_FragCoord.xy-center; float dist=length(fromCenter); float angle=0.1*(radius-dist)/radius; mat2 R=mat2(cos(angle),-sin(angle),sin(angle),cos(angle)); offset=(R*fromCenter-fromCenter)*5.0; } // Twirl
+                    else if (effectIndex == 13) { float gSize=10.0; vec2 snapped = floor(gl_FragCoord.xy/gSize)*gSize+gSize*0.5; offset=(snapped - gl_FragCoord.xy)*0.5; } // Grid Snap
+                    else if (effectIndex == 14) { float c = mod(floor(gl_FragCoord.x/8.0)+floor(gl_FragCoord.y/8.0),2.0); offset = (c==0.0?vec2(-1,-1):vec2(1,1))*texelSize; } // Checkerboard
+                    else if (effectIndex == 15) { vec2 fromCenter=gl_FragCoord.xy-center; float dist=length(fromCenter); if(dist>0.0 && radius > 0.0){float f=pow(dist/radius,2.0); offset=normalize(fromCenter)*f*texelSize*10.0;} } // Fisheye
+                    else if (effectIndex == 16) { vec2 fromCenter=gl_FragCoord.xy-center; float dist=length(fromCenter); if(dist>0.0 && radius > 0.0){float p=1.0-dist/radius; offset=-normalize(fromCenter)*p*texelSize*10.0;} } // Pinch
+                    else if (effectIndex == 17) { if (mod(floor(gl_FragCoord.y), 4.0) == 0.0) { offset.x = 2.0 * texelSize.x;} } // Scanlines
+                    else if (effectIndex == 18) { offset = vec2(random(v_uv+u_time)-0.5, random(v_uv-u_time)-0.5)*2.0*texelSize; } // Jitter
+                    else if (effectIndex == 19) { offset = vec2(0.0); } // Flicker Step (in Push)
+                    else if (effectIndex == 20) { offset = vec2(0.0); } // Drunk Walk (in Push)
+                    else if (effectIndex == 21) { offset = vec2(0.0); } // Pixel Sort (in Push)
+                    else if (effectIndex == 22) { // Color Sort
+                        vec3 myColor = texture(u_previousPrimaryColor, v_uv).rgb;
+                        vec2 randomDir = normalize(vec2(random(v_uv + u_time)-0.5, random(v_uv - u_time)-0.5));
+                        vec3 neighborColor = texture(u_previousPrimaryColor, v_uv + randomDir * texelSize).rgb;
+                        if(distance(myColor, neighborColor) < 0.2) {
+                           offset = randomDir * texelSize;
+                        }
+                    }
+                    else if (effectIndex == 23) { // Barrel Distortion
+                        vec2 fromCenter = (gl_FragCoord.xy - center) / rects[zoneIndex].zw;
+                        float amount = 1.75;
+                        float r2 = dot(fromCenter, fromCenter);
+                        vec2 newUv = fromCenter * (1.0 + amount * r2);
+                        vec2 newPos = center + newUv * rects[zoneIndex].zw;
+                        offset = (newPos - gl_FragCoord.xy) * 0.2;
+                    }
+                    else if (effectIndex == 24) { // Stretch
+                        vec2 fromCenter = gl_FragCoord.xy - center;
+                        float amount = sin(u_time) * 0.5;
+                        vec2 newPos = center + fromCenter * (1.0 + amount * normalize(fromCenter));
+                        offset = (newPos - gl_FragCoord.xy) * 0.1;
+                    }
+                    else if (effectIndex == 25) { // RGB Shift
+                        vec3 myColor = texture(u_previousPrimaryColor, v_uv).rgb;
+                        float amount = 5.0; // in pixels
+                        offset.x = (myColor.r - 0.5) * amount * texelSize.x;
+                        offset.y = (myColor.g - 0.5) * amount * texelSize.y;
+                    }
+                    else if (effectIndex == 26) { // Zoom
+                        vec2 fromCenter = gl_FragCoord.xy - center;
+                        float dist = length(fromCenter);
+                        float amount = 0.01;
+                        if (dist > 0.0) {
+                            offset = normalize(fromCenter) * amount * dist * 2.0;
+                        }
+                    }
+                    else if (effectIndex == 27) { // Liquify
+                        float angle = noise(v_uv * 10.0 + u_time) * 6.28318; // 2 * PI
+                        float amount = 0.005;
+                        vec2 displacement = vec2(cos(angle), sin(angle)) * amount;
+                        offset = displacement * u_resolution * texelSize;
+                    }
+                    else if (effectIndex == 28) { // Displacement Mapping
+                        vec2 noiseCoord = v_uv * 8.0 + u_time;
+                        float displacementX = (noise(noiseCoord) - 0.5) * 10.0;
+                        float displacementY = (noise(noiseCoord + vec2(10.3, 5.8)) - 0.5) * 10.0;
+                        offset = vec2(displacementX, displacementY) * texelSize;
+                    }
+                    else if (effectIndex == 29) { offset = vec2(0.0); } // Slit-Scan (in Push)
+                    else if (effectIndex == 30) { offset = vec2(0.0); } // Recursive Feedback (in Push)
+                    else { offset = vec2(0.0); }
+
+                    if (inversions[zoneIndex]) {
+                        offset *= -1.0;
+                    }
+                }
+                vec2 offsetInPixels = floor(offset * u_resolution + 0.5f);
+                offsetInPixels = clamp(offsetInPixels, -1.0f, 1.0f);
+                vec4 shiftResult = vec4((offsetInPixels.x + 1.0f) * 0.5f, (offsetInPixels.y + 1.0f) * 0.5f, 0.0f, 1.0f);
+                o_character = shiftResult; o_primaryColor = shiftResult; o_secondaryColor = shiftResult; o_rotation = shiftResult; o_transform = shiftResult;
+            }`;
+
+            const PixelUpdateShader = `#version 300 es
+            precision highp float;
+            uniform sampler2D u_shiftMap;
+            uniform sampler2D u_previousCharacter;
+            uniform sampler2D u_previousPrimaryColor;
+            uniform sampler2D u_previousSecondaryColor;
+            uniform sampler2D u_previousRotation;
+            uniform sampler2D u_previousTransform;
+            uniform vec2 u_gridSize;
+            uniform float u_frameCount;
+            uniform vec4 u_rect0, u_rect1, u_rect2, u_rect3, u_rect4;
+            uniform int u_effect0, u_effect1, u_effect2, u_effect3, u_effect4;
+            uniform bool u_inverted0, u_inverted1, u_inverted2, u_inverted3, u_inverted4;
+            uniform float u_hue0, u_hue1, u_hue2, u_hue3, u_hue4;
+
+            layout(location = 0) out vec4 o_character;
+            layout(location = 1) out vec4 o_primaryColor;
+            layout(location = 2) out vec4 o_secondaryColor;
+            layout(location = 3) out vec4 o_rotation;
+            layout(location = 4) out vec4 o_transform;
+            float random(vec2 st) { return fract(sin(dot(st, vec2(12.9898,78.233))) * 43758.5453123); }
+            bool insideBoxPixel(vec2 point, vec4 rect) { return all(greaterThanEqual(point, rect.xy)) && all(lessThan(point, rect.xy + rect.zw)); }
+            vec2 getShift(ivec2 coord) {
+                vec4 shiftColor = texture(u_shiftMap, (vec2(coord) + 0.5f) / u_gridSize);
+                return floor(shiftColor.xy * 2.0 - 1.0 + 0.5);
+            }
+            
+            vec3 hsv2rgb(vec3 c) {
+                vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+                vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+                return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+            }
+
+            void main() {
+                ivec2 p = ivec2(gl_FragCoord.xy);
+                vec2 res = u_gridSize;
+                ivec2 sourceCoord = p + ivec2(getShift(p));
+                vec4 rects[5];
+                rects[0] = u_rect0; rects[1] = u_rect1; rects[2] = u_rect2; rects[3] = u_rect3; rects[4] = u_rect4;
+                int effects[5];
+                effects[0] = u_effect0; effects[1] = u_effect1; effects[2] = u_effect2; effects[3] = u_effect3; effects[4] = u_effect4;
+                bool inversions[5];
+                inversions[0] = u_inverted0; inversions[1] = u_inverted1; inversions[2] = u_inverted2; inversions[3] = u_inverted3; inversions[4] = u_inverted4;
+                float hues[5];
+                hues[0] = u_hue0; hues[1] = u_hue1; hues[2] = u_hue2; hues[3] = u_hue3; hues[4] = u_hue4;
+
+                int zoneIndex = -1;
+                for(int i = 0; i < 5; i++) { if(insideBoxPixel(gl_FragCoord.xy, rects[i])) { zoneIndex = i; break; } }
+                
+                if (zoneIndex != -1) {
+                    int effectIndex = effects[zoneIndex];
+                    if (effectIndex == 3) { // Shuffle
+                         vec2 rOff = vec2(floor(random(gl_FragCoord.xy+u_frameCount)*7.0-3.0), floor(random(gl_FragCoord.xy-u_frameCount)*7.0-3.0));
+                         sourceCoord = p + ivec2(rOff);
+                    } else if (effectIndex == 19) { // Flicker Step
+                        if (random(gl_FragCoord.xy + u_frameCount) > 0.99) {
+                            vec2 rPos = rects[zoneIndex].xy + (vec2(random(gl_FragCoord.xy), random(gl_FragCoord.xy-u_frameCount)))*rects[zoneIndex].zw;
+                            sourceCoord = ivec2(rPos);
+                        }
+                    } else if (effectIndex == 20) { // Drunk Walk
+                        vec2 rStep = vec2(floor(random(gl_FragCoord.xy+u_frameCount)*3.0-1.0), floor(random(gl_FragCoord.xy-u_frameCount)*3.0-1.0));
+                        sourceCoord = p - ivec2(rStep);
+                    } else if (effectIndex == 21) { // Pixel Sort
+                        vec3 myColor = texture(u_previousPrimaryColor, (vec2(p)+0.5)/res).rgb;
+                        vec3 aboveColor = texture(u_previousPrimaryColor, (vec2(p) + vec2(0.0, 1.0) + 0.5) / res).rgb;
+                        float myBright = dot(myColor, vec3(0.299, 0.587, 0.114));
+                        float aboveBright = dot(aboveColor, vec3(0.299, 0.587, 0.114));
+                        bool condition = inversions[zoneIndex] ? (aboveBright < myBright) : (aboveBright > myBright);
+                        if (condition) { sourceCoord = p + ivec2(0, 1); } 
+                        else { sourceCoord = p; }
+                    } else if (effectIndex == 29) { // Slit-Scan
+                        float centerColumn = rects[zoneIndex].x + rects[zoneIndex].z * 0.5;
+                        float y_offset = (gl_FragCoord.x - centerColumn) * 0.05;
+                        sourceCoord = ivec2(centerColumn, p.y + int(y_offset));
+                    } else if (effectIndex == 30) { // Recursive Feedback
+                        vec2 center = rects[zoneIndex].xy + rects[zoneIndex].zw * 0.5;
+                        vec2 fromCenter = gl_FragCoord.xy - center;
+                        float angle = 0.03;
+                        float scale = inversions[zoneIndex] ? 1.01 : 0.99;
+                        mat2 rotationMatrix = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+                        vec2 transformedCoord = center + rotationMatrix * fromCenter * scale;
+                        sourceCoord = ivec2(transformedCoord);
+                    }
+                }
+                
+                vec2 sourceUV = (vec2(sourceCoord) + 0.5) / res;
+                vec4 ch=texture(u_previousCharacter,sourceUV), pc=texture(u_previousPrimaryColor,sourceUV), sc=texture(u_previousSecondaryColor,sourceUV), ro=texture(u_previousRotation,sourceUV), tr=texture(u_previousTransform,sourceUV);
+
+                if (zoneIndex != -1) {
+                    int effectIndex = effects[zoneIndex];
+                    float currentHue = hues[zoneIndex];
+                    
+                    if (effectIndex == 30) {
+                        pc.rgb *= 0.95;
+                    }
+                    else if (effectIndex == 0) { // Rain continuous
+                        if (random(gl_FragCoord.xy*0.5+u_frameCount) > 0.98) { 
+                            if(random(gl_FragCoord.xy - u_frameCount) > 0.2) {
+                                float hueOffset = (random(gl_FragCoord.xy) - 0.5) * 0.1;
+                                pc = vec4(hsv2rgb(vec3(mod(currentHue + hueOffset, 1.0), 1.0, 1.0)), 1.0);
+                             } else {
+                                pc = vec4(1.0);
+                             }
+                        } 
+                        else { pc.rgb *= 0.98; }
+                    } else if (effectIndex == 4) { // Implode continuous
+                        float dist = length(gl_FragCoord.xy-(rects[zoneIndex].xy+rects[zoneIndex].zw*0.5));
+                        float radius = length(rects[zoneIndex].zw*0.5);
+                        if(radius>0.0) { pc.rgb *= smoothstep(0.0, radius, dist); }
+                    } else if (effectIndex == 2) { // Explode reseeding
+                        float dist = length(gl_FragCoord.xy - (rects[zoneIndex].xy + rects[zoneIndex].zw * 0.5));
+                        if (dist < 3.0 && random(gl_FragCoord.xy + u_frameCount) > 0.5) {
+                            if(random(gl_FragCoord.xy - u_frameCount) > 0.2) {
+                                float hueOffset = (random(gl_FragCoord.xy * u_frameCount) - 0.5) * 0.1;
+                                pc = vec4(hsv2rgb(vec3(mod(currentHue + hueOffset, 1.0), 1.0, 1.0)), 1.0);
+                            } else {
+                                pc = vec4(1.0);
+                            }
+                        }
+                    } else if (effectIndex == 8) { // Vortex reseeding
+                         float dist = length(gl_FragCoord.xy - (rects[zoneIndex].xy + rects[zoneIndex].zw * 0.5));
+                         if (dist < 5.0 && random(gl_FragCoord.xy + u_frameCount) > 0.8) {
+                             if(random(gl_FragCoord.xy - u_frameCount) > 0.2) {
+                                float hueOffset = (random(gl_FragCoord.xy * u_frameCount) - 0.5) * 0.1;
+                                pc = vec4(hsv2rgb(vec3(mod(currentHue + hueOffset, 1.0), 1.0, 1.0)), 1.0);
+                             } else {
+                                pc = vec4(1.0);
+                             }
+                         }
+                    } else if (effectIndex == 18) { // Jitter reseeding
+                        if (random(gl_FragCoord.xy + u_frameCount) > 0.99) {
+                             if(random(gl_FragCoord.xy - u_frameCount) > 0.2) {
+                                float hueOffset = (random(gl_FragCoord.xy * u_frameCount) - 0.5) * 0.1;
+                                pc = vec4(hsv2rgb(vec3(mod(currentHue + hueOffset, 1.0), 1.0, 1.0)), 1.0);
+                            } else {
+                                pc = vec4(1.0);
+                            }
+                        }
+                    }
+                }
+
+                // Slowed regeneration down to 0.1% of original
+                if (random(gl_FragCoord.xy + u_frameCount) < 0.0000001) { // Global Reseeding
+                    // Generate a completely random RGB color
+                    vec3 color = vec3(random(gl_FragCoord.xy), random(gl_FragCoord.xy * 1.5), random(gl_FragCoord.xy * 2.5));
+                    pc = vec4(color, 1.0);
+                    ch=vec4(219.0/255.0,0,0,1); sc=vec4(0,0,0,1); ro=vec4(0,0,0,1); tr=vec4(0,0,0,1);
+                }
+                
+                o_character=ch; o_primaryColor=pc; o_secondaryColor=sc; o_rotation=ro; o_transform=tr;
+            }`;
+            
+            const PostProcessShader = `#version 300 es
+            precision highp float;
+            in vec2 v_uv;
+
+            uniform sampler2D u_charIn;
+            uniform sampler2D u_primaryColorIn;
+            uniform sampler2D u_secondaryColorIn;
+            uniform sampler2D u_rotationIn;
+            uniform sampler2D u_transformIn;
+
+            uniform float u_time;
+            uniform vec2 u_resolution;
+            uniform bool u_grayscale;
+
+            layout(location = 0) out vec4 o_character;
+            layout(location = 1) out vec4 o_primaryColor;
+            layout(location = 2) out vec4 o_secondaryColor;
+            layout(location = 3) out vec4 o_rotation;
+            layout(location = 4) out vec4 o_transform;
+            
+            void main() {
+                vec2 uv = v_uv;
+                
+                vec3 rawColor = texture(u_primaryColorIn, uv).rgb;
+
+                vec3 finalColor;
+                if (u_grayscale) {
+                    float gray = dot(rawColor, vec3(0.299, 0.587, 0.114));
+                    finalColor = vec3(pow(gray, 0.8));
+                } else {
+                    // Enhance color vibrancy by increasing saturation
+                    float grayVal = dot(rawColor, vec3(0.299, 0.587, 0.114));
+                    vec3 saturatedColor = mix(vec3(grayVal), rawColor, 1.4); // 40% saturation boost
+
+                    // Increase contrast for a more dramatic look
+                    finalColor.r = smoothstep(0.15, 0.85, saturatedColor.r);
+                    finalColor.g = smoothstep(0.15, 0.85, saturatedColor.g);
+                    finalColor.b = smoothstep(0.15, 0.85, saturatedColor.b);
+                }
+                
+                o_character = texture(u_charIn, uv);
+                o_primaryColor = vec4(finalColor, 1.0);
+                o_secondaryColor = texture(u_secondaryColorIn, uv);
+                o_rotation = texture(u_rotationIn, uv);
+                o_transform = texture(u_transformIn, uv);
+            }
+            `;
+
+            // === SIMULATION LOGIC ===
+
+            
+            const t = textmode.create({
+                width: window.innerWidth,
+                height: window.innerHeight,
+                fontSize: 4,
+                frameRate: 60
+            });
+
+            const noiseShader = t.createFilterShader(InitialPixelShader);
+            const shiftShader = t.createFilterShader(PixelDisplacementShader);
+            const pushShader = t.createFilterShader(PixelUpdateShader);
+            const postProcessShader = t.createFilterShader(PostProcessShader);
+
+            let shiftFramebuffer, prevPushFramebuffer, nextPushFramebuffer, rectangleManager;
+            
+            let layer1Effects = [];
+            const TOTAL_ZONE_EFFECTS = 31;
+            
+            // Time-based reset variables
+            let lastFullResetTime = 0;
+            const fullResetInterval = 90 * 1000; // 90 seconds in milliseconds
+
+            let isGrayscale = true;
+
+            function assignRandomEffects() {
+                layer1Effects = [];
+                const now = performance.now();
+                for (let i = 0; i < 5; i++) {
+                    layer1Effects.push({
+                        id: Math.floor(Math.random() * TOTAL_ZONE_EFFECTS),
+                        inverted: Math.random() < 0.5,
+                        hue: Math.random(),
+                        lastResetTime: now,
+                        nextResetInterval: (3 + Math.random() * 4) * 1000 // 3-7 seconds
+                    });
+                }
+            }
+            
+            function resetSimulation() {
+                const w = t.grid.cols;
+                const h = t.grid.rows;
+                const random1 = createSeededRandom(Date.now());
+
+                assignRandomEffects();
+
+                shiftFramebuffer = t.createFramebuffer({ width: w, height: h });
+                prevPushFramebuffer = t.createFramebuffer({ width: w, height: h });
+                nextPushFramebuffer = t.createFramebuffer({ width: w, height: h });
+                rectangleManager = new RectangleManager(w, h, 3, 0, 5, random1);
+                rectangleManager.initializeRectangles();
+
+                [prevPushFramebuffer, nextPushFramebuffer].forEach(fb => {
+                    fb.begin();
+                    t.shader(noiseShader);
+                    t.setUniform('u_frameCount', 0);
+                    t.setUniform('u_gridSize', [w, h]);
+                    t.rect(0, 0, w, h);
+                    fb.end();
+                });
+            }
+
+            t.setup(() => {
+                resetSimulation();
+                lastFullResetTime = performance.now();
+            });
+
+            t.draw(() => {
+                const currentTime = performance.now();
+
+                // Full simulation reset timer
+                if (currentTime - lastFullResetTime > fullResetInterval) {
+                    resetSimulation();
+                    lastFullResetTime = currentTime;
+                }
+
+                const w = t.grid.cols;
+                const h = t.grid.rows;
+                
+                // Update effect for each zone independently
+                layer1Effects.forEach((effect) => {
+                    if (currentTime - effect.lastResetTime > effect.nextResetInterval) {
+                        // Refresh this specific effect
+                        effect.id = Math.floor(Math.random() * TOTAL_ZONE_EFFECTS);
+                        effect.inverted = Math.random() < 0.5;
+                        effect.hue = Math.random();
+                        effect.lastResetTime = currentTime;
+                        effect.nextResetInterval = (3 + Math.random() * 4) * 1000;
+                    }
+                });
+                
+                rectangleManager.update();
+                
+                [prevPushFramebuffer, nextPushFramebuffer] = [nextPushFramebuffer, prevPushFramebuffer];
+                
+                shiftFramebuffer.begin();
+                t.shader(shiftShader);
+                t.setUniform('u_frameCount', t.frameCount);
+                t.setUniform('u_gridSize', [w, h]);
+                t.setUniform('u_previousPrimaryColor', prevPushFramebuffer.textures[1]);
+                rectangleManager.rectangles.forEach((rect, i) => t.setUniform(`u_rect${i}`, [rect.x, rect.y, rect.width, rect.height]));
+                layer1Effects.forEach((effect, i) => {
+                    t.setUniform(`u_effect${i}`, effect.id);
+                    t.setUniform(`u_inverted${i}`, effect.inverted);
+                });
+                t.rect(0, 0, w, h);
+                shiftFramebuffer.end();
+
+                nextPushFramebuffer.begin();
+                t.shader(pushShader);
+                t.setUniform('u_frameCount', t.frameCount);
+                t.setUniform('u_gridSize', [w, h]);
+                 rectangleManager.rectangles.forEach((rect, i) => t.setUniform(`u_rect${i}`, [rect.x, rect.y, rect.width, rect.height]));
+                 layer1Effects.forEach((effect, i) => {
+                    t.setUniform(`u_effect${i}`, effect.id);
+                    t.setUniform(`u_inverted${i}`, effect.inverted);
+                    t.setUniform(`u_hue${i}`, effect.hue);
+                });
+                t.setUniform('u_shiftMap', shiftFramebuffer.textures[0]);
+                t.setUniform('u_previousCharacter', prevPushFramebuffer.textures[0]);
+                t.setUniform('u_previousPrimaryColor', prevPushFramebuffer.textures[1]);
+                t.setUniform('u_previousSecondaryColor', prevPushFramebuffer.textures[2]);
+                t.setUniform('u_previousRotation', prevPushFramebuffer.textures[3]);
+                t.setUniform('u_previousTransform', prevPushFramebuffer.textures[4]);
+                t.rect(0, 0, w, h);
+                nextPushFramebuffer.end();
+
+                // Apply final visual effects to the entire screen
+                t.shader(postProcessShader);
+                t.setUniform('u_grayscale', isGrayscale);
+                t.setUniform('u_charIn', nextPushFramebuffer.textures[0]);
+                t.setUniform('u_primaryColorIn', nextPushFramebuffer.textures[1]);
+                t.setUniform('u_secondaryColorIn', nextPushFramebuffer.textures[2]);
+                t.setUniform('u_rotationIn', nextPushFramebuffer.textures[3]);
+                t.setUniform('u_transformIn', nextPushFramebuffer.textures[4]);
+                t.setUniform('u_time', t.frameCount / 60.0);
+                t.setUniform('u_resolution', [w, h]);
+                t.rect(0, 0, w, h);
+            });
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => { window.location.reload(); }, 250);
+            });
+
+            function createSeededRandom(seed) {
+                let state = seed;
+                return function() {
+                    state = (state * 1664525 + 1013904223) % 4294967296;
+                    return state / 4294967296;
+                };
+            }
+
+            class RectangleManager {
+                constructor(gridCols, gridRows, splitDepth = 3, spacing = 1, maxRectangleCount = 8, randomFunc = Math.random) {
+                    this.gridCols = gridCols; this.gridRows = gridRows; this.maxRectangleCount = maxRectangleCount;
+                    this.splitDepth = splitDepth; this.spacing = Math.max(0, Math.floor(spacing)); this.rectangles = []; this.random = randomFunc;
+                }
+                initializeRectangles() {
+                    this.rectangles = [];
+                    const container = { x: 0, y: 0, width: Math.floor(this.gridCols), height: Math.floor(this.gridRows) };
+                    this.splitSpace(container, 0);
+                    for (let i = this.rectangles.length - 1; i > 0; i--) { const j = Math.floor(this.random() * (i + 1)); [this.rectangles[i], this.rectangles[j]] = [this.rectangles[j], this.rectangles[i]]; }
+                    if (this.rectangles.length > this.maxRectangleCount) { this.rectangles.length = this.maxRectangleCount; }
+                    while (this.rectangles.length < this.maxRectangleCount) { this.rectangles.push({ x: 0, y: 0, width: 0, height: 0, vx: 0, vy: 0, targetVx: 0, targetVy: 0 }); }
+                }
+                splitSpace(container, depth) {
+                    if (depth >= this.splitDepth || this.rectangles.length >= this.maxRectangleCount * 2) {
+                        const shouldMove = this.random() < 0.5;
+                        const initialVx = shouldMove ? (this.random() - 0.5) * 5.0 : 0;
+                        const initialVy = shouldMove ? (this.random() - 0.5) * 5.0 : 0;
+                        this.rectangles.push({ ...container, vx: initialVx, vy: initialVy, targetVx: initialVx, targetVy: initialVy });
+                        return;
+                    }
+                    const splitHorizontal = this.random() > 0.5;
+                    if (splitHorizontal) {
+                        if (container.height < this.spacing + 2) { this.rectangles.push({ ...container, vx: 0, vy: 0, targetVx: 0, targetVy: 0 }); return; }
+                        const splitPoint = this.randomInt(1, container.height - this.spacing - 1);
+                        this.splitSpace({ x: container.x, y: container.y, width: container.width, height: splitPoint }, depth + 1);
+                        this.splitSpace({ x: container.x, y: container.y + splitPoint + this.spacing, width: container.width, height: container.height - splitPoint - this.spacing }, depth + 1);
+                    } else {
+                        if (container.width < this.spacing + 2) { this.rectangles.push({ ...container, vx: 0, vy: 0, targetVx: 0, targetVy: 0 }); return; }
+                        const splitPoint = this.randomInt(1, container.width - this.spacing - 1);
+                        this.splitSpace({ x: container.x, y: container.y, width: splitPoint, height: container.height }, depth + 1);
+                        this.splitSpace({ x: container.x + splitPoint + this.spacing, y: container.y, width: container.width - splitPoint - this.spacing, height: container.height }, depth + 1);
+                    }
+                }
+                update() {
+                    this.rectangles.forEach(rect => {
+                        if (rect.width === 0) return;
+                        if (this.random() < 0.01) {
+                            const maxSpeed = 4.0; 
+                            rect.targetVx = (this.random() - 0.5) * maxSpeed;
+                            rect.targetVy = (this.random() - 0.5) * maxSpeed;
+                        }
+                        const easingFactor = 0.02;
+                        rect.vx += (rect.targetVx - rect.vx) * easingFactor;
+                        rect.vy += (rect.targetVy - rect.vy) * easingFactor;
+                        rect.x += rect.vx;
+                        rect.y += rect.vy;
+                        if (rect.x <= 0 || rect.x + rect.width >= this.gridCols) { rect.vx *= -1; rect.targetVx *= -1; }
+                        if (rect.y <= 0 || rect.y + rect.height >= this.gridRows) { rect.vy *= -1; rect.targetVy *= -1; }
+                        rect.x = Math.max(0, Math.min(rect.x, this.gridCols - rect.width));
+                        rect.y = Math.max(0, Math.min(rect.y, this.gridRows - rect.height));
+                    });
+                }
+                randomInt(min, max) {
+                    min = Math.ceil(min); max = Math.floor(max);
+                    if (max < min) return min;
+                    return Math.floor(this.random() * (max - min + 1)) + min;
+                }
+            }
+        })();
+    
+</script>
 </body>
 </html>
