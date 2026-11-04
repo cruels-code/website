@@ -76,23 +76,72 @@
 
         @media (max-width: 768px) {
             #nav-links {
-                top: 24px;
+                top: 20px;
                 left: 20px;
-                gap: 16px;
+                gap: 12px;
             }
             .site-title {
-                font-size: clamp(48px, 12vw, 68px) !important;
+                font-size: clamp(24px, 6.8vw, 32px) !important;
                 margin-bottom: 6px;
             }
             #nav-links a {
-                font-size: clamp(40px, 9vw, 56px);
-                padding: 2px 0;
+                font-size: clamp(18px, 4.8vw, 22px);
+                padding: 4px 0;
+                min-height: 38px;
+                display: inline-flex;
+                align-items: center;
             }
             #photosensitive-toggle {
-                top: 15px;
-                right: 15px;
-                padding: 15px;
-                font-size: 48px;
+                top: 14px;
+                right: 14px;
+                padding: 10px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #nav-links {
+                top: 16px;
+                left: 16px;
+                gap: 10px;
+            }
+            .site-title {
+                font-size: clamp(20px, 6.2vw, 26px) !important;
+                margin-bottom: 4px;
+            }
+            #nav-links a {
+                font-size: clamp(16px, 4.5vw, 19px);
+                padding: 3px 0;
+                min-height: 36px;
+            }
+            #photosensitive-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px;
+                font-size: 22px;
+            }
+        }
+
+        @media (max-height: 520px) and (orientation: landscape) {
+            #nav-links {
+                top: 10px;
+                left: 14px;
+                gap: 4px;
+            }
+            .site-title {
+                font-size: 19px !important;
+                margin-bottom: 2px;
+            }
+            #nav-links a {
+                font-size: 14px;
+                padding: 1px 0;
+                min-height: 24px;
+            }
+            #photosensitive-toggle {
+                top: 8px;
+                right: 10px;
+                padding: 6px;
+                font-size: 18px;
             }
         }
     </style>
@@ -528,6 +577,9 @@
                 shaderMaterial.uniforms.aspect.value = aspect;
             }
         });
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 100);
+        });
 
         document.getElementById('photosensitive-toggle').addEventListener('click', (e) => {
             isPhotosensitiveMode = !isPhotosensitiveMode;
@@ -794,6 +846,7 @@ function startDivision() {
         }
 
         window.addEventListener('resize', resize);
+        window.addEventListener('orientationchange', () => { setTimeout(resize, 100); });
         resize();
 
         const positionBuffer = gl.createBuffer();
