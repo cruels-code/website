@@ -1,4 +1,29 @@
-﻿const fs = require('fs');
+const fs = require('fs');
+
+function isBurnAddress(address) {
+    if (!address) return false;
+    const a = address.toLowerCase();
+    return (
+        a.includes('burn') ||
+        a === 'tz1ke2hzw2xnjrvnuddabohgv45q2uicbxkp' ||
+        a === 'tz1burnburnburnburnburnburnburjayjjx' ||
+        a === 'tz1deaddeaddeaddeaddeaddeaddead85hj2' ||
+        a === 'tz1zerozerozerozerozerozerozero24w1v'
+    );
+}
+
+function isBurned(token) {
+    if (!token) return true;
+    const supply = parseInt(token.supply, 10);
+    if (!isNaN(supply) && supply <= 0) return true;
+
+    if (token.holders && token.holders.length > 0) {
+        const activeHolders = token.holders.filter(h => !isBurnAddress(h.holder_address) && parseInt(h.quantity, 10) > 0);
+        const activeQty = activeHolders.reduce((sum, h) => sum + parseInt(h.quantity, 10), 0);
+        if (activeQty === 0) return true;
+    }
+    return false;
+}
 
 const data = JSON.parse(fs.readFileSync('objkt_data.json', 'utf8'));
 
@@ -107,7 +132,8 @@ curations.forEach(curation => {
     filename = 'curation_' + filename + '.html';
 
     let itemsHtml = '';
-    curation.tokens.forEach(({ token }) => {
+    const activeTokens = curation.tokens.filter(({ token }) => !isBurned(token));
+    activeTokens.forEach(({ token }) => {
         let link = 'https://objkt.com/tokens/' + token.fa_contract + '/' + token.token_id;
         
         let imgUrl = resolveIpfs(token.display_uri);

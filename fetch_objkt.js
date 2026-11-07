@@ -30,10 +30,35 @@ async function gql(query) {
   });
 }
 
+function isBurnAddress(address) {
+  if (!address) return false;
+  const a = address.toLowerCase();
+  return (
+    a.includes('burn') ||
+    a === 'tz1ke2hzw2xnjrvnuddabohgv45q2uicbxkp' || // HEN burn
+    a === 'tz1burnburnburnburnburnburnburjayjjx' || // Tezos standard burn
+    a === 'tz1deaddeaddeaddeaddeaddeaddead85hj2' ||
+    a === 'tz1zerozerozerozerozerozerozero24w1v'
+  );
+}
+
+function isBurned(token) {
+  if (!token) return true;
+  const supply = parseInt(token.supply, 10);
+  if (isNaN(supply) || supply <= 0) return true;
+
+  if (token.holders && token.holders.length > 0) {
+    const activeHolders = token.holders.filter(h => !isBurnAddress(h.holder_address) && parseInt(h.quantity, 10) > 0);
+    const activeQty = activeHolders.reduce((sum, h) => sum + parseInt(h.quantity, 10), 0);
+    if (activeQty === 0) return true;
+  }
+  return false;
+}
+
 (async () => {
   console.log('Fetching curations and cruel_code collection from Objkt GraphQL...');
 
-  // 1. Fetch galleries / curations
+  // 1. Fetch galleries / curations with supply and holders to detect burned items
   const galleryQuery = `{
     gallery(
       where: {
@@ -54,6 +79,11 @@ async function gql(query) {
           thumbnail_uri
           artifact_uri
           fa_contract
+          supply
+          holders {
+            holder_address
+            quantity
+          }
         }
       }
     }
@@ -73,6 +103,11 @@ async function gql(query) {
       thumbnail_uri
       artifact_uri
       fa_contract
+      supply
+      holders {
+        holder_address
+        quantity
+      }
     }
   }`;
 
@@ -95,38 +130,50 @@ async function gql(query) {
   console.log(`Curations fetched: ${galleries.length}`);
   console.log(`Tokens fetched from { cruel_c0de } collection: ${colTokens.length}`);
 
-  // Find or augment the code curation with all tokens from KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg
+  // Filter burned tokens from all curations
+  galleries.forEach(g => {
+    const origCount = g.tokens.length;
+    g.tokens = g.tokens.filter(item => item.token && !isBurned(item.token));
+    const removed = origCount - g.tokens.length;
+    if (removed > 0) {
+      console.log(`Filtered out ${removed} burned token(s) from curation "${g.name}"`);
+    }
+  });
+
+  // Filter burned tokens from collection
+  const activeColTokens = colTokens.filter(t => !isBurned(t));
+  console.log(`Active tokens in { cruel_c0de } collection: ${activeColTokens.length} (filtered out ${colTokens.length - activeColTokens.length} burned)`);
+
+  // Find or augment the code curation with all active tokens from KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg
   const codeCuration = galleries.find(g => g.name.toLowerCase().includes('code'));
   if (codeCuration) {
-    console.log(`Original tokens in "${codeCuration.name}": ${codeCuration.tokens.length}`);
-    // Map of existing tokens by contract + token_id
-    const existing = new Set(codeCuration.tokens.map(t => `${t.token.fa_contract}:${t.token.token_id}`));
+    console.log(`Original active tokens in "${codeCuration.name}": ${codeCuration.tokens.length}`);
 
-    // Add any tokens from collection that weren't in the curation
-    const colTokensFormatted = colTokens.map(t => ({ token: t }));
+    // Add any active tokens from collection
+    const colTokensFormatted = activeColTokens.map(t => ({ token: t }));
     
-    // Sort collection tokens numerically by token_id (0, 1, 2, ... 24)
+    // Sort collection tokens numerically by token_id (0, 2, 3, 4, 5, 7, 8, ...)
     colTokensFormatted.sort((a, b) => {
       const idA = parseInt(a.token.token_id, 10);
       const idB = parseInt(b.token.token_id, 10);
       return idA - idB;
     });
 
-    // Other non-collection tokens from the curation
+    // Other non-collection tokens from the curation that are active
     const otherTokens = codeCuration.tokens.filter(t => t.token.fa_contract !== 'KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg');
 
-    // Combine: all 25 tokens of { cruel_c0de } first, followed by other curated code pieces
+    // Combine: active tokens of { cruel_c0de } first, followed by other curated active code pieces
     codeCuration.tokens = [...colTokensFormatted, ...otherTokens];
-    console.log(`Augmented tokens in "${codeCuration.name}": ${codeCuration.tokens.length} (${colTokens.length} from { cruel_c0de } + ${otherTokens.length} other curated code pieces)`);
+    console.log(`Augmented tokens in "${codeCuration.name}": ${codeCuration.tokens.length} (${activeColTokens.length} from { cruel_c0de } + ${otherTokens.length} other curated code pieces)`);
   }
 
   const output = {
     data: {
       gallery: galleries,
-      cruel_code_collection: colTokens
+      cruel_code_collection: activeColTokens
     }
   };
 
   fs.writeFileSync('objkt_data.json', JSON.stringify(output, null, 2));
-  console.log('Successfully saved objkt_data.json');
+  console.log('Successfully saved objkt_data.json without burned tokens');
 })();
