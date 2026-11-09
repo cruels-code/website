@@ -70,7 +70,7 @@
           {
             "token": {
               "token_id": "13",
-              "name": "𝔄𝔯𝔱𝔣𝔦𝔞 ℑ𝔫𝔱����𝔩𝔩𝔦𝔤𝔢𝔫𝔱𝔦𝔞",
+              "name": "𝔄𝔯𝔱𝔣𝔦𝔞 ℑ𝔫𝔱𝔢𝔩𝔩𝔦𝔤𝔢𝔫𝔱𝔦𝔞",
               "mime": "image/gif",
               "display_uri": "ipfs://QmQKyBoUVe6x9DnZcLrFar1ADBjyH4hzEc68FJaG1CTTqE",
               "thumbnail_uri": "ipfs://QmQSrKD2Dp9JAFheS43ykn7AVX6psSixiAgCUatpNsAEC4",
@@ -1282,7 +1282,7 @@
           {
             "token": {
               "token_id": "0",
-              "name": "mondrian's static̵̪̟͕̔�� #0",
+              "name": "mondrian's static̵̪̟͕̞̔ #0",
               "mime": "application/x-directory",
               "display_uri": "ipfs://QmPdwRjKAj9yd4nr1LyEt8XDHx2ak9ppod5UgpRkLRhG7N",
               "thumbnail_uri": "ipfs://QmPdwRjKAj9yd4nr1LyEt8XDHx2ak9ppod5UgpRkLRhG7N",
@@ -6978,7 +6978,7 @@
           {
             "token": {
               "token_id": "12",
-              "name": "installation ǫ̵͔̣̖̞̖̲̊̓̎̈́ne",
+              "name": "installation ǫ̵͔��̖̞̖̲̊̓̎̈́ne",
               "mime": "video/mp4",
               "display_uri": "ipfs://QmbnJjNFhteW91BC8QMUFpBfHdo6inmxj7uEeZwUA93mWz",
               "thumbnail_uri": "ipfs://QmRLTSqbyDMjcaDguwrNVRurJ357kXtGiXyCNCKkHzGV7T",
@@ -7190,7 +7190,7 @@
           {
             "token": {
               "token_id": "23792",
-              "name": "𝚅𝚊𝚙𝚘𝚛 𝚃𝚒𝚖𝚎",
+              "name": "𝚅𝚊���𝚘𝚛 𝚃𝚒𝚖𝚎",
               "mime": "application/x-directory",
               "display_uri": "ipfs://Qme6rDkUUTBtEmrvBoeHvpYzQ4dUbBZKXmbVnMkjmWuSjh",
               "thumbnail_uri": "ipfs://QmSBQRUwuoviCfTY3xvoRUHgTJghFKWLM7j6RXWPYqqXNg",
@@ -8764,6 +8764,32 @@
                 },
                 {
                   "holder_address": "tz2Br5XneF5FccNd4oDMfg7gHN8d23V33XvJ",
+                  "quantity": 1
+                }
+              ]
+            }
+          },
+          {
+            "token": {
+              "token_id": "25",
+              "name": "The Unremembered̷̨͕̥͕͋",
+              "mime": "application/x-directory",
+              "display_uri": "ipfs://bafybeigcnvoit2phj3rlbq7m73rxl5q47v7fwzhoijyavv5y473gxsi7ou",
+              "thumbnail_uri": "ipfs://bafybeichcwwbs6xjxapeztgcp6ohivbkj7oji5j7i5pwgztqlwlhxmsi2q",
+              "artifact_uri": "ipfs://bafybeiaslydcx34mifun2s53bssydvl2dbbu3re3wt45pero3cczjjy25y",
+              "fa_contract": "KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg",
+              "supply": 10,
+              "holders": [
+                {
+                  "holder_address": "tz1X7nLriHxPAc7en8u4czTkDReJQ756Hb5w",
+                  "quantity": 1
+                },
+                {
+                  "holder_address": "tz1h7sQhBdKfiiAYXvtTFNPocFG92b47K94Y",
+                  "quantity": 8
+                },
+                {
+                  "holder_address": "tz1hmq6iGPZc7ifEedVj3oyJqNr8xSa7sEMc",
                   "quantity": 1
                 }
               ]
@@ -10472,7 +10498,7 @@
           {
             "token": {
               "token_id": "211",
-              "name": "Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀̎ #62",
+              "name": "Ctrl-C̸̯̫̈́̈́̅̓̅̿̓̓̀�� #62",
               "mime": "application/x-directory",
               "display_uri": null,
               "thumbnail_uri": "https://media.bootloader.art/generic-web/v1/thumbnail/211?v=1",
@@ -12843,6 +12869,30 @@
           },
           {
             "holder_address": "tz2Br5XneF5FccNd4oDMfg7gHN8d23V33XvJ",
+            "quantity": 1
+          }
+        ]
+      },
+      {
+        "token_id": "25",
+        "name": "The Unremembered̷̨͕̥͕͋",
+        "mime": "application/x-directory",
+        "display_uri": "ipfs://bafybeigcnvoit2phj3rlbq7m73rxl5q47v7fwzhoijyavv5y473gxsi7ou",
+        "thumbnail_uri": "ipfs://bafybeichcwwbs6xjxapeztgcp6ohivbkj7oji5j7i5pwgztqlwlhxmsi2q",
+        "artifact_uri": "ipfs://bafybeiaslydcx34mifun2s53bssydvl2dbbu3re3wt45pero3cczjjy25y",
+        "fa_contract": "KT1E9Qo9FTYziBnkkSUoGzJm7ckSQSZG6qjg",
+        "supply": 10,
+        "holders": [
+          {
+            "holder_address": "tz1X7nLriHxPAc7en8u4czTkDReJQ756Hb5w",
+            "quantity": 1
+          },
+          {
+            "holder_address": "tz1h7sQhBdKfiiAYXvtTFNPocFG92b47K94Y",
+            "quantity": 8
+          },
+          {
+            "holder_address": "tz1hmq6iGPZc7ifEedVj3oyJqNr8xSa7sEMc",
             "quantity": 1
           }
         ]
